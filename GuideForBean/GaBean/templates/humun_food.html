@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="#"></a>미정</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
+                        <li><a href="#">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="#">지하철</a></li>
+                        <li><a href="#">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">동아리</a>
+                    <ul>
+                        <li><a href="#">동아리란?</a></li>
+                        <li><a href="#">동아리 리스트</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="separator"></div>
+<div class="page-title-img">
+</div>
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="장소 검색">
+    <button id="search-button">
+        <img src="../static/photo/search-icon.png" alt="Search">
+    </button>
+</div>
+<div class="search-results" id="search-results"></div>
+<div class="main-container">
+    <div class="list-container">
+        <div class="list-title">
+            <h1><a href="{% url 'GaBean:humun_food' %}">후문</a></h1>
+        </div>
+        <h3>목록</h3>
+        <ul>
+            <li><a href="{% url 'GaBean:humun_food' %}"></a>음식점</li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="food-left-container"
+            <div id="food-container">
+                <img src="../static/photo/삼육대학교 도면.png" alt="Humun Map">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const campusmapButton = document.querySelector("#menu > ul > li > a[href='file:///C:/Users/y2chan/Desktop/GuideForBean/GuideForBean/GaBean/templates/humun-food.html']");
+
+        campusmapButton.addEventListener("click", function() {
+        campusmapButton.classList.add("clicked-button");
+        });
+    });
+</script>
+</body>
+</html>

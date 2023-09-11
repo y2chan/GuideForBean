@@ -7,9 +7,10 @@ app_name = 'GaBean'
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('map/', views.map, name='map'),
-    path('restaurant/', views.restaurant, name='restaurant'),
-    path('courses/', views.courses, name='courses'),
+    path('campusmap/', views.campusmap, name='campusmap'),
+    path('humun_food/', views.humun_food, name='humun_food'),
+    path('info_sugang/', views.info_sugang, name='info_sugang'),
+    path('info_bus/', views.bus_arrival_info, name='info_bus'),
     path('graduation/', views.graduation, name='graduation'),
     path('lunch_recommendation/', views.lunch_recommendation, name='lunch_recommendation'),
 ]

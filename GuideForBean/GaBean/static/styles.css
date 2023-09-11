@@ -1,0 +1,439 @@
+/* styles.css */
+/* 헤더 스타일링 */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFF;
+    padding: 10px;
+    margin-bottom: 20px; /* 아래 여백 추가 */
+}
+
+.logo-and-menu {
+    display: flex;
+    justify-content: space-between; /* 로고와 메뉴 사이 간격을 최대화하여 오른쪽 정렬 */
+    align-items: center; /* 수직 정렬 */
+    gap: 200px; /* 로고와 메뉴 사이 간격 */
+    flex-grow: 1;
+}
+
+.logo {
+    margin-top: 30px;
+    margin-left: 100px; /* 로고를 오른쪽으로 이동 */
+}
+
+.logo img {
+    max-width: 100px;
+    margin-right: 5px; /* 로고와 메뉴 사이 간격 조정 */
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* 글자 크기를 16px 맑은 고딕 굵게하고 width 넓이 700, 높이 50만큼 배경색은 #ccc, 글자색은 검정색, 라인 높이 50px menu 박스 가운데 정렬, 글자 가운데 정렬 */
+#menu {
+    font: bold 16px "malgun gothic";
+    width: 700px;
+    height: 50px;
+    background: #FFF;
+    color: black;
+    margin: 0 auto;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+}
+
+ul li {
+    list-style: none;
+    padding-left: 0px;
+}
+
+
+/* menu 태그 자식의 ul의 자식 li를 왼쪽 정렬과 넓이 140 설정 */
+#menu > ul > li {
+    float: left;
+    width: 140px;
+    position: relative;
+}
+
+#menu > ul > li > a {
+    display: block;
+    padding: 25px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#menu > ul > li:hover > a {
+    background-color: rgba(6, 186, 242, 0.23);
+
+}
+
+#menu > ul > li > ul {
+    width: 130px;
+    display: none;
+    position: absolute;
+    font-size: 14px;
+    background: white;
+    top: 100%;
+    left: 0;
+}
+
+#menu > ul > li:hover > ul {
+    display: block;
+    padding-left: 0px;
+    width: 100%
+}
+
+#menu > ul > li > ul > li {
+    padding: 10px 0;
+    text-align: center;
+    transition: background-color 0.3s;
+    padding-left: 0px;
+}
+
+#menu > ul > li > ul > li:hover {
+    background: skyblue;
+}
+
+#menu > ul > li > a.clicked-button {
+    background-color: skyblue/* 원하는 색상 */;
+    /* 추가적인 스타일 설정 */
+}
+
+/* 그림과 상세정보 스타일링 */
+.marker-description,
+.detail-description {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px; /* 양쪽 여백 추가 */
+    margin-bottom: 20px; /* 아래 여백 추가 */
+}
+
+.detail-description img {
+    max-width: auto; /* 이미지의 최대 너비 */
+    margin-right: 20px; /* 이미지와 텍스트 간격 */
+    margin-top: 20px;
+    display : block;
+    margin : auto;
+    margin: 10px 0; /* 이미지 위 아래 여백 추가 */
+}
+
+.separator {
+    border: 2px solid #CAEDFF; /* 선 색깔 설정 */
+    margin: 20px auto; /* 위아래 여백 추가 */
+    width: 90%; /* 구분 선의 너비를 조정 */
+}
+
+.main-container {
+    display: flex;
+    align-items: flex-start; /* 왼쪽 컨테이너와 높이를 맞춤 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 10px; /* 위 여백 추가 */
+    margin-bottom: 50px;
+    margin-left: 30px; /* 왼쪽 여백 추가 */
+    margin-right: 30px; /* 오른쪽 여백 추가 */
+}
+
+.content-container {
+    flex: 1;
+    display: flex;
+}
+
+.list-container {
+    width: 25%; /* 목록 창의 너비 조정 */
+    background-color: #FFF;
+    padding: 20px;
+    border-right: 1px solid #ddd; /* 목록 창 오른쪽 테두리 추가 */
+    box-sizing: border-box; /* padding, border가 너비에 포함되도록 설정 */
+    margin-right: 30px;
+}
+
+.list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-container li {
+    text-align: center;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.list-container li:last-child {
+    border-bottom: none; /* 마지막 아이템의 아래 테두리 제거 */
+}
+
+.list-container li:hover {
+    background-color: #d0d0d0;
+}
+
+.list-container h3 {
+    text-align: center;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    margin-bottom: 40px;
+    background-color: #d0d0d0;
+    height: 60px;
+}
+
+.left-container {
+    flex: 0 0 700px; /* 고정된 크기로 설정 */
+    max-width: 100%;
+    position: relative;
+}
+
+#map-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#map-container img {
+    margin-top: 40px;
+    max-width: 100%;
+    height: auto;
+}
+
+.right-container {
+    margin-top: 40px;
+    flex: 0 0 600px; /* 고정된 크기로 설정 */
+    max-width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #F6F4EB;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-color: #696969;
+    margin-left: 10px;
+    white-space: pre-line;
+    width: 300px; /* 오른쪽 컨테이너의 너비 */
+    height: 100%; /* 오른쪽 컨테이너의 높이 */
+    overflow: auto; /* 내용이 오버플로우 될 경우 스크롤 표시 */
+}
+
+.container-separator {
+    margin-top: 30px;
+    width: 1px;
+    height: 600px; /* 선의 높이 */
+    background-color: #ccc;
+    margin: 0 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.marker-button {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    background-image: url('photo/mapmarker.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    clip: rect(auto, auto, auto, auto);
+    overflow: visible;
+    white-space: nowrap;
+    /* 위치 값들을 동적으로 사용하도록 변경 */
+    left: var(--left);
+    right: var(--right);
+    top: var(--top);
+    bottom: var(--bottom);
+    overflow: hidden;
+}
+
+.marker-button.active {
+    background-image: url("photo/mapmarker3.gif"); /* 이미지 경로 설정 */
+    background-size: cover; /* 이미지를 버튼 크기에 맞게 조절 */
+    color: transparent; /* 텍스트 숨기기 */
+}
+
+.marker-description {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    display: none;
+    z-index: 1;
+}
+
+.detail-button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    white-space: nowrap; /* 방지할 경우 */
+}
+
+.description-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content : center;
+    white-space: pre-line; /* 버튼만 줄바꿈되도록 설정 */
+}
+
+.detail-description {
+    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #749BC2;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-color: #050505;
+    margin-top: 10px;
+    white-space: pre-line;
+    display: flex;
+    flex-direction: column; /* 수직으로 정렬하도록 수정 */
+    align-items: center; /* 왼쪽으로 정렬 */
+}
+
+.detail-description img {
+    max-width: auto; /* 이미지의 최대 너비 */
+    margin-right: 20px; /* 이미지와 텍스트 간격 */
+    margin-top: 20px;
+    display : block;
+    margin : auto;
+}
+
+.detail-description p {
+    text-align: center;
+    margin: 0; /* 문단의 여백 제거 */
+}
+
+@media (max-width: 768px) {
+    .url-button {
+        padding: 8px 15px; /* 작은 화면에서 더 작은 크기로 조정 */
+        font-size: 12px;
+    }
+}
+
+/* 검색창 스타일링 */
+.search-container {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+#search-input {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+}
+
+#search-button {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#search-button img {
+    width: 30px; /* 원하는 크기로 조정 */
+    height: 30px; /* 원하는 크기로 조정 */
+}
+
+/* 검색 결과 버튼 스타일링 */
+.search-results {
+    display: flex;
+    justify-content: center; /* 왼쪽 정렬 */
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.search-result-button {
+    display: flex; /* 내부의 컨텐츠를 가운데로 정렬 */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: background-color 0.3s;
+    margin-right: 10px; /* 버튼 사이 간격을 조정 */
+}
+
+.search-result-button:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+/* campusmap style */
+
+.page-title-img {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: start;
+    font-family: 'Gaegu', cursive;
+    font-size: 200%;
+    color: #000;
+    background-image: url("photo/titleimage.jpg"); /* 이미지 경로 설정 */
+    background-repeat: no-repeat;
+    background-size: cover; /* 이미지를 버튼 크기에 맞게 조절 */
+    width: 1500px; /* 요소의 너비를 조절 */
+    height: 300px; /* 요소의 높이를 조절 */
+}
+
+.list-title {
+    margin-bottom: 30px;
+    text-align: start;
+    font-family: 'Gaegu', cursive;
+    font-size: 200%;
+    color: #000;
+    background-color: white;
+    padding: 10px; /* 추가된 내용: 내용과의 간격 조절 */
+}
+
+.list-title h1 {
+    text-align: center;
+}
+
+/* humun-food style */
+
+.food-left-container {
+    flex: 0 0 1000px; /* 고정된 크기로 설정 */
+    max-width: 100%;
+    position: relative;
+}
+
+#food-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+#food-container img {
+    max-width: 70%;
+    height: auto;
+}

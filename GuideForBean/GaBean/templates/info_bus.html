@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Arrival Info</title>
+</head>
+<body>
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="#">미정</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
+                        <li><a href="#">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li style="background-color: skyblue; color: #FFF;">
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="#">지하철</a></li>
+                        <li><a href="#">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">동아리</a>
+                    <ul>
+                        <li><a href="#">동아리란?</a></li>
+                        <li><a href="#">동아리 리스트</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="separator"></div>
+<h1>버스 도착 정보</h1>
+<table>
+    <tr>
+        <th>버스 정류장 위치</th>
+        <th>버스 번호</th>
+        <th>도착 예정 시간</th>
+    </tr>
+    {% for arrival in arrivals %}
+    <tr>
+        <td>{{ arrival.bus_stop_location }}</td>
+        <td>{{ arrival.bus_number }}</td>
+        <td>{{ arrival.arrival_time }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

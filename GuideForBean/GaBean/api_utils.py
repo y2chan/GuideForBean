@@ -1,5 +1,13 @@
+import os
+import sys
+from django.core.wsgi import get_wsgi_application
+
+sys.path.append("C:\\Users\\y2chan\\Desktop\\GuideForBean\\GuideForBean")  # 프로젝트 루트 디렉토리 추가
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GuideForBean.settings")
+application = get_wsgi_application()
+
 import requests
-from .models import Restaurant  # 모델 임포트
+from GaBean.models import Restaurant  # 모델 임포트
 
 def get_and_save_restaurants():
     api_key = "e3f403961290597b9a92ea2b725a350f"

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="#">미정</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
+                        <li><a href="#">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="#">지하철</a></li>
+                        <li><a href="#">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">동아리</a>
+                    <ul>
+                        <li><a href="#">동아리란?</a></li>
+                        <li><a href="#">동아리 리스트</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="separator"></div>
+</body>
+</html>

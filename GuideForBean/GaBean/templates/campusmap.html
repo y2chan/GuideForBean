@@ -1,0 +1,258 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li style="background-color: skyblue; color: #FFF;">
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="#">미정</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
+                        <li><a href="#">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="#">지하철</a></li>
+                        <li><a href="#">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">동아리</a>
+                    <ul>
+                        <li><a href="#">동아리란?</a></li>
+                        <li><a href="#">동아리 리스트</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="separator"></div>
+<div class="page-title-img">
+</div>
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="장소 검색">
+    <button id="search-button">
+        <img src="../static/photo/search-icon.png" alt="Search">
+    </button>
+</div>
+<div class="search-results" id="search-results"></div>
+<div class="main-container">
+    <div class="list-container">
+        <div class="list-title">
+            <h1><a href="GaBean:campusmap.html">캠퍼스맵</a></h1>
+        </div>
+        <h3>목록</h3>
+        <ul>
+            <li><a href="GaBean:campusmap.html"></a>캠퍼스맵</li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="left-container">
+            <div id="map-container">
+                <img src="../static/photo/삼육대학교 도면.png" alt="Campus Map">
+            </div>
+        </div>
+    </div>
+    <div class="container-separator"></div>
+    <div class="content-container">
+        <div class="right-container">
+            <aside id="description-aside"></aside>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const mapContainer = document.getElementById("map-container");
+    const descriptionAside = document.getElementById("description-aside");
+    let activeButton = null; // 활성화된 버튼을 추적하기 위한 변수
+    let activeDescriptionDiv = null;
+    let imageWidth = 100;
+
+    // 버튼을 생성하고 이벤트 핸들러를 등록하는 함수
+    function addMarkerButton(x, y, description, detailFunc) {
+        const button = document.createElement("button");
+        button.classList.add("marker-button");
+        button.style.left = `${x}px`;
+        button.style.top = `${y}px`;
+        mapContainer.appendChild(button);
+
+        const descriptionDiv = document.createElement("div");
+        descriptionDiv.classList.add("marker-description");
+        descriptionDiv.style.left = `${x}px`;
+        descriptionDiv.style.top = `${y + 60}px`;
+        mapContainer.appendChild(descriptionDiv);
+
+        const detailButton = document.createElement("button");
+        detailButton.classList.add("detail-button");
+        detailButton.textContent = "상세보기";
+        detailButton.style.display = "block"; // 블록 레벨 요소로 변경
+        detailButton.style.margin = "0 auto"; // 가로 방향 가운데 정렬
+
+        descriptionDiv.innerHTML = `
+            <p class="description-text">
+                <span>${description}</span>
+            </p>
+        `;
+        descriptionDiv.appendChild(detailButton); // 상세보기 버튼을 설명 요소에 추가
+
+        // 상세보기 버튼의 이벤트 핸들러 등록
+        detailButton.addEventListener("click", function() {
+            console.log("Detail button clicked"); // 로그 추가
+            if (activeDescriptionDiv) {
+                activeDescriptionDiv.style.display = "none";
+            }
+            detailFunc();
+        });
+
+        button.addEventListener("click", function(event) {
+            console.log("Marker button clicked:", description);
+            event.stopPropagation(); // 이벤트 버블링 중지
+            if (activeButton !== button) {
+                if (activeButton) {
+                    activeButton.classList.remove("active");
+                }
+                activeButton = button;
+                activeButton.classList.add("active");
+            }
+            if (activeDescriptionDiv) {
+                activeDescriptionDiv.style.display = "none";
+            }
+
+            descriptionAside.innerHTML = "";
+            descriptionDiv.style.display = "block";
+            activeDescriptionDiv = descriptionDiv;
+        });
+    }
+
+    function addMarkerDetail(detailContent, imageURL) {
+        console.log("Displaying detail:", detailContent); // 상세정보 표시 로그 추가
+        console.log("Image URL:", imageURL); // imageURL이 올바르게 넘어오는지 로그로 확인
+        const detailDescriptionDiv = document.createElement("div");
+        detailDescriptionDiv.classList.add("detail-description");
+
+        const imageElement = document.createElement("img");
+        imageElement.src = imageURL;
+        detailDescriptionDiv.appendChild(imageElement);
+
+        const descriptionElement = document.createElement("p");
+        descriptionElement.innerHTML = detailContent;
+        detailDescriptionDiv.appendChild(descriptionElement);
+
+        descriptionAside.innerHTML = "";
+        descriptionAside.appendChild(detailDescriptionDiv);
+        activeDescriptionDiv = detailDescriptionDiv;
+    }
+
+    function resizeMapContainer(newWidth) {
+        mapContainer.style.width = `${newWidth}%`;
+        imageWidth = newWidth;
+    }
+
+    // 초기 로드시 이미지 크기와 왼쪽 컨테이너 크기 설정
+    resizeMapContainer(imageWidth);
+
+    const searchButton = document.getElementById("search-button");
+    const searchResultsDiv = document.getElementById("search-results");
+
+    searchButton.addEventListener("click", function() {
+        const searchInput = document.getElementById("search-input").value.toLowerCase();
+
+        // 검색 결과 초기화
+        searchResultsDiv.innerHTML = "";
+
+        // 모든 marker-description 요소 가져오기
+        const descriptionElements = document.querySelectorAll(".marker-description");
+
+        // 검색 결과 버튼 생성
+        const matchingResults = Array.from(descriptionElements).filter(descriptionElement => {
+            const descriptionText = descriptionElement.querySelector("p").textContent.toLowerCase();
+            return descriptionText.includes(searchInput);
+        });
+
+        if (matchingResults.length === 0) {
+            const noResultMessage = document.createElement("p");
+            noResultMessage.textContent = "일치하는 검색 결과가 없습니다.";
+            searchResultsDiv.appendChild(noResultMessage);
+        } else {
+            matchingResults.forEach(matchingResult => {
+                const descriptionText = matchingResult.querySelector("p").textContent;
+                const resultButton = document.createElement("button");
+                resultButton.textContent = descriptionText;
+                resultButton.classList.add("search-result-button");
+                resultButton.addEventListener("click", function() {
+                    const markerButton = matchingResult.previousSibling;
+                    markerButton.click();
+                });
+                searchResultsDiv.appendChild(resultButton);
+            });
+        }
+    });
+
+    const searchInput = document.getElementById("search-input");
+
+    searchInput.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            searchButton.click();
+        }
+    });
+
+
+    // 버튼을 원하는 위치에 추가합니다. 버튼마다 설명과 역할을 지정하세요.
+    addMarkerButton(300, 109, "셔틀버스 정류장", function() {
+        addMarkerDetail(
+            "<h2>셔틀버스 정류장<h2><br><h3>사진 왼쪽 뒤로 보이는게 셔틀버스 정류장이다.<br> 학교 내에는 2-2버스가 구리역을 통해 다니고 있다.<br> 오전에는 화랑대역 5번 출구에서 학교로, 오후에는 석계역 4번 출구와 태릉입구역 7번 출구에서 학교로 셔틀이 다닌다.",
+            "../static/photo/셔틀버스 정류장.jpg"
+        );
+    });
+
+    addMarkerButton(326, 114, "분수대", function() {
+        addMarkerDetail(
+            "<h2>분수대</h2><br><h3>삼육대학교 학생홍보대사 수앰베서더(SU-AMBASSADOR)가 선정한 <br> 삼육대학교 포토존 BEST 6에 어울리는 물줄기를 보여주고 있다.</h3>",
+            "../static/photo/분수대2.png"
+        );
+    });
+
+    addMarkerButton(390, 120, "분무기", function() {
+        addMarkerDetail(
+            "<h2>분무기</h2><br><h3></h3>",
+            "../static/photo/분수대2.png"
+        );
+    });
+
+</script>
+</body>
+</html>
