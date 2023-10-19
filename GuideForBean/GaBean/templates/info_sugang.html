@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>수강 정보</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
 </head>
 <body>
 
@@ -15,57 +17,97 @@
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
             <div class="logo">
-                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
             </div>
         </a>
         <div id="menu">
             <ul>
                 <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
+                <li>
                     <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:humun_food' %}">후문</a>
                     <ul>
                         <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
-                        <li><a href="#"></a>미정</li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
                     </ul>
                 </li>
                 <li style="background-color: skyblue; color: #FFF;">
                     <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
                     <ul>
-                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
-                        <li><a href="#">졸업 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="{% url 'GaBean:info_bus' %}">버스</a>
-                </li>
-                <li>
-                    <a href="#">동아리</a>
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
                     <ul>
-                        <li><a href="#">동아리란?</a></li>
-                        <li><a href="#">동아리 리스트</a></li>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">콩들의 소리</a>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="separator"></div>
 <div class="page-title-img">
 </div>
-<div class="list-container">
+<div class="main-container">
+    <div class="list-container">
         <div class="list-title">
-            <h1><a href="{% url 'GaBean:info_sugang' %}">학교 정보</a></h1>
+            <h1><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></h1>
         </div>
         <h3>목록</h3>
         <ul>
-            <li><a href="{% url 'GaBean:info_sugang' %}"></a>수강 신청 정보</li>
-            <li><a href="#"></a>졸업 정보</li>
+            <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+            <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
         </ul>
+    </div>
+    <div class="content-container">
+        <div class="main-container">
+            <div class="info-bus">
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">수강신청이란?</h1>
+                    <h4>매년 2월 및 8월에 실시하는 제도로, 수강신청 시 본인의 능력에 따라 원하는 수업을 들을 수 있다.</h4>
+                    <a>* 수강신청 사이트 : </a><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs)</a><br>
+                    <a>* 수강신청 모의 사이트 : </a><a href="https://sugang.syu.kr/testLogin" style="color: black; text-decoration: black underline;">https://sugang.syu.kr/testLogin</a>&nbsp;<a>(해당 웹 개발자: 김상윤)</a>
+                </div>
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">예비 수강신청이란?</h1>
+                    <h4>매년 1월 및 7월에 실시하는 장바구니 제도로, 수강신청 시에 유리하도록 원하는 수업을 미리 장바구니에 담을 수 있다.<br>1학년 2학기부터 사용 가능하다.</h4>
+                    <a>* 예비 수강신청 사이트 : </a><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs) - 수강신청 사이트와 동일</a><br>
+                    <a>* 수강신청 경쟁률 조회 사이트 : </a><a href="https://sugang.syu.kr/basket" style="color: black; text-decoration: black underline;">https://sugang.syu.kr/basket</a>&nbsp;<a>(해당 웹 개발자: 김상윤)</a>
+                </div>
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">자주 하는 질문</h1>
+                    <h3>Q. 학기당 최소 몇 학점을 들어야하나요?</h3>
+                    <a>A. 학기인정 최소학점은 </a><a style="color: black; text-decoration: black underline;">12학점</a><a>입니다!</a>
+                    <h3>Q. 학기당 최대 들을 수 있는 학점은 몇 학점인가요?</h3>
+                    <a>A. 수강과목 중 <a style="color: black; text-decoration: black underline;">선택과목에 1학점이 없는 경우 18학점까지</a><a> 가능하며,</a><br>&nbsp;&nbsp;&nbsp;<a style="color: black; text-decoration: black underline;">평균평점이 3.7이상</a><a>인 학생은 </a><a style="color: black; text-decoration: black underline;">21학점까지</a> 가능합니다!</a>
+                    <h3>Q. 수강신청 확인 및 정정기간은 언제인가요?</h3>
+                    <a>A. </a><a style="color: black; text-decoration: black underline;">매학기 개강 첫주</a><a>입니다!</a>
+                    <h3>Q. 수강신청 폐강의 기준은 어떻게 되나요?</h3>
+                    <a>A. 수강인원이</a> <a style="color: black; text-decoration: black underline;">전공 8명, 교양 16명 미만</a><a>일 경우 폐강됩니다!</a><br>
+                    <a>* 수강신청 폐강위기 조회 사이트 : </a><a href="https://sugang.syu.kr/closed" style="color: black; text-decoration: black underline;">https://sugang.syu.kr/closed</a>&nbsp;<a>(해당 웹 개발자: 김상윤)</a>
+                    <h3>Q. 재수강 시 받을 수 있는 최대 성적은 어떻게 되나요?</h3>
+                    <a>A. </a><a style="color: black; text-decoration: black underline;">B+</a><a>입니다!</a>
+                    <br><br><br>
+                    <a style="float: right; font-size:10pt;">에 제보 바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">콩들의 소리</a><a style="float: right; font-size:10pt;">모든 정보는 23년도 기준이며 추가로 제보할 내용이 있으면&nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

@@ -1,0 +1,149 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>셔틀버스</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+</head>
+<body>
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li style="background-color: skyblue; color: #FFF;">
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="page-title-img">
+</div>
+<div class="main-container">
+    <div class="list-container">
+        <div class="list-title">
+            <h1><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></h1>
+        </div>
+        <h3>목록</h3>
+        <ul>
+            <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+            <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+            <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀 버스</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="direction">
+            <h1 style="background-color: rgba(6, 186, 242, 0.23); font-family: 'Dongle', sans-serif; font-family: 'Gaegu', cursive; font-size: 30pt;">셔틀 시간표</h1>
+            <div class="shuttle-info-container">
+                <div class="left-info">
+                    <h1>학교 방향</h1>
+                    <ul id="left-column">
+                        {% for shuttle, time in left_info.items %}
+                        <li>
+                            <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
+                            <h3><span id="{{ shuttle|slugify }}-time">{{ time }}</span></h3>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="right-info">
+                    <h1>나가는 방향</h1>
+                    <ul id="right-column">
+                        {% for shuttle, time in right_info.items %}
+                        <li>
+                            <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }} </h2>
+                            <h3><span id="{{ shuttle|slugify }}-time">{{ time }}</span></h3>
+                        </li>
+                        {% endfor %}
+                        <p style="float: right; font-size: 20pt;">모든 남은 시간은 시간표 기준입니다.</p>
+                    </ul>
+                </div>
+            </div>
+            <div class="button-2-container">
+                <div class="button-2">
+                    <div class="eff-2"></div>
+                    <a href="https://bus.syu.kr/"> 셔틀버스 현위치 </a>
+                </div>
+                <div class="button-2">
+                    <div class="eff-2"></div>
+                    <a href="https://bus.syu.kr/monitor"> 셔틀버스 시간표 </a>
+                </div>
+            </div>
+            <p style="float: right; font-size: 10pt;">해당 웹 개발자: 김상윤</p>
+        </div>
+    </div>
+</div>
+<script>
+    function updateRemainingTimes() {
+        {% for shuttle, time in left_info.items %}
+        var {{ shuttle|slugify }}TimeLeft = document.getElementById("{{ shuttle|slugify }}-time");
+        var {{ shuttle|slugify }}MinutesLeft = {{ shuttle|slugify }}TimeLeft.textContent;
+        if ({{ shuttle|slugify }}MinutesLeft !== "운행 종료") {
+            {{ shuttle|slugify }}MinutesLeft = parseInt({{ shuttle|slugify }}MinutesLeft) - 1;
+            if ({{ shuttle|slugify }}MinutesLeft < 0) {
+                {{ shuttle|slugify }}MinutesLeft = "운행 종료";
+            }
+            {{ shuttle|slugify }}TimeLeft.innerText = {{ shuttle|slugify }}MinutesLeft;
+        }
+        {% endfor %}
+
+        {% for shuttle, time in right_info.items %}
+        var {{ shuttle|slugify }}TimeRight = document.getElementById("{{ shuttle|slugify }}-time");
+        var {{ shuttle|slugify }}MinutesRight = {{ shuttle|slugify }}TimeRight.textContent;
+        if ({{ shuttle|slugify }}MinutesRight !== "운행 종료") {
+            {{ shuttle|slugify }}MinutesRight = parseInt({{ shuttle|slugify }}MinutesRight) - 1;
+            if ({{ shuttle|slugify }}MinutesRight < 0) {
+                {{ shuttle|slugify }}MinutesRight = "운행 종료";
+            }
+            {{ shuttle|slugify }}TimeRight.innerText = {{ shuttle|slugify }}MinutesRight;
+        }
+        {% endfor %}
+    }
+
+    setInterval(updateRemainingTimes, 60000);  // 1분마다 업데이트
+</script>
+</body>
+</html>

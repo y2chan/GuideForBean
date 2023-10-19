@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os;
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',  # 원하는 로그 레벨 선택 (DEBUG, INFO, WARNING, ERROR 등)
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
 
 # Application definition
 
@@ -38,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django_extensions',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'GaBean',
 ]
 
@@ -111,17 +127,16 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
-USE_I18N = True
-
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -129,4 +144,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-BUS_API_KEY = 'mogcuiLBAxr03JYAaBObRQuyTUU0tyR/YDbztxd11VVfCtcbbNIyr+JpU0Ir5DY1whzpR9blc/sb7qf37lA0Cw=='
+BUS_API_KEY = 'mogcuiLBAxr03JYAaBObRQuyTUU0tyR%2FYDbztxd11VVfCtcbbNIyr%2BJpU0Ir5DY1whzpR9blc%2Fsb7qf37lA0Cw%3D%3D'
+SUBWAY_API_KEY = '67496c716565636834387579417a70'

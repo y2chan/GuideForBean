@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../static/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+  <title>졸업 정보</title>
+  <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-and-menu">
+    <a href="{% url 'GaBean:home' %}">
+      <div class="logo">
+        <img src="../static/photo/GaBean.png" alt="Your Logo">
+      </div>
+    </a>
+    <div id="menu">
+      <ul>
+        <li>
+          <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+        </li>
+        <li>
+          <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+          <ul>
+            <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+            <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="{% url 'GaBean:humun_food' %}">후문</a>
+          <ul>
+            <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+            <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
+          </ul>
+        </li>
+        <li style="background-color: skyblue; color: #FFF;">
+          <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+          <ul>
+            <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+            <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="{% url 'GaBean:info_bus' %}">교통</a>
+          <ul>
+            <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+            <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+            <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page-title-img">
+</div>
+<div class="main-container">
+  <div class="list-container">
+    <div class="list-title">
+      <h1><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></h1>
+    </div>
+    <h3>목록</h3>
+    <ul>
+      <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+      <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
+    </ul>
+  </div>
+  <div class="content-container">
+    <div class="main-container">
+      <div class="info-bus">
+        <div class="direction">
+          <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">졸업 이수 학점</h1>
+          <h2>- 4학년 기준 졸업 이수 학점</h2>
+          <a>&nbsp;&nbsp;<a style="color: black; text-decoration: black underline;">130 학점</a> 이상(약학과는 165학점 이상)</a>
+          <br><br><a>&nbsp;&nbsp; * 전공 과정<a style="color: black; text-decoration: black underline;">(75학점)</a> + 교양 필수/선택<a style="color: black; text-decoration: black underline;">(39학점)</a> + 일반 선택<a style="color: black; text-decoration: black underline;">(16학점)</a> = </a><a style="color: black; text-decoration: black underline;">130 학점</a></a>
+          <h2>- 5학년 기준 졸업 이수 학점</h2>
+          <a>&nbsp;&nbsp;<a style="color: black; text-decoration: black underline;">170 학점</a> 이상</a>
+          <br><br><a>&nbsp;&nbsp;* 졸업 시뮬레이션 : </a><a href="http://suwings.syu.ac.kr" style="color: black; text-decoration: black underline;">http://suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs)</a><br>
+          <a>&nbsp;&nbsp; -> 로그인 -> [학부] 졸업정보 -> 졸업 시뮬레이션</a>
+          </div>
+        <div class="direction">
+          <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">졸업하기 위해 들어야하는 수업</h1>
+          <h2>- 교양 필수 + 교양 선택 (39학점)</h2>
+          <h4>&nbsp;&nbsp;* 22학번 이후</h4><a>&nbsp;&nbsp;&nbsp;기초 교양 8개(16학점) + 핵심 교양 4개(8학점) + 교양 선택 각 영역별 수업(15학점)</a>
+          <h4>&nbsp;&nbsp;* 18학번 ~ 21학번</h4><a>&nbsp;&nbsp;&nbsp;기초 교양 8개(16학점) + 핵심 교양 4개(8학점) + 교양 선택 각 영역별 수업(15학점)</a>
+          <h4>&nbsp;&nbsp;* 17학번 이전</h4><a>&nbsp;&nbsp;&nbsp;기초 교양 9개(17학점) + 핵심 교양 4개(8학점) + 교양 선택 각 영역별 수업(14학점)</a>
+          <br><br>
+          <h2>- 기초 교양</h2>
+          <h4>&nbsp;&nbsp;* 18학번 이후 </h4><a>&nbsp;&nbsp;&nbsp;사고와 표현(글로컬 사고와 표현), 글로컬 영어 I/II, 컴퓨팅사고력, 노작교육, 지역사회공헌, 인생설계와 진로 I/II</a>
+          <br><br>
+          <h2>- 핵심 교양</h2>
+          <h4>&nbsp;&nbsp;* 모든 학번 공통</h4><a>&nbsp;&nbsp;&nbsp;인성과 사회, 종교와 인생, 생활과 윤리, 역사와 문화</a>
+          <br><br>
+          <h2>- 교양 선택 각 영역별 수업</h2>
+          <h4>&nbsp;&nbsp;* 22학번 이후</h4> <a>&nbsp;&nbsp;&nbsp;인성교양, 인문예술, 사회과학, 자연과학, 디지털리터러시</a>
+          <h4>&nbsp;&nbsp;* 22학번 이전</h4> <a>&nbsp;&nbsp;&nbsp;인성교양, 인문학, 사회과학, 자연과학, 문화예술 (*인문학/문화예술은 인문예술로 대체가능, 2개 대체시 2개 이수)</a>
+          <br><br>
+          <h2>- 필수 교양 (P/F : Pass or Fail)</h2>
+          <h4>&nbsp;&nbsp;* 22학번 이후</h4><a>&nbsp;&nbsp;&nbsp;채플(7회) + 흡연음주예방교육(비교과)</a>
+          <h4>&nbsp;&nbsp;* 18학번 ~ 21학번</h4><a>&nbsp;&nbsp;&nbsp;채플(7회) + MVP+교육(비교과) + 흡연음주예방교육(비교과)</a>
+          <h4>&nbsp;&nbsp;* 17학번 이전</h4><a>&nbsp;&nbsp;&nbsp;채플(7회) + MVP+교육 + 흡연음주예방교육</a>
+        </div>
+        <div class="direction">
+          <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">자주 하는 질문</h1>
+          <h3>Q. 조기졸업의 기준은 무엇인가요?</h3>
+          <a>A. 조기졸업의 기준은 </a><a style="color: black; text-decoration: black underline;">평균평점 4.20 이상, 114학점(5년제는 149학점) 이상</a><a>을 만족하셔야 합니다!</a>
+          <h3>Q. 우등졸업의 기준은 무엇인가요?</h3>
+          <a>A. 우등졸업의 기준은 <a style="color: black; text-decoration: black underline;">평균평점이 4.20 이상, 4학기 이상 재학한 자,</a><br>&nbsp;&nbsp;&nbsp;<a style="color: black; text-decoration: black underline;">D+ 이하의 학점이 없을 것(채플 포함)</a><a>을 만족하셔야 합니다!</a>
+          <h3>Q. 저희 과는 졸업 이수 학점의 기준이 다른데 정리해주실 수 있나요?</h3>
+          <a>A. 과마다 졸업 이수 학점의 기준은 다를 수 있습니다. 각 학과의 조교에게 문의하거나 학과 홈페이지에 방문해보세요!</a>
+            <h3>Q. 각 학과마다 졸업 필수 요건이 있나요?</h3>
+            <a>A. 네. 학과마다 졸업 필수 요건이 있습니다. 토익 시험이나 자격증 취득 같은 조건이 있을 수 있으니</a>
+            <br><a>&nbsp;&nbsp;&nbsp;각 학과의 조교에게 문의하거나 학과 홈페이지에 방문해보세요!</a>
+          <br><br><br>
+          <a style="float: right; font-size:10pt;">에 제보 바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">콩들의 소리</a><a style="float: right; font-size:10pt;">모든 정보는 23년도 기준이며 추가로 제보할 내용이 있으면&nbsp;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

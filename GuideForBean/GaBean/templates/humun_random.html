@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>오늘 뭐 먹지?</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
+                </li>
+                <li style="background-color: skyblue; color: #FFF;">
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="page-title-img">
+</div>
+<div class="search-container">
+    <input type="text" id="search-input" placeholder="장소 검색">
+    <button id="search-button">
+        <img src="../static/photo/search-icon.png" alt="Search">
+    </button>
+</div>
+<div class="search-results" id="search-results"></div>
+<div class="main-container">
+    <div class="list-container">
+        <div class="list-title">
+            <h1 style="font-size: 40pt;"><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></h1>
+        </div>
+        <h3>목록</h3>
+        <ul>
+            <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+            <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="direction">
+            <div class="random-button">
+                <div class="left-info" style="text-align: center; font-family: Helvetica, Arial, sans-serif;">
+                    <h1>음식 타입 + 음식점 뽑기&nbsp;&nbsp;<button id="resetButton" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 40px; height: 40px; text-indent: -9999px; border: none;" aria-label="Reset"></button></h1>
+                    <div class="button-container">
+                        <div id="startType" class="button">
+                            <p class="btnText">음식 종류</p>
+                            <div class="btnTwo">
+                                <p class="btnText2">GO!</p>
+                            </div>
+                        </div>
+                        <h3 id="randomType"></h3>
+                    </div>
+                    <div class="button-container">
+                        <div id="startName1" class="button">
+                            <p class="btnText">음식점</p>
+                            <div class="btnTwo">
+                                <p class="btnText2">GO!</p>
+                            </div>
+                        </div>
+                        <h3 id="randomName1"></h3>
+                    </div>
+                </div>
+                <div class="right-info" style="text-align: center; font-family: Helvetica, Arial, sans-serif;">
+                <h1>음식점만 뽑기&nbsp;&nbsp;<button id="resetButton2" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 40px; height: 40px; text-indent: -9999px; border: none;" aria-label="Reset"></button>
+                </h1>
+                    <ul id="right-column">
+                        <div class="button-container">
+                            <div id="startName2" class="button">
+                                <p class="btnText">음식점만</p>
+                                <div class="btnTwo">
+                                    <p class="btnText2">GO!</p>
+                                </div>
+                            </div>
+                            <h3 id="randomName2"></h3>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // JavaScript 코드
+        document.addEventListener("DOMContentLoaded", function () {
+            // JSON 데이터 가져오기
+            var jsonData = {{ json_data|safe }};
+
+            document.getElementById('startType').addEventListener('click', function () {
+                const randomTypeElement = document.getElementById('randomType');
+                randomTypeElement.innerText = jsonData.randomType;
+            });
+
+            document.getElementById('startName1').addEventListener('click', function () {
+                const randomNameElement = document.getElementById('randomName1');
+                randomNameElement.innerText = jsonData.randomName1;
+            });
+
+            document.getElementById('startName2').addEventListener('click', function () {
+                const randomNameElement = document.getElementById('randomName2');
+                randomNameElement.innerText = jsonData.randomName2;
+            });
+
+            document.getElementById('resetButton').addEventListener('click', function () {
+                // 페이지를 새로고침
+                location.reload();
+            });
+
+            document.getElementById('resetButton2').addEventListener('click', function () {
+                // 페이지를 새로고침
+                location.reload();
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

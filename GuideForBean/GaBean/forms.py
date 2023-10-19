@@ -1,5 +1,7 @@
 from django import forms
+from .models import HumunFood
 
-class LunchRecommendationForm(forms.Form):
-    # 필요한 필드 추가
-    pass
+class HumunFoodForm(forms.ModelForm):
+    class Meta:
+        model = HumunFood
+        fields = '__all__'

@@ -1,4 +1,46 @@
 /* styles.css */
+.fixed-button {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 20px; /* 원하는 위치로 조절 가능 */
+    right: 20px; /* 원하는 위치로 조절 가능 */
+    background-color: #0074D9;
+    background-image: url('photo/Wifi.png'); /* 이미지 파일 경로 */
+    background-size: 50%; /* 이미지 크기를 버튼에 맞게 조절 */
+    background-repeat: no-repeat; /* 이미지 반복 없음 */
+    background-position: center; /* 이미지 가운데 정렬 */
+    color: #fff;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 클릭된 상태의 스타일 */
+.fixed-button.clicked {
+    background-image: url('photo/X.png');
+}
+
+/* 슬라이드인 메뉴 스타일 */
+.slider-menu {
+    position: fixed;
+    width: 350px;
+    height: 60px;
+    top: 0;
+    right: -350px; /* 초기에 숨겨져 있음 */
+    background-color: #FFF;
+    color: #000;
+    transition: left 0.3s;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+/* 내용 스타일 */
+.slider-content {
+    padding: 8px;
+}
+
 /* 헤더 스타일링 */
 .header {
     display: flex;
@@ -13,13 +55,13 @@
     display: flex;
     justify-content: space-between; /* 로고와 메뉴 사이 간격을 최대화하여 오른쪽 정렬 */
     align-items: center; /* 수직 정렬 */
-    gap: 200px; /* 로고와 메뉴 사이 간격 */
+    gap: 160px; /* 로고와 메뉴 사이 간격 */
     flex-grow: 1;
 }
 
 .logo {
-    margin-top: 30px;
-    margin-left: 100px; /* 로고를 오른쪽으로 이동 */
+    margin-top: 70px;
+    margin-left: 170px; /* 로고를 오른쪽으로 이동 */
 }
 
 .logo img {
@@ -31,7 +73,6 @@ a {
     text-decoration: none;
     color: #333;
 }
-
 /* 글자 크기를 16px 맑은 고딕 굵게하고 width 넓이 700, 높이 50만큼 배경색은 #ccc, 글자색은 검정색, 라인 높이 50px menu 박스 가운데 정렬, 글자 가운데 정렬 */
 #menu {
     font: bold 16px "malgun gothic";
@@ -54,8 +95,9 @@ ul li {
 /* menu 태그 자식의 ul의 자식 li를 왼쪽 정렬과 넓이 140 설정 */
 #menu > ul > li {
     float: left;
-    width: 140px;
+    width: 150px;
     position: relative;
+    border-left: 1px solid #c0c0c0;
 }
 
 #menu > ul > li > a {
@@ -68,7 +110,6 @@ ul li {
 
 #menu > ul > li:hover > a {
     background-color: rgba(6, 186, 242, 0.23);
-
 }
 
 #menu > ul > li > ul {
@@ -84,7 +125,7 @@ ul li {
 #menu > ul > li:hover > ul {
     display: block;
     padding-left: 0px;
-    width: 100%
+    width: 100%;
 }
 
 #menu > ul > li > ul > li {
@@ -100,7 +141,6 @@ ul li {
 
 #menu > ul > li > a.clicked-button {
     background-color: skyblue/* 원하는 색상 */;
-    /* 추가적인 스타일 설정 */
 }
 
 /* 그림과 상세정보 스타일링 */
@@ -198,6 +238,14 @@ ul li {
     position: relative;
 }
 
+.left-container h5 {
+    margin-top: 60px;
+    max-width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
+
 #map-container {
     position: relative;
     width: 100%;
@@ -215,7 +263,7 @@ ul li {
     flex: 0 0 600px; /* 고정된 크기로 설정 */
     max-width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    background-color: #F6F4EB;
+    background-color: #FFF;
     padding: 10px;
     border-radius: 5px;
     font-size: 12px;
@@ -237,6 +285,16 @@ ul li {
     vertical-align: top;
 }
 
+.container-separator2 {
+    margin-top: 30px;
+    width: 1px;
+    height: 900px; /* 선의 높이 */
+    background-color: #ccc;
+    margin: 0 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
 .marker-button {
     position: absolute;
     background-color: transparent;
@@ -246,7 +304,7 @@ ul li {
     width: 50px;
     height: 50px;
     background-image: url('photo/mapmarker.png');
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
     clip: rect(auto, auto, auto, auto);
     overflow: visible;
@@ -257,6 +315,11 @@ ul li {
     top: var(--top);
     bottom: var(--bottom);
     overflow: hidden;
+    border-radius: 100%; /* 50%로 설정하여 동그라미 모양으로 만듭니다 */
+}
+
+.marker-button:hover {
+    background-color:rgba(211, 211, 211, 0.5);/*까만색(0,0,0) 80% 불투명도*/
 }
 
 .marker-button.active {
@@ -300,17 +363,15 @@ ul li {
 }
 
 .detail-description {
-    background-color: rgba(0, 0, 0, 0.7);
-    background-color: #749BC2;
+    background-color: #FFF;
     padding: 10px;
     border-radius: 5px;
     font-size: 12px;
-    font-color: #050505;
     margin-top: 10px;
     white-space: pre-line;
     display: flex;
     flex-direction: column; /* 수직으로 정렬하도록 수정 */
-    align-items: center; /* 왼쪽으로 정렬 */
+    align-items: center;
 }
 
 .detail-description img {
@@ -324,6 +385,19 @@ ul li {
 .detail-description p {
     text-align: center;
     margin: 0; /* 문단의 여백 제거 */
+}
+
+.detail-description h1 {
+    text-align: center;
+    margin: 0; /* 문단의 여백 제거 */
+    color: #000;
+    text-decoration: underline;
+}
+
+.detail-description h3 {
+    text-align: center;
+    margin: 0; /* 문단의 여백 제거 */
+    color: #000;
 }
 
 @media (max-width: 768px) {
@@ -392,9 +466,6 @@ ul li {
     margin-top: 30px;
     margin-bottom: 30px;
     text-align: start;
-    font-family: 'Gaegu', cursive;
-    font-size: 200%;
-    color: #000;
     background-image: url("photo/titleimage.jpg"); /* 이미지 경로 설정 */
     background-repeat: no-repeat;
     background-size: cover; /* 이미지를 버튼 크기에 맞게 조절 */
@@ -436,4 +507,409 @@ ul li {
 #food-container img {
     max-width: 70%;
     height: auto;
+}
+
+/* CSS 코드 */
+.info-bus {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.right-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.right-column li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.right-column h3, .right-column h5 { /* 쉼표로 구분하여 여러 선택자를 지정합니다. */
+    margin: 0;
+}
+
+.bus-info-container {
+    font-family: 'Gaegu', cursive;
+    font-size: 15pt;
+    display: flex; /* Flexbox 레이아웃 사용 */
+    flex-direction: row; /* 가로 방향으로 나열하도록 설정 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.shuttle-info-container {
+    font-family: 'Gaegu', cursive;
+    font-size: 15pt;
+    display: flex;
+    flex-direction: row; /* 가로 방향으로 나열하도록 설정 */
+    justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
+    margin-top: 20px; /* 버튼과 페이지 타이틀 이미지 사이 여백 조절 */
+}
+
+.left-column {
+    font-family: 'Gaegu', cursive;
+    font-size: 15pt;
+    flex: 1; /* 왼쪽 열이 오른쪽 열의 2배의 공간을 차지하도록 설정 */
+    float: left;
+}
+
+.right-column {
+    font-family: 'Gaegu', cursive;
+    font-size: 15pt;
+    flex: 1; /* 오른쪽 열이 남은 공간을 모두 차지하도록 설정 */
+    float: right;
+}
+
+.left-info {
+    font-family: 'Gaegu', cursive;
+    font-size: 15pt;
+    flex: 1; /* 왼쪽 정보 차지하는 비율 조절 (선택 사항) */
+}
+
+.right-info {
+    font-family: 'Gaegu', cursive;
+    font-size: 15pt;
+    flex: 1;
+    /* 오른쪽 정보에 대한 스타일 추가 */
+}
+
+.left-info h1,
+.left-info ul,
+.right-info h1,
+.right-info ul {
+    align-items: flex-start;
+}
+
+.direction {
+    width: 100%; /* 원하는 너비로 조절 */
+    margin: 0 auto; /* 가운데 정렬을 위한 여백 설정 */
+    padding: 20px; /* 내부 여백 설정 */
+}
+
+.button-2-container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬을 위한 스타일 추가 */
+}
+
+.button-2 {
+    width: 200px;
+    height: 50px;
+    border: 2px solid #34495e;
+    text-align: center;
+    cursor: pointer;
+    position: relative; /* 상대적 위치 설정 유지 */
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0 0 0 20px; /* 필요한 여백 추가 (여기서 왼쪽 여백을 조절) */
+    transition: top 0.5s ease, transform 0.5s ease;
+}
+
+.button-2 a{
+  font-family:arial;
+  font-size:16px;
+  color:#34495e;
+  text-decoration:none;
+  line-height:50px;
+  transition:all .5s ease;
+  z-index:2;
+  position:relative;
+}
+
+.eff-2{
+  width:200px;
+  height:50px;
+  top:-50px;
+  background:skyblue;
+  position:absolute;
+  transition:all .5s ease;
+  z-index:1;
+}
+
+.button-2:hover .eff-2{
+  top:0;
+}
+
+.button-2:hover a{
+  color:#000;
+}
+
+.half_background {
+    background: linear-gradient(to top, skyblue 10%, transparent 50%);
+}
+
+.restaurant {
+    width: calc(33.33% - 20px); /* 가로로 3개씩 나열하므로 각 요소의 너비는 약 33.33% */
+    height: 300px;
+    margin: 10px;
+    padding: 10px;
+    border: 5px solid rgba(6, 186, 242, 0.23);
+    float: left; /* 요소들을 왼쪽으로 나열합니다. */
+    box-sizing: border-box; /* padding과 border를 요소의 크기에 포함시킵니다. */
+}
+
+/* 너비가 33.33%인 요소마다 clear:both를 적용하여 다음 줄로 넘어가도록 설정합니다. */
+.restaurant:nth-child(3n) {
+    clear: both;
+}
+
+.filter-buttons {
+    width: 100%;
+}
+
+.filter-button {
+    background-color: rgba(6, 186, 242, 0.23);
+    border: 1px solid #000;
+}
+
+/* 스위치 레이블 기본 스타일 */
+.toggle-label {
+  display: block;
+  position: relative;
+  width: 100px;
+  height: 45px;
+  background: #d3d3d3;
+  border-radius: 60px;
+  transition: background 0.4s;
+}
+
+/* 스위치 레이블의 원형 표시 부분 */
+.toggle-label::after {
+  content: "";
+  position: absolute;
+  left: 2.5px;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #fff;
+  transform: translateY(-50%);
+  box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+/* 스위치 레이블의 상태 텍스트 부분 */
+.toggle-label::before {
+  content: "전체";
+  font-size: 16px;
+  text-align : end;
+  font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  left: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.4s;
+}
+
+/* 체크박스 숨김 */
+.hidden-checkbox {
+  display: none;
+}
+
+/* 스위치가 활성화된 경우의 스타일 */
+.hidden-checkbox:checked + .toggle-label {
+  background: green;
+}
+
+.hidden-checkbox:checked + .toggle-label::after {
+  left: calc(100% - 42.5px);
+}
+
+.hidden-checkbox:checked + .toggle-label::before {
+  content: "영업 중";
+  font-size: 13px;
+  color: #000;
+  left: 13px;
+}
+
+.selected {
+    background-color: #000; /* 선택된 버튼의 배경색을 변경하세요 */
+    color: #fff; /* 선택된 버튼의 글자색을 변경하세요 */
+}
+
+/* 초록색 원 스타일 */
+.circle.green {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: green;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* 빨간색 원 스타일 */
+.circle.red {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.circle.black {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: black;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* 초록색 글씨 스타일 */
+.status.green {
+    color: green;
+}
+
+/* 빨간색 글씨 스타일 */
+.status.red {
+    color: red;
+}
+
+.status.black {
+    color: black;
+}
+
+.random-button {
+    display: flex;
+    flex-direction: row; /* 가로 방향으로 나열하도록 설정 */
+    justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
+    margin-top: 20px; /* 버튼과 페이지 타이틀 이미지 사이 여백 조절 */
+}
+
+#holder{
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  background: white;
+  padding: 10px;
+  width: 250px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-65%);
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.25);
+  border-radius: 2px;
+}
+
+.button {
+  background: #3D4C53;
+  margin : 20px auto;
+  width : 200px;
+  height : 65px;
+  overflow: hidden;
+  text-align : center;
+  transition : .2s;
+  cursor : pointer;
+  border-radius: 3px;
+  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
+}
+
+.btnTwo {
+  position : relative;
+  width : 200px;
+  height : 100px;
+  margin-top: -100px;
+  padding-top: 2px;
+  background : #26A69A;
+  left : -250px;
+  transition : .3s;
+}
+
+.btnText {
+  color : white;
+  transition : .3s;
+}
+
+.btnText2 {
+  margin-top : 53px;
+  margin-right : -130px;
+  color : #FFF;
+}
+
+.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
+  left: -130px;
+}
+
+.button:hover .btnText{ /*When hovering over .button change .btnText*/
+  margin-left : 65px;
+}
+
+.button:active { /*Clicked and held*/
+  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
+}
+
+#resetButton:hover {
+    transform: scale(1.2); /* 버튼 확대 */
+}
+
+#resetButton2:hover {
+    transform: scale(1.2); /* 버튼 확대 */
+}
+
+.button-container {
+    display: inline-block;
+    margin-right: 20px; /* 오른쪽 간격 설정 */
+    vertical-align: top; /* 상단 정렬 */
+}
+
+.button-container:last-child {
+    margin-right: 0; /* 마지막 버튼-container에는 오른쪽 간격 없음 */
+}
+
+table {
+    border-collapse: collapse;
+    width: 1000px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+tr + tr {
+    border-top: 1px solid #ccc;
+}
+
+.btn.green {background-color: #9abf7f;}
+.color .blue {background: #6698cb;}
+.btn-gradient.green:active  {background: #72B08E;}
+.btn-gradient.blue:active   {background: #608FBF;}
+
+
+.btn-gradient {
+  text-decoration: none;
+  color: white;
+  padding: 4px 18px;
+  display: inline-block;
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.21);
+  border-bottom: 2px solid rgba(0,0,0,0.21);
+  border-radius: 2px;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+
+.btn-gradient.green {
+  padding: 8px 20px;
+  background: rgba(130,200,160,1);
+  background: -moz-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(130,200,160,1)), color-stop(100%, rgba(130,199,158,1)));
+  background: -webkit-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+  background: -o-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+  background: -ms-linear-gradient(top, rgba(130,200,160,1) 0%, rgba(130,199,158,1) 100%);
+  background: linear-gradient(to bottom, rgba(130,200,160,1) 0%, rgba(124, 185, 149, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#82c8a0', endColorstr='#82c79e', GradientType=0 );
+}
+
+.btn-gradient.blue {
+  background: rgba(102,152,203,1);
+  background: -moz-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(102,152,203,1)), color-stop(100%, rgba(92,138,184,1)));
+  background: -webkit-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+  background: -o-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+  background: -ms-linear-gradient(top, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+  background: linear-gradient(to bottom, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6698cb', endColorstr='#5c8ab8', GradientType=0 );
 }

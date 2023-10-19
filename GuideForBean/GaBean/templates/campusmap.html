@@ -8,6 +8,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>캠퍼스맵</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <!-- 경고 메시지를 표시하는 스크립트를 head에 추가 -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // 경고 메시지를 나타내는 div를 생성
+            var warningDiv = document.createElement("div");
+            warningDiv.innerHTML = "이 기능은 전체화면을 권장합니다. 창의 크기를 줄일 시 정확한 기능을 사용하기 어려울 수 있습니다.";
+
+            // 스타일을 적용
+            warningDiv.style.position = "absolute";
+            warningDiv.style.top = "0";
+            warningDiv.style.left = "0";
+            warningDiv.style.width = "100%";
+            warningDiv.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+            warningDiv.style.color = "#fff";
+            warningDiv.style.textAlign = "center";
+            warningDiv.style.padding = "10px";
+
+            // body에 추가
+            document.body.appendChild(warningDiv);
+
+            // 3초 후에 경고 메시지를 숨김
+            setTimeout(function() {
+                warningDiv.style.display = "none";
+            }, 3000); // 3초 (3000 밀리초)
+        });
+    </script>
 </head>
 <body>
 
@@ -15,51 +43,50 @@
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
             <div class="logo">
-                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
             </div>
         </a>
         <div id="menu">
             <ul>
+                <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
                 <li style="background-color: skyblue; color: #FFF;">
                     <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:humun_food' %}">후문</a>
                     <ul>
                         <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
-                        <li><a href="#">미정</a></li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
                     <ul>
-                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
-                        <li><a href="#">졸업 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:info_bus' %}">교통</a>
                     <ul>
                         <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
-                        <li><a href="#">지하철</a></li>
-                        <li><a href="#">셔틀버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">동아리</a>
-                    <ul>
-                        <li><a href="#">동아리란?</a></li>
-                        <li><a href="#">동아리 리스트</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">콩들의 소리</a>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="separator"></div>
 <div class="page-title-img">
 </div>
 <div class="search-container">
@@ -72,17 +99,23 @@
 <div class="main-container">
     <div class="list-container">
         <div class="list-title">
-            <h1><a href="GaBean:campusmap.html">캠퍼스맵</a></h1>
+            <h1><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></h1>
         </div>
         <h3>목록</h3>
         <ul>
-            <li><a href="GaBean:campusmap.html"></a>캠퍼스맵</li>
+            <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+            <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
         </ul>
+        <h5 style="text-align: center;">삼육대학교를 간단하게 나타낸 도면입니다. <br>변경사항이 있다면 <span class="half_background">"콩들의 소리"</span>에 제보 바랍니다.</h5>
+        <div style="display: block; margin: 0 auto; text-align: center;" class="button-2">
+            <div class="eff-2"></div>
+            <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리 바로가기</a>
+        </div>
     </div>
     <div class="content-container">
         <div class="left-container">
             <div id="map-container">
-                <img src="../static/photo/삼육대학교 도면.png" alt="Campus Map">
+                <img src="../static/photo/도면1.jpg" alt="Campus Map">
             </div>
         </div>
     </div>
@@ -93,9 +126,7 @@
         </div>
     </div>
 </div>
-
 <script>
-
     const mapContainer = document.getElementById("map-container");
     const descriptionAside = document.getElementById("description-aside");
     let activeButton = null; // 활성화된 버튼을 추적하기 위한 변수
@@ -159,14 +190,17 @@
     }
 
     function addMarkerDetail(detailContent, imageURL) {
-        console.log("Displaying detail:", detailContent); // 상세정보 표시 로그 추가
-        console.log("Image URL:", imageURL); // imageURL이 올바르게 넘어오는지 로그로 확인
+        console.log("Displaying detail:", detailContent);
+        console.log("Image URL:", imageURL);
+
         const detailDescriptionDiv = document.createElement("div");
         detailDescriptionDiv.classList.add("detail-description");
 
-        const imageElement = document.createElement("img");
-        imageElement.src = imageURL;
-        detailDescriptionDiv.appendChild(imageElement);
+        if (imageURL) {
+            const imageElement = document.createElement("img");
+            imageElement.src = imageURL;
+            detailDescriptionDiv.appendChild(imageElement);
+        }
 
         const descriptionElement = document.createElement("p");
         descriptionElement.innerHTML = detailContent;
@@ -176,6 +210,7 @@
         descriptionAside.appendChild(detailDescriptionDiv);
         activeDescriptionDiv = detailDescriptionDiv;
     }
+
 
     function resizeMapContainer(newWidth) {
         mapContainer.style.width = `${newWidth}%`;
@@ -232,24 +267,275 @@
 
 
     // 버튼을 원하는 위치에 추가합니다. 버튼마다 설명과 역할을 지정하세요.
-    addMarkerButton(300, 109, "셔틀버스 정류장", function() {
+    addMarkerButton(226, 128, "셔틀버스 정류장", function() {
         addMarkerDetail(
-            "<h2>셔틀버스 정류장<h2><br><h3>사진 왼쪽 뒤로 보이는게 셔틀버스 정류장이다.<br> 학교 내에는 2-2버스가 구리역을 통해 다니고 있다.<br> 오전에는 화랑대역 5번 출구에서 학교로, 오후에는 석계역 4번 출구와 태릉입구역 7번 출구에서 학교로 셔틀이 다닌다.",
+            "<br><br><h1>셔틀버스 정류장<h1><br><h3>사진 왼쪽 뒤로 보이는게 셔틀버스 정류장이다.<br> 학교 내에는 2-2버스가 구리역을 통해 다니고 있다.<br></h3>",
             "../static/photo/셔틀버스 정류장.jpg"
         );
     });
 
-    addMarkerButton(326, 114, "분수대", function() {
+    addMarkerButton(255, 136, "분수대", function() {
         addMarkerDetail(
-            "<h2>분수대</h2><br><h3>삼육대학교 학생홍보대사 수앰베서더(SU-AMBASSADOR)가 선정한 <br> 삼육대학교 포토존 BEST 6에 어울리는 물줄기를 보여주고 있다.</h3>",
+            "<br><br><h1>분수대</h1><br><h3>삼육대학교 학생홍보대사 수앰베서더(SU-AMBASSADOR)가 선정한 <br> 삼육대학교 포토존 BEST 6에 어울리는 물줄기를 보여주고 있다.</h3>",
             "../static/photo/분수대2.png"
         );
     });
 
-    addMarkerButton(390, 120, "분무기", function() {
+    addMarkerButton(364, 280, "대운동장", function() {
         addMarkerDetail(
-            "<h2>분무기</h2><br><h3></h3>",
-            "../static/photo/분수대2.png"
+            "<br><br><h1>대운동장</h1><br><h3>풋살장과 농구장, 그리고 축구장이 함께 있는 운동장이다.<br>바로 옆에는 삼육고등학교와 체육관이 있다.</h3>",
+            "../static/photo/운동장.png"
+        );
+    });
+
+    addMarkerButton(305, 285, "체육관", function() {
+        addMarkerDetail(
+            "<br><br><h1>체육관</h1><br><h3>1층<br>수영장, 남ㆍ여 탈의실 및 샤워실, 체력측정실, 운동처방실<br> 체력관리실, 시청각실, 탁구장, 무도관, 스크린 골프장<br><br>2층<br>주경기장 (농구코트 1면, 배구코트 1면, 배드민턴코트 4면)<br> 스쿼시장, 남ㆍ여 탈의실 및 샤워실, 등록실, 관리지원실, 보건소<br><br>3층<br>주경기장 관람석 (370석)</h3>",
+            "../static/photo/체육관.png"
+        );
+    });
+
+    addMarkerButton(370, 213, "다니엘관/요한관<br>(박물관)", function() {
+        addMarkerDetail(
+            "<br><br><h1>다니엘관/요한관<br>(박물관)</h1><br><h3></h3>",
+            "../static/photo/다니엘관.png"
+        );
+    });
+
+    addMarkerButton(415, 180, "제3과학관", function() {
+        addMarkerDetail(
+            "<br><br><h1>제3과학관</h1><br><h3></h3>",
+            "../static/photo/제3과학관.png"
+        );
+    });
+
+    addMarkerButton(430, 245, "뉴스타트<br>센터", function() {
+        addMarkerDetail(
+            "<br><br><h1>뉴스타트&nbsp;센터</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(380, 110, "식품영양학과<br>실습실", function() {
+        addMarkerDetail(
+            "<br><br><h1>식품영양학과 실습실</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(403, 118, "학생상담센터", function() {
+        addMarkerDetail(
+            "<br><br><h1>학생상담센터</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(360, 135, "제2과학관", function() {
+        addMarkerDetail(
+            "<br><br><h1>제2과학관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(323, 90, "제1과학관", function() {
+        addMarkerDetail(
+            "<br><br><h1>제1과학관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(325, 125, "에스라관", function() {
+        addMarkerDetail(
+            "<br><br><h1>에스라관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(300, 160, "도서관", function() {
+        addMarkerDetail(
+            "<br><br><h1>도서관</h1><br><h3></h3>",
+            "../static/photo/도서관.png"
+        );
+    });
+
+    addMarkerButton(328, 190, "바울관", function() {
+        addMarkerDetail(
+            "<br><br><h1>바울관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(328, 230, "학생회관", function() {
+        addMarkerDetail(
+            "<br><br><h1>학생회관</h1><br><h3></h3>",
+            "../static/photo/학생회관.png"
+        );
+    });
+
+    addMarkerButton(240, 100, "70주년 기념관<br>(대강당)", function() {
+        addMarkerDetail(
+            "<br><br><h1>70주년 기념관</h1><br><h3></h3>",
+            "../static/photo/70주년기념관.png"
+        );
+    });
+
+    addMarkerButton(234, 70, "제1실습관", function() {
+        addMarkerDetail(
+            "<br><br><h1>제1실습관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(275, 63, "디자인관", function() {
+        addMarkerDetail(
+            "<br><br><h1>디자인관</h1><br><h3></h3>",
+            "../static/photo/디자인관.png"
+        );
+    });
+
+    addMarkerButton(273, 82, "아트&디자인관", function() {
+        addMarkerDetail(
+            "<br><br><h1>아트&디자인관</h1><br><h3></h3>",
+            "../static/photo/아트앤디자인관.png"
+        );
+    });
+
+    addMarkerButton(220, 180, "백주년기념관", function() {
+        addMarkerDetail(
+            "<br><br><h1>백주년기념관</h1><br><h3></h3>",
+            "../static/photo/100주년기념관.png"
+        );
+    });
+
+    addMarkerButton(235, 160, "국제교육관", function() {
+        addMarkerDetail(
+            "<br><br><h1>국제교육관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(180, 220, "신학관", function() {
+        addMarkerDetail(
+            "<br><br><h1>신학관</h1><br><h3></h3>",
+            "../static/photo/신학관.png"
+        );
+    });
+
+    addMarkerButton(165, 200, "스미스관", function() {
+        addMarkerDetail(
+            "<br><br><h1>스미스관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(135, 155, "사무엘관", function() {
+        addMarkerDetail(
+            "<br><br><h1>사무엘관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(77, 165, "에덴관", function() {
+        addMarkerDetail(
+            "<br><br><h1>에덴관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(190, 120, "음악관", function() {
+        addMarkerDetail(
+            "<br><br><h1>음악관</h1><br><h3></h3>",
+            "../static/photo/음악관.png"
+        );
+    });
+
+    addMarkerButton(164, 85, "시온관", function() {
+        addMarkerDetail(
+            "<br><br><h1>시온관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(127, 92, "생활관식당/교직원식당<br>(만나의 집)", function() {
+        addMarkerDetail(
+            "<br><br><h1>생활관식당/교직원식당<br>(만나의 집)</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(171, 30, "교직원 테니스장", function() {
+        addMarkerDetail(
+            "<br><br><h1>교직원 테니스장</h1><br><h3></h3>"
+        );
+    });
+
+    addMarkerButton(88, 66, "살렘관", function() {
+        addMarkerDetail(
+            "<br><br><h1>살렘관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(73, 108, "대학교회", function() {
+        addMarkerDetail(
+            "<br><br><h1>대학교회</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(90, 121, "다목적관", function() {
+        addMarkerDetail(
+            "<br><br><h1>다목적관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(45, 125, "브니엘관", function() {
+        addMarkerDetail(
+            "<br><br><h1>브니엘관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(40, 155, "로뎀관", function() {
+        addMarkerDetail(
+            "<br><br><h1>로뎀관</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(40, 210, "외국인교수사택", function() {
+        addMarkerDetail(
+            "<br><br><h1>외국인교수사택</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(460, 260, "전인교육원", function() {
+        addMarkerDetail(
+            "<br><br><h1>전인교육원</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(300, 60, "온실", function() {
+        addMarkerDetail(
+            "<br><br><h1>온실</h1><br><h3></h3>",
+            "../static/photo/온실.png"
+        );
+    });
+
+    addMarkerButton(300, 40, "목공실습실", function() {
+        addMarkerDetail(
+            "<br><br><h1>목공실습실</h1><br><h3></h3>",
+            null
+        );
+    });
+
+    addMarkerButton(280, 40, "실험동물실", function() {
+        addMarkerDetail(
+            "<br><br><h1>실험동물실</h1><br><h3></h3>",
+            "../static/photo/실험동물실.png"
         );
     });
 

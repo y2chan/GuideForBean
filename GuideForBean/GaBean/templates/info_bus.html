@@ -1,74 +1,130 @@
+{% load static %}
+{% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bus Arrival Info</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>버스</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
 </head>
 <body>
 <div class="header">
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
             <div class="logo">
-                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
             </div>
         </a>
         <div id="menu">
             <ul>
                 <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
+                <li>
                     <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:humun_food' %}">후문</a>
                     <ul>
                         <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
-                        <li><a href="#">미정</a></li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
                     <ul>
-                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
-                        <li><a href="#">졸업 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
                     </ul>
                 </li>
                 <li style="background-color: skyblue; color: #FFF;">
                     <a href="{% url 'GaBean:info_bus' %}">교통</a>
                     <ul>
                         <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
-                        <li><a href="#">지하철</a></li>
-                        <li><a href="#">셔틀버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">동아리</a>
-                    <ul>
-                        <li><a href="#">동아리란?</a></li>
-                        <li><a href="#">동아리 리스트</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">콩들의 소리</a>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="separator"></div>
-<h1>버스 도착 정보</h1>
-<table>
-    <tr>
-        <th>버스 정류장 위치</th>
-        <th>버스 번호</th>
-        <th>도착 예정 시간</th>
-    </tr>
-    {% for arrival in arrivals %}
-    <tr>
-        <td>{{ arrival.bus_stop_location }}</td>
-        <td>{{ arrival.bus_number }}</td>
-        <td>{{ arrival.arrival_time }}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="page-title-img">
+</div>
+<div class="main-container">
+    <div class="list-container">
+        <div class="list-title">
+            <h1><a href="{% url 'GaBean:info_bus' %}">버스</a></h1>
+        </div>
+        <h3>목록</h3>
+        <ul>
+            <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+            <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+            <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
+        </ul>
+    </div>
+    <div class="content-container">
+        <div class="main-container">
+            <div class="info-bus">
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">학교에서 나가는 방향</h1>
+                    {% for data in grouped_data.direction_1 %}
+                    <div class="bus-info-container">
+                        <div style="float:left" class="left-column">
+                            <h2>{{ data.stNm }}</h2>
+                        </div>
+                        <div style="float:right" class="right-column">
+                            <ul>
+                                <li>
+                                    <h3>{{ data.rtNm }}</h3>
+                                    <h5>{{ data.arrmsg1 }}</h5>
+                                    <h5>{{ data.arrmsg2 }}</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">학교로 오는 방향</h1>
+                    {% for data in grouped_data.direction_2 %}
+                    <div class="bus-info-container">
+                        <div style="float:left" class="left-column">
+                            <h2>{{ data.stNm }}</h2>
+                        </div>
+                        <div style="float:right" class="right-column">
+                            <ul>
+                                <li>
+                                    <h3>{{ data.rtNm }}</h3>
+                                    <h5>{{ data.arrmsg1 }}</h5>
+                                    <h5>{{ data.arrmsg2 }}</h5>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

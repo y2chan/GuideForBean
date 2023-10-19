@@ -3,56 +3,143 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <title>GaBean</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <!-- 경고 메시지를 표시하는 스크립트를 head에 추가 -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // 경고 메시지를 나타내는 div를 생성
+            var warningDiv = document.createElement("div");
+            warningDiv.innerHTML = "이 웹은 전체화면을 권장합니다. 창의 크기를 줄일 시 정확한 기능을 사용하기 어려울 수 있습니다.";
+
+            // 스타일을 적용
+            warningDiv.style.position = "absolute";
+            warningDiv.style.top = "0";
+            warningDiv.style.left = "0";
+            warningDiv.style.width = "100%";
+            warningDiv.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+            warningDiv.style.color = "#fff";
+            warningDiv.style.textAlign = "center";
+            warningDiv.style.padding = "10px";
+
+            // body에 추가
+            document.body.appendChild(warningDiv);
+
+            // 3초 후에 경고 메시지를 숨김
+            setTimeout(function() {
+                warningDiv.style.display = "none";
+            }, 3000); // 3초 (3000 밀리초)
+        });
+    </script>
 </head>
 <body>
 <div class="header">
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
             <div class="logo">
-                <img src="../static/photo/GaBean 글씨.png" alt="Your Logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
             </div>
         </a>
         <div id="menu">
             <ul>
                 <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
+                <li>
                     <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:humun_food' %}">후문</a>
                     <ul>
                         <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
-                        <li><a href="#">미정</a></li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
                     <ul>
-                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 신청 정보</a></li>
-                        <li><a href="#">졸업 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="{% url 'GaBean:info_bus' %}">교통</a>
                     <ul>
                         <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
-                        <li><a href="#">지하철</a></li>
-                        <li><a href="#">셔틀버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">동아리</a>
-                    <ul>
-                        <li><a href="#">동아리란?</a></li>
-                        <li><a href="#">동아리 리스트</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">콩들의 소리</a>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
-<div class="separator"></div>
+<div class="home img" style="text-align: center;">
+    <img src="../static/photo/1.png" alt="Campus Map" style="max-width: 70%;">
+</div>
+
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+    <div class="slider-content">
+        ID : 학번 / PW : SU-WINGs PW
+        <br>(즉, SU-WINGs 로그인과 방식이 같다)
+    </div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 버튼 엘리먼트 가져오기
+        var fixedButton = document.querySelector('.fixed-button');
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function() {
+            // 스크롤 위치 가져오기
+            var scrollY = window.scrollY;
+            // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+            if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+               fixedButton.style.top = '100px'; // 원하는 위치로 조절 가능
+            } else {
+                fixedButton.style.top = '100px'; // 다시 초기 위치로 조절 가능
+            }
+        });
+
+        // 초기 버튼 위치 설정
+        fixedButton.style.top = '100px';
+        fixedButton.style.right = '0px';
+    });
+
+    var imageButton = document.getElementById('openSlider');
+
+    // 클릭 이벤트 리스너 등록
+    imageButton.addEventListener('click', function() {
+        // 클릭 시 이미지 변경
+        imageButton.classList.toggle('clicked');
+    });
+
+</script>
+<script>
+    // 슬라이드인 메뉴 열기/닫기
+    var openSliderButton = document.getElementById('openSlider');
+    var sliderMenu = document.querySelector('.slider-menu');
+
+    sliderMenu.style.top = '100px';
+
+    openSliderButton.addEventListener('click', function() {
+        if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+            sliderMenu.style.right = '60px';
+        } else {
+            sliderMenu.style.right = '-350px';
+        }
+    });
+</script>
 </body>
 </html>
