@@ -5,6 +5,9 @@
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <title>GaBean</title>
     <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
     <!-- 경고 메시지를 표시하는 스크립트를 head에 추가 -->
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
@@ -25,15 +28,15 @@
             // body에 추가
             document.body.appendChild(warningDiv);
 
-            // 3초 후에 경고 메시지를 숨김
+            // 5초 후에 경고 메시지를 숨김
             setTimeout(function() {
                 warningDiv.style.display = "none";
-            }, 3000); // 3초 (3000 밀리초)
+            }, 5000); // 5초 (3000 밀리초)
         });
     </script>
 </head>
 <body>
-<div class="header">
+<div class="header" style="margin-bottom: 5px;">
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
             <div class="logo">
@@ -81,8 +84,21 @@
         </div>
     </div>
 </div>
-<div class="home img" style="text-align: center;">
-    <img src="../static/photo/1.png" alt="Campus Map" style="max-width: 70%;">
+<div class="separator"></div>
+<div class="home-container">
+    <div class="image-container">
+        <img src="../static/photo/home.png" alt="Campus Map">
+    </div>
+    <div class="button-container">
+        <!-- 첫 번째 그룹 -->
+        <button class="home-button2"><a href="{% url 'GaBean:humun_food' %}">음식점</a></button>
+        <button class="home-button"><a href="{% url 'GaBean:info_bus' %}">버스</a></button>
+    </div>
+    <div class="button-container">
+        <!-- 두 번째 그룹 -->
+        <button class="home-button"><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></button>
+        <button class="home-button2"><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></button>
+    </div>
 </div>
 
 <button class="fixed-button" id="openSlider"></button>
@@ -94,7 +110,6 @@
         <br>(즉, SU-WINGs 로그인과 방식이 같다)
     </div>
 </div>
-
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         // 버튼 엘리먼트 가져오기

@@ -205,7 +205,6 @@ def info_sugang(request):
 def info_graduate(request):
     # 졸업 정보 데이터 처리 로직 작성
     return render(request, 'info_graduate.html')
-
 def get_weekday_timetable():
     # 월요일부터 목요일까지 시간표를 반환합니다.
     timetable = {
@@ -280,6 +279,7 @@ def info_shuttle(request):
             right_info[shuttle] = time
 
     return render(request, 'info_shuttle.html', {'left_info': left_info, 'right_info': right_info})
+
 
 
 def campusmap_detail(request):

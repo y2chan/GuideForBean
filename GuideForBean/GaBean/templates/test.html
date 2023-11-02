@@ -1,25 +1,36 @@
-{% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <style>
-        .image-button {
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-<!-- 이미지를 포함한 버튼 -->
-<img src="../static/photo/mapmarker.png" alt="Your Image" class="image-button" onclick="buttonClick()">
+<h1>리스트<button id="resetButton" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 40px; height: 40px; text-indent: -9999px; border: none; margin-left:20px;" aria-label="Reset"></button></h1>
+<h2>양이찬</h2>
+<h2>이서윤</h2>
+<button onclick="getRandomName()">버튼을 눌러주세요!</button>
+<h1>뽑기 결과</h1>
+<h3>뽑기 결과는 바로~~</h3>
+
 <script>
-    // 클릭 이벤트 핸들러
-    function buttonClick() {
-        // 버튼이 클릭되었을 때 수행할 작업을 여기에 작성
-        alert("버튼이 클릭되었습니다.");
+    function getRandomName() {
+        // <h2> 요소를 모두 선택합니다.
+        var h2Elements = document.querySelectorAll("h2");
+
+        // 랜덤 인덱스를 생성합니다.
+        var randomIndex = Math.floor(Math.random() * h2Elements.length);
+
+        // 랜덤으로 선택한 <h2> 요소의 텍스트 내용을 가져옵니다.
+        var selectedName = h2Elements[randomIndex].textContent;
+
+        // 결과를 출력합니다.
+        alert("선택된 이름: " + selectedName);
     }
+
+    document.getElementById('resetButton').addEventListener('click', function () {
+                // 페이지를 새로고침
+                location.reload();
+            });
 </script>
 </body>
 </html>

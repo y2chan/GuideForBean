@@ -60,6 +60,62 @@
         </div>
     </div>
 </div>
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+    <div class="slider-content">
+        ID : 학번 / PW : SU-WINGs PW
+        <br>(즉, SU-WINGs 로그인과 방식이 같다)
+    </div>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 버튼 엘리먼트 가져오기
+        var fixedButton = document.querySelector('.fixed-button');
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function() {
+            // 스크롤 위치 가져오기
+            var scrollY = window.scrollY;
+            // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+            if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+               fixedButton.style.top = '100px'; // 원하는 위치로 조절 가능
+            } else {
+                fixedButton.style.top = '100px'; // 다시 초기 위치로 조절 가능
+            }
+        });
+
+        // 초기 버튼 위치 설정
+        fixedButton.style.top = '100px';
+        fixedButton.style.right = '0px';
+    });
+
+    var imageButton = document.getElementById('openSlider');
+
+    // 클릭 이벤트 리스너 등록
+    imageButton.addEventListener('click', function() {
+        // 클릭 시 이미지 변경
+        imageButton.classList.toggle('clicked');
+    });
+
+</script>
+<script>
+    // 슬라이드인 메뉴 열기/닫기
+    var openSliderButton = document.getElementById('openSlider');
+    var sliderMenu = document.querySelector('.slider-menu');
+
+    sliderMenu.style.top = '100px';
+
+    openSliderButton.addEventListener('click', function() {
+        if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+            sliderMenu.style.right = '60px';
+        } else {
+            sliderMenu.style.right = '-350px';
+        }
+    });
+</script>
 <div class="page-title-img">
 </div>
 <div class="main-container">
@@ -94,7 +150,7 @@
                     <ul id="right-column">
                         {% for shuttle, time in right_info.items %}
                         <li>
-                            <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }} </h2>
+                            <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
                             <h3><span id="{{ shuttle|slugify }}-time">{{ time }}</span></h3>
                         </li>
                         {% endfor %}
@@ -108,42 +164,43 @@
                     <a href="https://bus.syu.kr/"> 셔틀버스 현위치 </a>
                 </div>
                 <div class="button-2">
-                    <div class="eff-2"></div>
-                    <a href="https://bus.syu.kr/monitor"> 셔틀버스 시간표 </a>
-                </div>
+                <div class="eff-2"></div>
+                <a href="https://bus.syu.kr/monitor"> 셔틀버스 시간표 </a>
             </div>
-            <p style="float: right; font-size: 10pt;">해당 웹 개발자: 김상윤</p>
+        </div>
+        <p style="float: right; font-size: 10pt;">해당 웹 개발자: 김상윤</p>
         </div>
     </div>
 </div>
 <script>
     function updateRemainingTimes() {
         {% for shuttle, time in left_info.items %}
-        var {{ shuttle|slugify }}TimeLeft = document.getElementById("{{ shuttle|slugify }}-time");
-        var {{ shuttle|slugify }}MinutesLeft = {{ shuttle|slugify }}TimeLeft.textContent;
-        if ({{ shuttle|slugify }}MinutesLeft !== "운행 종료") {
-            {{ shuttle|slugify }}MinutesLeft = parseInt({{ shuttle|slugify }}MinutesLeft) - 1;
-            if ({{ shuttle|slugify }}MinutesLeft < 0) {
-                {{ shuttle|slugify }}MinutesLeft = "운행 종료";
+        var leftTimeLeft = document.getElementById("{{ shuttle|slugify }}-time");
+        var leftMinutesLeft = parseInt(leftTimeLeft.textContent);
+        if (leftMinutesLeft !== "운행 종료") {
+            leftMinutesLeft = leftMinutesLeft - 1;
+            if (leftMinutesLeft < 0) {
+                leftMinutesLeft = "운행 종료";
             }
-            {{ shuttle|slugify }}TimeLeft.innerText = {{ shuttle|slugify }}MinutesLeft;
+            leftTimeLeft.innerText = leftMinutesLeft;
         }
         {% endfor %}
 
         {% for shuttle, time in right_info.items %}
-        var {{ shuttle|slugify }}TimeRight = document.getElementById("{{ shuttle|slugify }}-time");
-        var {{ shuttle|slugify }}MinutesRight = {{ shuttle|slugify }}TimeRight.textContent;
-        if ({{ shuttle|slugify }}MinutesRight !== "운행 종료") {
-            {{ shuttle|slugify }}MinutesRight = parseInt({{ shuttle|slugify }}MinutesRight) - 1;
-            if ({{ shuttle|slugify }}MinutesRight < 0) {
-                {{ shuttle|slugify }}MinutesRight = "운행 종료";
+        var rightTimeRight = document.getElementById("{{ shuttle|slugify }}-time");
+        var rightMinutesRight = parseInt(rightTimeRight.textContent);
+        if (rightMinutesRight !== "운행 종료") {
+            rightMinutesRight = rightMinutesRight - 1;
+            if (rightMinutesRight < 0) {
+                rightMinutesRight = "운행 종료";
             }
-            {{ shuttle|slugify }}TimeRight.innerText = {{ shuttle|slugify }}MinutesRight;
+            rightTimeRight.innerText = rightMinutesRight;
         }
         {% endfor %}
     }
 
-    setInterval(updateRemainingTimes, 60000);  // 1분마다 업데이트
+    // 페이지 로딩 후 1초마다 updateRemainingTimes 함수 호출
+    setInterval(updateRemainingTimes, 1000);
 </script>
 </body>
 </html>

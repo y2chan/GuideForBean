@@ -168,8 +168,8 @@ ul li {
 }
 
 .separator {
-    border: 2px solid #CAEDFF; /* 선 색깔 설정 */
-    margin: 20px auto; /* 위아래 여백 추가 */
+    border: 1px solid #c0c0c0; /* 선 색깔 설정 */
+    margin: 0 auto 20px; /* 위 여백을 0으로 설정하고 가운데 정렬 */
     width: 90%; /* 구분 선의 너비를 조정 */
 }
 
@@ -390,6 +390,13 @@ ul li {
 .detail-description h1 {
     text-align: center;
     margin: 0; /* 문단의 여백 제거 */
+    color: #000;
+    text-decoration: underline;
+}
+
+.detail-description h2 {
+    text-align: center;
+    margin-bottom: 5px; /* 문단의 여백 제거 */
     color: #000;
     text-decoration: underline;
 }
@@ -913,3 +920,86 @@ tr + tr {
   background: linear-gradient(to bottom, rgba(102,152,203,1) 0%, rgba(92,138,184,1) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6698cb', endColorstr='#5c8ab8', GradientType=0 );
 }
+
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.image-container {
+    width: 30%; /* 이미지 컨테이너의 너비를 원하는 크기(30%)로 설정 */
+    text-align: center; /* 이미지 수평 가운데 정렬 */
+    margin-top: -400px;
+}
+
+.image-container img {
+    width: 100%; /* 이미지의 너비를 100%로 설정하여 이미지가 이미지 컨테이너의 너비에 맞게 표시 */
+    vertical-align: middle;
+}
+
+.button-container {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    height: 40%;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-right: 5px; /* 오른쪽 마진 설정 */
+    margin-top: -400px;
+}
+
+/* 마지막 버튼에 대한 스타일 */
+.button-container:last-child {
+    margin-left: 0; /* 마지막 버튼에 아래쪽 간격을 없애기 */
+}
+
+/* 각 버튼 그룹 사이에 간격을 추가합니다. */
+.button-container > div:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.home-button {
+    flex: 1;
+    text-align: center;
+    font-family: 'Gaegu', cursive;
+    font-size: 30px;
+    margin-bottom: 5px; /* 모든 버튼에 아래쪽 간격 추가 */
+    margin-right: 0px;
+    background-color: rgba(143, 219, 25, 0.7);
+    border: none;
+    outline: none; /* 선택 효과를 제거하기 위해 */
+}
+
+/* 마지막 버튼에 대한 스타일 */
+.home-button:last-child {
+    margin-bottom: 0; /* 마지막 버튼에 아래쪽 간격을 없애기 */
+}
+
+.home-button:hover {
+    background-color: rgba(143, 219, 25, 0.4);
+}
+
+.home-button2 {
+    flex: 1;
+    text-align: center;
+    font-family: 'Gaegu', cursive;
+    font-size: 30px;
+    margin-bottom: 5px; /* 모든 버튼에 아래쪽 간격 추가 */
+    margin-right: 0px;
+    background-color: rgba(0, 122, 255, 0.7);
+    border: none;
+    outline: none; /* 선택 효과를 제거하기 위해 */
+}
+
+/* 마지막 버튼에 대한 스타일 */
+.home-button2:last-child {
+    margin-bottom: 0; /* 마지막 버튼에 아래쪽 간격을 없애기 */
+}
+
+.home-button2:hover {
+    background-color: rgba(0, 122, 255, 0.4);
+}
+
+
