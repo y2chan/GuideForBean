@@ -129,7 +129,7 @@
 <div class="main-container">
     <div class="list-container">
         <div class="list-title">
-            <h1 style="font-size: 40pt;"><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></h1>
+            <h1 style="font-size: 30pt;"><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></h1>
         </div>
         <h3>목록</h3>
         <ul>
@@ -141,40 +141,42 @@
         <div class="direction">
             <div class="random-button" style="margin-left: 20pt;">
                 <div class="left-info">
-                    <h1>음식 타입 + 음식점 뽑기&nbsp;&nbsp;<button id="resetButton" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 30px; height: 30px; text-indent: -9999px; border: none;" aria-label="Reset"></button></h1>
-                    <div class="button-container">
-                        <div id="startType" class="button">
-                            <p class="btnText">음식 종류</p>
+                    <h1>음식 종류 / 음식점 뽑기&nbsp;&nbsp;<button id="resetButton" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 30px; height: 30px; text-indent: -9999px; border: none;" aria-label="Reset"></button></h1>
+                    <div class="btn-container">
+                        <div id="startType" class="button" style="font-size: 14pt;">
+                            <p class="btnText">종류</p>
                             <div class="btnTwo">
                                 <p class="btnText2">GO!</p>
                             </div>
                         </div>
-                        <h3 id="randomType"></h3>
+                        <h3 id="randomType" style="text-align: center; font-size: 14pt;"></h3>
                     </div>
-                    <div class="button-container">
-                        <div id="startName1" class="button">
+                    <div class="btn-container">
+                        <div id="startName1" class="button" style="font-size: 14pt;">
                             <p class="btnText">음식점</p>
                             <div class="btnTwo">
                                 <p class="btnText2">GO!</p>
                             </div>
                         </div>
-                        <h3 id="randomName1"></h3>
+                        <h3 id="randomName1" style="text-align: center; font-size: 14pt;"></h3>
                     </div>
                 </div>
                 <div class="right-info" style="margin-left: 30pt;">
-                <h1>음식점만 뽑기&nbsp;&nbsp;<button id="resetButton2" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 30px; height: 30px; text-indent: -9999px; border: none;" aria-label="Reset"></button>
+                <h1 style="font-size: 23pt;">음식점만 뽑기&nbsp;&nbsp;<button id="resetButton2" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 30px; height: 30px; text-indent: -9999px; border: none;" aria-label="Reset"></button>
                 </h1>
                     <ul id="right-column">
-                        <div class="button-container">
-                            <div id="startName2" class="button">
+                        <div class="btn-container">
+                            <div id="startName2" class="button" style="font-size: 14pt;">
                                 <p class="btnText">음식점만</p>
                                 <div class="btnTwo">
                                     <p class="btnText2">GO!</p>
                                 </div>
                             </div>
-                            <h3 id="randomName2"></h3>
+                            <h3 id="randomName2" style="text-align: center; font-size: 14pt;"></h3>
                         </div>
                     </ul>
+                    <br><br><br>
+                    <p style="float: right; font-size: 12pt;">카페 등 음식점이 아닌 곳은 제외하였습니다.</p>
                 </div>
             </div>
         </div>
@@ -211,6 +213,15 @@
             });
         });
     </script>
+</div>
+<div class="footer">
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+        <br>Dev : Ee Chan Yang
+        <br>Logo : Jun Seong Park
+        <br>Other Website Dev : Sang Yoon Kim</p>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
 </div>
 </body>
 </html>

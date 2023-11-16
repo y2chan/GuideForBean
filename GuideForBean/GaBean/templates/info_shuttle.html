@@ -132,11 +132,11 @@
     </div>
     <div class="content-container">
         <div class="direction">
-            <h1 style="background-color: rgba(6, 186, 242, 0.23); font-family: 'Dongle', sans-serif; font-family: 'Gaegu', cursive; font-size: 30pt;">셔틀 시간표</h1>
+            <h1 style="background-color: rgba(6, 186, 242, 0.23); font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">셔틀 시간표</h1>
             <div class="shuttle-info-container">
-                <div class="left-info">
+                <div class="left-info" style="font-size: 11pt;">
                     <h1>학교 방향</h1>
-                    <ul id="left-column">
+                    <ul id="left-column" style="font-size: 10pt;">
                         {% for shuttle, time in left_info.items %}
                         <li>
                             <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
@@ -145,27 +145,27 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="right-info">
+                <div class="right-info" style="font-size: 11pt;">
                     <h1>나가는 방향</h1>
-                    <ul id="right-column">
+                    <ul id="right-column" style="font-size: 10pt;">
                         {% for shuttle, time in right_info.items %}
                         <li>
                             <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
                             <h3><span id="{{ shuttle|slugify }}-time">{{ time }}</span></h3>
                         </li>
                         {% endfor %}
-                        <p style="float: right; font-size: 20pt;">모든 남은 시간은 시간표 기준입니다.</p>
+                        <p style="float: right; font-size: 16pt;">모든 남은 시간은 시간표 기준입니다.</p>
                     </ul>
                 </div>
             </div>
             <div class="button-2-container">
                 <div class="button-2">
                     <div class="eff-2"></div>
-                    <a href="https://bus.syu.kr/"> 셔틀버스 현위치 </a>
+                    <a href="https://bus.syu.kr/" target="_blank"> 셔틀버스 현위치 </a>
                 </div>
                 <div class="button-2">
                 <div class="eff-2"></div>
-                <a href="https://bus.syu.kr/monitor"> 셔틀버스 시간표 </a>
+                <a href="https://bus.syu.kr/monitor" target="_blank"> 셔틀버스 시간표 </a>
             </div>
         </div>
         <p style="float: right; font-size: 10pt;">해당 웹 개발자: 김상윤</p>
@@ -175,32 +175,65 @@
 <script>
     function updateRemainingTimes() {
         {% for shuttle, time in left_info.items %}
-        var leftTimeLeft = document.getElementById("{{ shuttle|slugify }}-time");
-        var leftMinutesLeft = parseInt(leftTimeLeft.textContent);
-        if (leftMinutesLeft !== "운행 종료") {
-            leftMinutesLeft = leftMinutesLeft - 1;
-            if (leftMinutesLeft < 0) {
-                leftMinutesLeft = "운행 종료";
-            }
-            leftTimeLeft.innerText = leftMinutesLeft;
-        }
+            var leftTimeLeft = document.getElementById("{{ shuttle|slugify }}-time");
+            var leftMinutesLeft = leftTimeLeft.textContent;
+
+            {% if shuttle in left_info %}
+                var shuttleInfo = left_info["{{ shuttle }}"];
+                if (leftMinutesLeft !== "운행 종료") {
+                    var currentTime = new Date();
+                    var nextDepartureTime = new Date("{{ shuttleInfo|default:'1970-01-01T00:00:00Z' }}");
+
+                    var timeDifference = nextDepartureTime - currentTime;
+                    var remainingMinutes = Math.floor(timeDifference / (1000 * 60));  // milliseconds to minutes
+
+                    if (remainingMinutes < 0) {
+                        leftMinutesLeft = "운행 종료";
+                    } else {
+                        leftMinutesLeft = remainingMinutes + " 분 남았습니다.";
+                    }
+
+                    leftTimeLeft.innerText = leftMinutesLeft;
+                }
+            {% endif %}
         {% endfor %}
 
         {% for shuttle, time in right_info.items %}
-        var rightTimeRight = document.getElementById("{{ shuttle|slugify }}-time");
-        var rightMinutesRight = parseInt(rightTimeRight.textContent);
-        if (rightMinutesRight !== "운행 종료") {
-            rightMinutesRight = rightMinutesRight - 1;
-            if (rightMinutesRight < 0) {
-                rightMinutesRight = "운행 종료";
-            }
-            rightTimeRight.innerText = rightMinutesRight;
-        }
+            var rightTimeRight = document.getElementById("{{ shuttle|slugify }}-time");
+            var rightMinutesRight = rightTimeRight.textContent;
+
+            {% if shuttle in right_info %}
+                var shuttleInfo = right_info["{{ shuttle }}"];
+                if (rightMinutesRight !== "운행 종료") {
+                    var currentTime = new Date();
+                    var nextDepartureTime = new Date("{{ shuttleInfo|default:'1970-01-01T00:00:00Z' }}");
+
+                    var timeDifference = nextDepartureTime - currentTime;
+                    var remainingMinutes = Math.floor(timeDifference / (1000 * 60));  // milliseconds to minutes
+
+                    if (remainingMinutes < 0) {
+                        rightMinutesRight = "운행 종료";
+                    } else {
+                        rightMinutesRight = remainingMinutes + " 분 남았습니다.";
+                    }
+
+                    rightTimeRight.innerText = rightMinutesRight;
+                }
+            {% endif %}
         {% endfor %}
     }
 
     // 페이지 로딩 후 1초마다 updateRemainingTimes 함수 호출
     setInterval(updateRemainingTimes, 1000);
 </script>
+<div class="footer">
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+        <br>Dev : Ee Chan Yang
+        <br>Logo : Jun Seong Park
+        <br>Other Website Dev : Sang Yoon Kim</p>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
+</div>
 </body>
 </html>

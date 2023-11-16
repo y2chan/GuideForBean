@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
     <title>버스</title>
     <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
 </head>
@@ -125,7 +126,7 @@
 </div>
 <div class="main-container">
     <div class="list-container">
-        <div class="list-title">
+        <div class="list-title" style="font-size: 16pt;">
             <h1><a href="{% url 'GaBean:info_bus' %}">버스</a></h1>
         </div>
         <h3>목록</h3>
@@ -139,11 +140,11 @@
         <div class="main-container">
             <div class="info-bus">
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">학교에서 나가는 방향</h1>
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1>
                     {% for data in grouped_data.direction_1 %}
                     <div class="bus-info-container">
                         <div style="float:left" class="left-column">
-                            <h2>{{ data.stNm }}</h2>
+                            <h3>{{ data.stNm }}</h3>
                         </div>
                         <div style="float:right" class="right-column">
                             <ul>
@@ -159,11 +160,11 @@
                     {% endfor %}
                 </div>
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Gaegu', cursive; font-size: 30pt;">학교로 오는 방향</h1>
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1>
                     {% for data in grouped_data.direction_2 %}
                     <div class="bus-info-container">
                         <div style="float:left" class="left-column">
-                            <h2>{{ data.stNm }}</h2>
+                            <h3>{{ data.stNm }}</h3>
                         </div>
                         <div style="float:right" class="right-column">
                             <ul>
@@ -181,6 +182,15 @@
             </div>
         </div>
     </div>
+</div>
+<div class="footer">
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+        <br>Dev : Ee Chan Yang
+        <br>Logo : Jun Seong Park
+        <br>Other Website Dev : Sang Yoon Kim</p>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
 </div>
 </body>
 </html>

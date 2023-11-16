@@ -1,4 +1,5 @@
 /* styles.css */
+
 .fixed-button {
     position: fixed;
     width: 60px;
@@ -483,8 +484,8 @@ ul li {
 .list-title {
     margin-bottom: 30px;
     text-align: start;
-    font-family: 'Gaegu', cursive;
-    font-size: 200%;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16pt;
     color: #000;
     background-color: white;
     padding: 10px; /* 추가된 내용: 내용과의 간격 조절 */
@@ -539,16 +540,16 @@ ul li {
 }
 
 .bus-info-container {
-    font-family: 'Gaegu', cursive;
-    font-size: 15pt;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12pt;
     display: flex; /* Flexbox 레이아웃 사용 */
     flex-direction: row; /* 가로 방향으로 나열하도록 설정 */
     align-items: center; /* 세로 중앙 정렬 */
 }
 
 .shuttle-info-container {
-    font-family: 'Gaegu', cursive;
-    font-size: 15pt;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12pt;
     display: flex;
     flex-direction: row; /* 가로 방향으로 나열하도록 설정 */
     justify-content: space-between; /* 왼쪽과 오른쪽으로 정렬 */
@@ -556,27 +557,27 @@ ul li {
 }
 
 .left-column {
-    font-family: 'Gaegu', cursive;
-    font-size: 15pt;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12pt;
     flex: 1; /* 왼쪽 열이 오른쪽 열의 2배의 공간을 차지하도록 설정 */
     float: left;
 }
 
 .right-column {
-    font-family: 'Gaegu', cursive;
-    font-size: 15pt;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12pt;
     flex: 1; /* 오른쪽 열이 남은 공간을 모두 차지하도록 설정 */
     float: right;
 }
 
 .left-info {
-    font-family: 'Gaegu', cursive;
-    font-size: 15pt;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12pt;
     flex: 1; /* 왼쪽 정보 차지하는 비율 조절 (선택 사항) */
 }
 
 .right-info {
-    font-family: 'Gaegu', cursive;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 15pt;
     flex: 1;
     /* 오른쪽 정보에 대한 스타일 추가 */
@@ -855,13 +856,14 @@ ul li {
     transform: scale(1.2); /* 버튼 확대 */
 }
 
-.button-container {
+.btn-container {
     display: inline-block;
     margin-right: 20px; /* 오른쪽 간격 설정 */
     vertical-align: top; /* 상단 정렬 */
+    text-align: center;
 }
 
-.button-container:last-child {
+.btn-container:last-child {
     margin-right: 0; /* 마지막 버튼-container에는 오른쪽 간격 없음 */
 }
 
@@ -924,82 +926,106 @@ tr + tr {
 .home-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: start;
+    margin-top: 50px;
+    height: 400px;
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
 }
 
 .image-container {
-    width: 30%; /* 이미지 컨테이너의 너비를 원하는 크기(30%)로 설정 */
+    width: 100%; /* 이미지 컨테이너의 너비를 원하는 크기(30%)로 설정 */
     text-align: center; /* 이미지 수평 가운데 정렬 */
-    margin-top: -400px;
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
 }
 
 .image-container img {
     width: 100%; /* 이미지의 너비를 100%로 설정하여 이미지가 이미지 컨테이너의 너비에 맞게 표시 */
     vertical-align: middle;
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
 }
 
-.button-container {
-    width: 15%;
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.home-description {
+    text-align: center; /* 이미지 수평 가운데 정렬 */
+    margin-bottom: 150px;
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
+}
+
+.home-traffic {
     display: flex;
-    flex-direction: column;
-    height: 40%;
+    flex-direction: row;
     justify-content: space-between;
-    margin-left: 10px;
-    margin-right: 5px; /* 오른쪽 마진 설정 */
-    margin-top: -400px;
+    margin-top: 20px;
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
 }
 
-/* 마지막 버튼에 대한 스타일 */
-.button-container:last-child {
-    margin-left: 0; /* 마지막 버튼에 아래쪽 간격을 없애기 */
-}
-
-/* 각 버튼 그룹 사이에 간격을 추가합니다. */
-.button-container > div:not(:last-child) {
-    margin-bottom: 10px;
-}
-
-.home-button {
+.first-column {
     flex: 1;
-    text-align: center;
-    font-family: 'Gaegu', cursive;
-    font-size: 30px;
-    margin-bottom: 5px; /* 모든 버튼에 아래쪽 간격 추가 */
-    margin-right: 0px;
-    background-color: rgba(143, 219, 25, 0.7);
-    border: none;
-    outline: none; /* 선택 효과를 제거하기 위해 */
+    align-self: stretch; /* 컨테이너의 높이에 맞게 늘리기 */
+    border-right: 1px solid #ddd; /* 목록 창 오른쪽 테두리 추가 */
 }
 
-/* 마지막 버튼에 대한 스타일 */
-.home-button:last-child {
-    margin-bottom: 0; /* 마지막 버튼에 아래쪽 간격을 없애기 */
-}
-
-.home-button:hover {
-    background-color: rgba(143, 219, 25, 0.4);
-}
-
-.home-button2 {
+.last-column {
     flex: 1;
-    text-align: center;
-    font-family: 'Gaegu', cursive;
-    font-size: 30px;
-    margin-bottom: 5px; /* 모든 버튼에 아래쪽 간격 추가 */
-    margin-right: 0px;
-    background-color: rgba(0, 122, 255, 0.7);
-    border: none;
-    outline: none; /* 선택 효과를 제거하기 위해 */
+    align-self: stretch; /* 컨테이너의 높이에 맞게 늘리기 */
 }
 
-/* 마지막 버튼에 대한 스타일 */
-.home-button2:last-child {
-    margin-bottom: 0; /* 마지막 버튼에 아래쪽 간격을 없애기 */
+.center-column {
+    flex: 1;
+    align-self: center; /* 세로 중앙 정렬 */
+    border-right: 1px solid #ddd; /* 목록 창 오른쪽 테두리 추가 */
 }
 
-.home-button2:hover {
-    background-color: rgba(0, 122, 255, 0.4);
+.first-info,
+.center-info,
+.last-info {
+    flex: 1;
 }
 
+.home-direction {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; /* 수직 레이아웃 유지 */
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
+}
 
+.footer {
+    background-color: black;
+    color: white;
+    text-align: start; /* 텍스트 중앙 정렬 */
+    bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
+}
+
+.home-description img:hover {
+    transform: scale(1.05); /* 버튼 확대 */
+}
+
+#transition-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #FFF;
+    z-index: 1; /* 다른 요소보다 앞에 나타나도록 함 */
+    transition: background-color 1s ease-in-out;
+}
+
+#transition-image {
+    width: 30%;
+    height: 30%;
+    object-fit: cover; /* 이미지가 가득 차도록 설정 */
+    transition: transform 1s ease-in-out; /* 변형(이동)과 투명도에 대한 트랜지션 효과 */
+}

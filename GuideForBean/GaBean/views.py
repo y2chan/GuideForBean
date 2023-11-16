@@ -11,6 +11,18 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 from django.http import JsonResponse
 from django.db.models import Q
+from requests.adapters import HTTPAdapter
+from requests.packages.urllib3.util.retry import Retry
+
+retry_strategy = Retry(
+    total=3,
+    backoff_factor=0.1,
+    status_forcelist=[500, 502, 503, 504],
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+session = requests.Session()
+session.mount('http://', adapter)
+session.mount('https://', adapter)
 
 def get_bus_info(request):
     try:
@@ -73,9 +85,136 @@ def get_bus_info(request):
         return render(request, 'bus_error_json.html', {'error_message': 'API 응답을 파싱할 수 없습니다.'})
 
 
+def get_current_base_datetime():
+    now = timezone.now()
+    current_hour = now.hour
+    base_time = None
+
+    if current_hour < 2.5:
+        base_time = '2300'
+    elif current_hour < 5.5:
+        base_time = '0200'
+    elif current_hour < 8.5:
+        base_time = '0500'
+    elif current_hour < 11.5:
+        base_time = '0800'
+    elif current_hour < 14.5:
+        base_time = '1100'
+    elif current_hour < 17.5:
+        base_time = '1400'
+    elif current_hour < 20.5:
+        base_time = '1700'
+    elif current_hour < 23.5:
+        base_time = '2000'
+    else:
+        base_time = '2300'
+
+    base_date = now.strftime('%Y%m%d')
+
+    return base_date, base_time
+
+
+
+def get_weather(city):
+    api_key = settings.BUS_API_KEY
+    base_date, base_time = get_current_base_datetime()
+    url = f'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey={api_key}&numOfRows=10&pageNo=1&base_date={base_date}&base_time={base_time}&nx=62&ny=128&dataType=JSON'
+    response = requests.get(url, timeout=10)
+    print(f"base_date: {base_date}, base_time: {base_time}")
+
+    try:
+        data = response.json()
+
+        if 'response' not in data or 'body' not in data['response'] or 'items' not in data['response']['body']:
+            raise ValueError("Invalid API response format")
+
+        # 데이터 추출 및 처리
+        temperature = None
+        weather_status = None
+        wind_speed = None
+        precipitation_type = None
+
+        for item in data['response']['body']['items']['item']:
+            category = item['category']
+            fcst_value = item['fcstValue']
+
+            if category == 'TMP':
+                temperature = fcst_value
+            elif category == 'SKY':
+                fcst_value = int(fcst_value)
+                if 0 <= fcst_value <= 5:
+                    weather_status = '구름 없음'
+                elif 6 <= fcst_value <= 8:
+                    weather_status = '구름 많음'
+                elif 9 <= fcst_value <= 10:
+                    weather_status = '흐림'
+            elif category == 'WSD':
+                fcst_value = float(fcst_value)
+                if 0 <= fcst_value < 4:
+                    wind_speed = '선선함'
+                elif 4 <= fcst_value < 9:
+                    wind_speed = '약풍'
+                elif 9 <= fcst_value < 14:
+                    wind_speed = '강풍'
+                elif 14 <= fcst_value:
+                    wind_speed = '심한 강풍'
+            elif category == 'PTY':
+                fcst_value = int(fcst_value)
+                if fcst_value == 0:
+                    precipitation_type = '맑음'
+                elif fcst_value == 1:
+                    precipitation_type = '비'
+                elif fcst_value == 2:
+                    precipitation_type = '비/눈'
+                elif fcst_value == 3:
+                    precipitation_type = '눈'
+                elif fcst_value == 4:
+                    precipitation_type = '소나기'
+
+        # 현재 날짜 및 시간 설정
+        today_date = datetime.now().strftime('%Y-%m-%d')
+        current_time = datetime.now().strftime('%H:%M')
+
+        # 결과 데이터를 딕셔너리로 저장
+        weather_info = {
+            'today_date': today_date,
+            'current_time': current_time,
+            'temperature': temperature if temperature is not None else 'N/A',
+            'weather_status': weather_status if weather_status is not None else 'N/A',
+            'wind_speed': wind_speed if wind_speed is not None else 'N/A',
+            'precipitation_type': precipitation_type if precipitation_type is not None else 'N/A',
+        }
+
+    except ValueError as e:
+        print(f"Error processing API response: {e}")
+        print(f"API Response: {response.text}")
+        weather_info = {
+            'today_date': 'N/A',
+            'current_time': 'N/A',
+            'temperature': 'N/A',
+            'weather_status': 'N/A',
+            'wind_speed': 'N/A',
+            'precipitation_type': 'N/A',
+        }
+
+    return weather_info
 
 def home(request):
-    return render(request, 'home.html', {'home': home})
+    city = "서울특별시 노원구 화랑로 815"  # 실제 도시로 변경해주세요
+    try:
+        weather_info = get_weather(city)
+    except requests.Timeout:
+        # 타임아웃이 발생한 경우, 대체 동작 수행
+        weather_info = {
+            'today_date': 'N/A',
+            'current_time': 'N/A',
+            'temperature': 'N/A',
+            'weather_status': 'N/A',
+            'wind_speed': 'N/A',
+            'precipitation_type': '서버 응답 시간 초과',
+        }
+    return render(request, 'home.html', {'weather_info': weather_info, 'city': city})
+
 
 def campusmap(request):
     return render(request, 'campusmap.html')
@@ -205,10 +344,11 @@ def info_sugang(request):
 def info_graduate(request):
     # 졸업 정보 데이터 처리 로직 작성
     return render(request, 'info_graduate.html')
+
 def get_weekday_timetable():
     # 월요일부터 목요일까지 시간표를 반환합니다.
     timetable = {
-        "화랑대 -> 학교": ["08:10", "08:15", "08:20", "08:25", "08:30", "08:35", "08:40", "08:45", "08:50", "08:55", "09:00", "09:05", "09:10", "09:15", "09:20", "09:25", "09:30", "09:35", "09:40", "09:50", "09:55", "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00"],
+        "화랑대 -> 학교": ["08:10", "08:15", "08:20", "08:25", "08:30", "08:35", "08:40", "08:45", "08:50", "08:55", "09:00", "09:05", "09:10", "09:15", "09:20", "09:25", "09:30", "09:35", "09:40", "09:45", "09:50", "09:55", "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00"],
         "태릉입구, 석계 -> 학교": ["12:00", "12:25", "12:50", "13:15", "13:40", "14:05", "14:30", "15:00", "15:20", "15:40", "16:00", "16:20", "16:40", "17:00", "17:20", "17:40", "18:00", "18:15"],
         "별내 -> 학교": ["08:40", "09:40", "10:40", "11:40", "12:40", "13:40", "14:40", "15:40", "16:40", "17:40"],
         "학교 -> 태릉입구, 석계": ["12:00", "12:25", "12:50", "13:15", "13:40", "14:05", "14:30", "15:00", "15:20", "15:40", "16:00", "16:20", "16:40", "17:00", "17:20", "17:40", "18:00", "18:15"],
@@ -264,10 +404,12 @@ def info_shuttle(request):
                 next_departure_time = departure_time
                 break
 
-        if next_departure_time:
+        if next_departure_time is not None:
             time_difference = next_departure_time - now
             remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
             remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
+        else:
+            remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
 
     left_info = {}
     right_info = {}
