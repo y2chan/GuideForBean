@@ -21,4 +21,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('GaBean.urls')),
+
+    # 모바일 전용 URL 패턴
+    path('m/', include('GaBean.mobile_urls')),
 ]

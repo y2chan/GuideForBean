@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/mobile_styles.css">
+    <title>GaBean</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- 경고 메시지를 표시하는 스크립트를 head에 추가 -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            // 경고 메시지를 나타내는 div를 생성
+            var warningDiv = document.createElement("div");
+            warningDiv.innerHTML = "이 웹은 전체화면을 권장합니다. 창의 크기를 줄일 시 정확한 기능을 사용하기 어려울 수 있습니다.";
+
+            // 스타일을 적용
+            warningDiv.style.position = "fixed";
+            warningDiv.style.top = "5%";
+            warningDiv.style.left = "50%";
+            warningDiv.style.transform = "translate(-50%, -50%)";
+            warningDiv.style.width = "800px";
+            warningDiv.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+            warningDiv.style.color = "#fff";
+            warningDiv.style.textAlign = "center";
+            warningDiv.style.padding = "10px";
+
+            // body에 추가
+            document.body.appendChild(warningDiv);
+
+            // 8초 후에 경고 메시지를 숨김
+            setTimeout(function() {
+                warningDiv.style.display = "none";
+            }, 8000); // 8초 (8000 밀리초)
+        });
+    </script>
+</head>
+<body>
+<div id="transition-container">
+    <img id="transition-image" src="../static/photo/GaBean1.png" alt="Your Logo">
+</div>
+<a href="{% url 'gabean_mobile:m_home' %}">
+    <div class="logo">
+        <img src="../static/photo/GaBean.png" alt="Your Logo">
+    </div>
+</a>
+<div id="menu-container">
+    <div class="btn"></div>
+    <div onclick="history.back();" class="page_cover"></div>
+    <div id="menu">
+        <ul class="nav">
+            <li>
+                <a href="{% url 'gabean_mobile:m_info_gabean' %}">GaBean이란?</a>
+            </li>
+            <li>
+                <a>캠퍼스맵</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>후문</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>학교 정보</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>교통</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a>
+            </li>
+        </ul>
+        <div onclick="history.back();" class="close">
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+    $(".btn").click(function() {
+      $("#menu,.page_cover,html").addClass("open");
+      window.location.hash = "#open";
+    })
+    })
+
+    window.onhashchange = function() {
+      if (location.hash != "#open") {
+        $("#menu,.page_cover,html").removeClass("open");
+      }
+    };
+
+    $(document).ready(function(){
+    $("#menu ul.sub_mobile").hide();
+    $("#menu ul.nav li").click(function(){
+    $("ul",this).slideToggle("fast");
+    })
+    })
+</script>
+<div class="separator"></div>
+<div class="home-container">
+    <div class="image-container">
+        <img src="../static/photo/home.png" alt="Campus Map">
+    </div>
+</div>
+<div style="text-align: center;">
+    {% if weather_info.precipitation_type == "서버 응답 시간 초과" %}
+    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 500px; margin-top: 50px; margin-bottom: 50px;">
+        <div style="display: flex;">
+                <img src="../static/photo/sorry.png" alt="Weather Icon" width="240">
+            </div>
+            <div style="text-align: center; padding-left: 10px;">
+                <h2>{{ weather_info.precipitation_type }}</h2>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 500px; margin-top: 50px; margin-bottom: 50px;">
+        <div style="display: flex;">
+            <div style="border-right: 2px solid black; padding-right: 10px;">
+                {% if weather_info.precipitation_type == "맑음" %}
+                <img src="../static/photo/sunny.png" alt="Weather Icon" width="240">
+                {% elif weather_info.precipitation_type == "비" %}
+                <img src="../static/photo/rainy.png" alt="Weather Icon" width="240">
+                {% elif weather_info.precipitation_type == "비/눈" %}
+                <img src="../static/photo/rain&snow.png" alt="Weather Icon" width="240">
+                {% elif weather_info.precipitation_type == "눈" %}
+                <img src="../static/photo/snow.png" alt="Weather Icon" width="240">
+                {% elif weather_info.precipitation_type == "맑음" and weather_info.weather_status == "흐림" %}
+                <img src="../static/photo/cloudy.png" alt="Weather Icon" width="240">
+                {% elif weather_info.precipitation_type == "맑음" and weather_info.weather_status == "구름 많음" %}
+                <img src="../static/photo/very-cloudy.png" alt="Weather Icon" width="240">
+                {% endif %}
+            </div>
+            <div style="text-align: center; padding-left: 17px;">
+                <p>{{ weather_info.today_date }} {{ weather_info.current_time }}</p>
+                <h4>{{ city }}</h4>
+                <h2>{{ weather_info.precipitation_type }}</h2>
+                <h1>{{ weather_info.temperature }}°C</h1>
+                <p>{{ weather_info.weather_status }} / {{ weather_info.wind_speed }}</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+<div class="home-description">
+    <h2>🏢 캠퍼스맵 🏢</h2>
+    <br>
+    <a href="{% url 'gabean_mobile:m_campusmap' %}"><img src="../static/photo/도면1.jpg" alt="Campus Map" style="width:30%;"></a>
+    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
+    <h4>삼육대학교의 전체적인 도면입니다.<br>-> PC 이용 시 전체화면으로 하셔야 기능을 온전히 사용하실 수 있습니다.</h4>
+</div>
+<div class="home-description">
+    <h2>🍴 오늘 뭐 먹지? 🍴</h2>
+    <a href="{% url 'gabean_mobile:m_humun_random' %}"><img src="../static/photo/random.jpeg" alt="Campus Map" style="width:30%;" ></a>
+    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
+    <h4>선택하기 어려운 사람을 위한 후문 음식점 랜덤 뽑기<br>-> 다음 업데이트 때는 최대한 재밌게 만들어 볼게요!</h4>
+</div>
+<div class="home-description">
+    <div class="home-direction">
+        <div class="home-traffic">
+            <div class="first-info">
+                <div class="first-column">
+                    <h2>🚃 버스 🚃</h2>
+                    <a href="{% url 'gabean_mobile:m_info_bus' %}"><img src="../static/photo/1155.jpg" alt="Campus Map" style="width:70%;" ></a>
+                    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
+                    <h4>주로 이용하는 정류장 버스 <br>현 위치 & 남은 시간</h4>
+                </div>
+            </div>
+            <div class="center-info">
+                <div class="center-column">
+                    <h2>🚊 지하철 🚊</h2>
+                    <a href="{% url 'gabean_mobile:m_info_subway' %}"><img src="../static/photo/석계.jfif" alt="Campus Map" style="width:60%;" ></a>
+                    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
+                    <h4>학생들이 자주 이용하는 지하철역<br>열차 방향 & 남은 시간</h4>
+                </div>
+            </div>
+            <div class="last-info">
+                <div class="last-column">
+                    <h2>🚋 셔틀버스 🚋</h2>
+                    <a href="{% url 'gabean_mobile:m_info_shuttle' %}"><img src="../static/photo/shuttle.jpg" alt="Campus Map" style="width:60%;" ></a>
+                    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
+                    <h4>학교 셔틀버스<br>버스 방향 & 남은 시간<br>(시간표 기준)</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+    <div class="slider-content">
+        ID : 학번 / PW : SU-WINGs PW
+        <br>(즉, SU-WINGs 로그인과 방식이 같다)
+    </div>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 버튼 엘리먼트 가져오기
+        var fixedButton = document.querySelector('.fixed-button');
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function() {
+            // 스크롤 위치 가져오기
+            var scrollY = window.scrollY;
+            // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+            if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+            } else {
+                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+            }
+        });
+
+        // 초기 버튼 위치 설정
+        fixedButton.style.top = '200px';
+        fixedButton.style.right = '25%';
+    });
+
+    var imageButton = document.getElementById('openSlider');
+
+    // 클릭 이벤트 리스너 등록
+    imageButton.addEventListener('click', function() {
+        // 클릭 시 이미지 변경
+        imageButton.classList.toggle('clicked');
+    });
+</script>
+<script>
+    // 슬라이드인 메뉴 열기/닫기
+    var openSliderButton = document.getElementById('openSlider');
+    var sliderMenu = document.querySelector('.slider-menu');
+
+    sliderMenu.style.top = '200px';
+
+    openSliderButton.addEventListener('click', function() {
+        if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+            sliderMenu.style.right = '29%';
+        } else {
+            sliderMenu.style.right = '-350px';
+        }
+    });
+</script>
+<script>
+    // 이미지가 로드된 후에 스크립트 실행
+    document.getElementById('transition-image').onload = function() {
+      // 1초 동안 이미지를 보여준 후에 작게 줄이고 투명하게 만들어 초록색 작은 공 모양으로 변형
+      setTimeout(function() {
+        var transitionImage = document.getElementById('transition-image');
+        transitionImage.style.transform = 'scale(0.47)';
+        transitionImage.style.zIndex = '2';  // 이미지를 제일 앞으로 가져오기
+      }, 1000);
+
+      // 2.5초 후에 작은 공을 이동하면서 왼쪽 위로 이동
+      setTimeout(function() {
+        document.getElementById('transition-image').style.transform = 'scale(0.47) translate(0px, -736px)';
+      }, 2000);
+
+      // 4.5초 후에 home.html 보여주기 (1초 동안 이미지를 보여주고 2.5초 동안 이동)
+      setTimeout(function() {
+        var transitionContainer = document.getElementById('transition-container');
+        transitionContainer.style.transition = 'background-color 1s ease-in-out'; // 배경색 변경에 트랜지션 효과 추가
+        transitionContainer.style.backgroundColor = 'rgba(255, 255, 255, 0)'; // 투명해지도록 변경
+
+        setTimeout(function() {
+          transitionContainer.style.display = 'none';
+          // home.html 보여주기
+          var homeContainer = document.getElementById('home-container');
+        }, 1000); // 2초 후에 home.html 보여주기
+      }, 3000);
+    };
+</script>
+<script>
+</script>
+
+<div class="footer">
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+        <br>Dev : Ee Chan Yang
+        <br>Logo : Jun Seong Park
+        <br>Other Website Dev : Sang Yoon Kim</p>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
+</div>
+</body>
+</html>

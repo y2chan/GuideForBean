@@ -491,3 +491,237 @@ def sound_kong_write(request):
 def sound_kong_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'sound_kong_detail.html', {'post': post})
+
+
+
+## 모바일 용 view
+from django.views.generic import TemplateView
+
+class mobile_home(TemplateView):
+    template_name = 'mobile/m_home.html'  # 모바일 전용 템플릿
+
+    def get_current_base_datetime(self):
+        now = timezone.now()
+        current_hour = now.hour
+        base_time = None
+
+        if current_hour < 2.5:
+            base_time = '2300'
+        elif current_hour < 5.5:
+            base_time = '0200'
+        elif current_hour < 8.5:
+            base_time = '0500'
+        elif current_hour < 11.5:
+            base_time = '0800'
+        elif current_hour < 14.5:
+            base_time = '1100'
+        elif current_hour < 17.5:
+            base_time = '1400'
+        elif current_hour < 20.5:
+            base_time = '1700'
+        elif current_hour < 23.5:
+            base_time = '2000'
+        else:
+            base_time = '2300'
+
+        base_date = now.strftime('%Y%m%d')
+
+        return base_date, base_time
+
+    def get_weather(self, city):
+        api_key = settings.BUS_API_KEY
+        base_date, base_time = self.get_current_base_datetime()
+        url = f'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey={api_key}&numOfRows=10&pageNo=1&base_date={base_date}&base_time={base_time}&nx=62&ny=128&dataType=JSON'
+        response = requests.get(url, timeout=10)
+        print(f"base_date: {base_date}, base_time: {base_time}")
+
+        try:
+            data = response.json()
+
+            if 'response' not in data or 'body' not in data['response'] or 'items' not in data['response']['body']:
+                raise ValueError("Invalid API response format")
+
+            # 데이터 추출 및 처리
+            temperature = None
+            weather_status = None
+            wind_speed = None
+            precipitation_type = None
+
+            for item in data['response']['body']['items']['item']:
+                category = item['category']
+                fcst_value = item['fcstValue']
+
+                if category == 'TMP':
+                    temperature = fcst_value
+                elif category == 'SKY':
+                    fcst_value = int(fcst_value)
+                    if 0 <= fcst_value <= 5:
+                        weather_status = '구름 없음'
+                    elif 6 <= fcst_value <= 8:
+                        weather_status = '구름 많음'
+                    elif 9 <= fcst_value <= 10:
+                        weather_status = '흐림'
+                elif category == 'WSD':
+                    fcst_value = float(fcst_value)
+                    if 0 <= fcst_value < 4:
+                        wind_speed = '선선함'
+                    elif 4 <= fcst_value < 9:
+                        wind_speed = '약풍'
+                    elif 9 <= fcst_value < 14:
+                        wind_speed = '강풍'
+                    elif 14 <= fcst_value:
+                        wind_speed = '심한 강풍'
+                elif category == 'PTY':
+                    fcst_value = int(fcst_value)
+                    if fcst_value == 0:
+                        precipitation_type = '맑음'
+                    elif fcst_value == 1:
+                        precipitation_type = '비'
+                    elif fcst_value == 2:
+                        precipitation_type = '비/눈'
+                    elif fcst_value == 3:
+                        precipitation_type = '눈'
+                    elif fcst_value == 4:
+                        precipitation_type = '소나기'
+
+            # 현재 날짜 및 시간 설정
+            today_date = datetime.now().strftime('%Y-%m-%d')
+            current_time = datetime.now().strftime('%H:%M')
+
+            # 결과 데이터를 딕셔너리로 저장
+            weather_info = {
+                'today_date': today_date,
+                'current_time': current_time,
+                'temperature': temperature if temperature is not None else 'N/A',
+                'weather_status': weather_status if weather_status is not None else 'N/A',
+                'wind_speed': wind_speed if wind_speed is not None else 'N/A',
+                'precipitation_type': precipitation_type if precipitation_type is not None else 'N/A',
+            }
+
+        except ValueError as e:
+            print(f"Error processing API response: {e}")
+            print(f"API Response: {response.text}")
+            weather_info = {
+                'today_date': 'N/A',
+                'current_time': 'N/A',
+                'temperature': 'N/A',
+                'weather_status': 'N/A',
+                'wind_speed': 'N/A',
+                'precipitation_type': 'N/A',
+            }
+
+        return weather_info
+
+    def get(self, request, *args, **kwargs):
+        city = "서울특별시 노원구 화랑로 815"  # 실제 도시로 변경해주세요
+        try:
+            weather_info = self.get_weather(city)
+        except requests.Timeout:
+            # 타임아웃이 발생한 경우, 대체 동작 수행
+            weather_info = {
+                'today_date': 'N/A',
+                'current_time': 'N/A',
+                'temperature': 'N/A',
+                'weather_status': 'N/A',
+                'wind_speed': 'N/A',
+                'precipitation_type': '서버 응답 시간 초과',
+            }
+        return render(request, self.template_name, {'weather_info': weather_info, 'city': city})
+
+class mobile_info_bus(TemplateView):
+    template_name = 'mobile/m_info_bus.html'  # 모바일 전용 템플릿
+    def get(self, request, *args, **kwargs):
+        try:
+            api_key = settings.BUS_API_KEY
+            api_urls = [
+                # 삼육대후문.논골.한화아파트
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=222001597&busRouteId=100100039&ord=16", # 202
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=222001597&busRouteId=100100165&ord=22", # 1155
+                # 삼육대앞
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=110000055&busRouteId=100100039&ord=18", # 202
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=110000055&busRouteId=100100165&ord=24", # 1155
+                # 화랑대역1번출구
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=110000018&busRouteId=100100039&ord=106", # 202
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=110000018&busRouteId=100100165&ord=44", # 1155
+                # 태릉입구역7번출구.서울생활사박물관
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=110000017&busRouteId=100100165&ord=42", # 1155
+                # 석계역(석계역4번출구)
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=107000057&busRouteId=100100165&ord=40", # 1155
+                # 석계역1번출구.A
+                f"http://ws.bus.go.kr/api/rest/arrive/getArrInfoByRoute?serviceKey={api_key}&stId=110000183&busRouteId=100100165&ord=38" # 1155
+            ]
+
+            grouped_data = {"direction_1": [], "direction_2": []}
+
+            for api_url in api_urls:
+                response = requests.get(api_url)
+                # XML 데이터 파싱
+                root = ET.fromstring(response.text)
+
+                # 원하는 데이터 추출
+                data = {
+                    "stNm": root.find(".//stNm").text,
+                    "rtNm": root.find(".//rtNm").text,
+                    "arrmsg1": root.find(".//arrmsg1").text,
+                    "arrmsg2": root.find(".//arrmsg2").text,
+                }
+
+                if data["stNm"] in ["삼육대후문.논골.한화아파트", "삼육대앞"]:
+                    grouped_data["direction_1"].append(data)
+                else:
+                    grouped_data["direction_2"].append(data)
+
+            # 중복된 stNm 값을 그룹화하기 위한 딕셔너리 생성
+            for data in grouped_data["direction_1"] + grouped_data["direction_2"]:
+                stNm = data.get('stNm')
+                if stNm is not None:
+                    if stNm not in grouped_data:
+                        grouped_data[stNm] = []
+                    grouped_data[stNm].append(data)
+
+            # 그룹화된 데이터를 템플릿으로 전달
+            return render(request, self.template_name, {'grouped_data': grouped_data})
+
+        except requests.exceptions.RequestException as e:
+            # 네트워크 오류 또는 연결 오류
+            return render(request, 'bus_error_net.html', {'error_message': 'API 서버에 연결할 수 없습니다.'})
+
+        except ValueError as e:
+            # JSON 파싱 오류
+            return render(request, 'bus_error_json.html', {'error_message': 'API 응답을 파싱할 수 없습니다.'})
+
+class mobile_humun_food(TemplateView):
+    template_name = 'mobile/m_humun_food.html'  # 모바일 전용 템플릿
+
+class mobile_info_sugang(TemplateView):
+    template_name = 'mobile/m_info_sugang.html'  # 모바일 전용 템플릿
+
+class mobile_info_subway(TemplateView):
+    template_name = 'mobile/m_info_subway.html'  # 모바일 전용 템플릿
+
+class mobile_info_graduate(TemplateView):
+    template_name = 'mobile/m_info_graduate.html'  # 모바일 전용 템플릿
+
+class mobile_info_shuttle(TemplateView):
+    template_name = 'mobile/m_info_shuttle.html'  # 모바일 전용 템플릿
+
+class mobile_info_gabean(TemplateView):
+    template_name = 'mobile/m_info_gabean.html'  # 모바일 전용 템플릿
+
+class mobile_sound_kong(TemplateView):
+    template_name = 'mobile/m_sound_kong.html'  # 모바일 전용 템플릿
+
+class mobile_sound_kong_write(TemplateView):
+    template_name = 'mobile/m_sound_kong_write.html'  # 모바일 전용 템플릿
+
+class mobile_sound_kong_detail(TemplateView):
+    template_name = 'mobile/m_sound_kong_detail.html'  # 모바일 전용 템플릿
+
+class mobile_campusmap(TemplateView):
+    template_name = 'mobile/m_campusmap.html'  # 모바일 전용 템플릿
+
+class mobile_campusmap_detail(TemplateView):
+    template_name = 'mobile/m_campusmap_detail.html'  # 모바일 전용 템플릿
+
+class mobile_humun_random(TemplateView):
+    template_name = 'mobile/m_humun_random.html'  # 모바일 전용 템플릿
