@@ -84,7 +84,6 @@ def get_bus_info(request):
         # JSON 파싱 오류
         return render(request, 'bus_error_json.html', {'error_message': 'API 응답을 파싱할 수 없습니다.'})
 
-
 def get_current_base_datetime():
     now = timezone.now()
     current_hour = now.hour
@@ -92,28 +91,33 @@ def get_current_base_datetime():
 
     if current_hour < 2.5:
         base_time = '2300'
+        base_date = (now - timedelta(days=1)).strftime('%Y%m%d')
     elif current_hour < 5.5:
         base_time = '0200'
+        base_date = now.strftime('%Y%m%d')
     elif current_hour < 8.5:
         base_time = '0500'
+        base_date = now.strftime('%Y%m%d')
     elif current_hour < 11.5:
         base_time = '0800'
+        base_date = now.strftime('%Y%m%d')
     elif current_hour < 14.5:
         base_time = '1100'
+        base_date = now.strftime('%Y%m%d')
     elif current_hour < 17.5:
         base_time = '1400'
+        base_date = now.strftime('%Y%m%d')
     elif current_hour < 20.5:
         base_time = '1700'
+        base_date = now.strftime('%Y%m%d')
     elif current_hour < 23.5:
         base_time = '2000'
+        base_date = now.strftime('%Y%m%d')
     else:
         base_time = '2300'
-
-    base_date = now.strftime('%Y%m%d')
+        base_date = now.strftime('%Y%m%d')
 
     return base_date, base_time
-
-
 
 def get_weather(city):
     api_key = settings.BUS_API_KEY
@@ -507,24 +511,31 @@ class mobile_home(TemplateView):
 
         if current_hour < 2.5:
             base_time = '2300'
+            base_date = (now - timedelta(days=1)).strftime('%Y%m%d')
         elif current_hour < 5.5:
             base_time = '0200'
+            base_date = now.strftime('%Y%m%d')
         elif current_hour < 8.5:
             base_time = '0500'
+            base_date = now.strftime('%Y%m%d')
         elif current_hour < 11.5:
             base_time = '0800'
+            base_date = now.strftime('%Y%m%d')
         elif current_hour < 14.5:
             base_time = '1100'
+            base_date = now.strftime('%Y%m%d')
         elif current_hour < 17.5:
             base_time = '1400'
+            base_date = now.strftime('%Y%m%d')
         elif current_hour < 20.5:
             base_time = '1700'
+            base_date = now.strftime('%Y%m%d')
         elif current_hour < 23.5:
             base_time = '2000'
+            base_date = now.strftime('%Y%m%d')
         else:
             base_time = '2300'
-
-        base_date = now.strftime('%Y%m%d')
+            base_date = now.strftime('%Y%m%d')
 
         return base_date, base_time
 

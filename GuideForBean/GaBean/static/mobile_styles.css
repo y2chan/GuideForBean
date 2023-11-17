@@ -21,6 +21,7 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
+    z-index: 9999; /* 적절한 큰 숫자로 설정 */
 }
 
 /* 클릭된 상태의 스타일 */
@@ -40,11 +41,13 @@ body {
     transition: left 0.3s;
     border: 1px solid #ccc;
     text-align: center;
+    z-index: 9999; /* 적절한 큰 숫자로 설정 */
 }
 
 /* 내용 스타일 */
 .slider-content {
     padding: 8px;
+    z-index: 9999; /* 적절한 큰 숫자로 설정 */
 }
 
 .logo {
@@ -66,7 +69,7 @@ a {
 #menu-container {
     position: fixed;
     top: 0;
-    left: 23%;
+    left: 24%;
     padding: 10px;
     z-index: 1000;
 }
@@ -140,7 +143,7 @@ html.open {
  }
 
 #menu.open {
-  left: 23%;
+  left: 24%;
 }
 
 .page_cover.open {
@@ -235,12 +238,22 @@ html.open {
 
 .main-container {
     display: flex;
-    align-items: flex-start; /* 왼쪽 컨테이너와 높이를 맞춤 */
     justify-content: center; /* 가운데 정렬 */
     margin-top: 10px; /* 위 여백 추가 */
     margin-bottom: 50px;
     margin-left: 30px; /* 왼쪽 여백 추가 */
     margin-right: 30px; /* 오른쪽 여백 추가 */
+}
+
+.main-container2 {
+    display: flex;
+    flex-direction: column; /* 컨테이너의 주 축을 세로(column)로 설정 */
+    align-items: center; /* 왼쪽 컨테이너와 높이를 맞춤 */
+    justify-content: center; /* 가운데 정렬 */
+    margin-top: 10px; /* 위 여백 추가 */
+    margin-bottom: 50px;
+    margin-left: 30px; /* 왼쪽 여백 추가 */
+    margin-right: 34px; /* 오른쪽 여백 추가 */
 }
 
 .content-container {
@@ -330,7 +343,7 @@ html.open {
     font-color: #696969;
     margin-left: 10px;
     white-space: pre-line;
-    width: 300px; /* 오른쪽 컨테이너의 너비 */
+    width: 100%; /* 오른쪽 컨테이너의 너비 */
     height: 100%; /* 오른쪽 컨테이너의 높이 */
     overflow: auto; /* 내용이 오버플로우 될 경우 스크롤 표시 */
 }
@@ -512,8 +525,16 @@ html.open {
     margin-top: 10px;
 }
 
+.search-results-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 800px;
+    overflow: hidden;
+}
+
 .search-result-button {
-    display: flex; /* 내부의 컨텐츠를 가운데로 정렬 */
+    display: flex;
+    align-items: center; /* 텍스트를 세로 중앙에 정렬 */
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -662,8 +683,8 @@ html.open {
 }
 
 .button-2 {
-    width: 200px;
-    height: 50px;
+    width: 100px;
+    height: 40px;
     border: 2px solid #34495e;
     text-align: center;
     cursor: pointer;
@@ -676,18 +697,18 @@ html.open {
 
 .button-2 a{
   font-family:arial;
-  font-size:16px;
+  font-size:14px;
   color:#34495e;
   text-decoration:none;
-  line-height:50px;
+  line-height:40px;
   transition:all .5s ease;
   z-index:2;
   position:relative;
 }
 
 .eff-2{
-  width:200px;
-  height:50px;
+  width:100px;
+  height:40px;
   top:-50px;
   background:skyblue;
   position:absolute;
