@@ -4,62 +4,86 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
     <title>음식점</title>
-    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-<div class="header">
-    <div class="logo-and-menu">
-        <a href="{% url 'GaBean:home' %}">
-            <div class="logo">
-                <img src="../static/photo/GaBean.png" alt="Your Logo">
-            </div>
-        </a>
-        <div id="menu">
-            <ul>
-                <li>
-                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
-                </li>
-                <li>
-                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
-                    <ul>
-                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
-                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
-                    </ul>
-                </li>
-                <li style="background-color: skyblue; color: #FFF;">
-                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
-                    <ul>
-                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
-                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
-                    <ul>
-                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
-                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
-                    <ul>
-                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
-                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
-                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
-                </li>
-            </ul>
+<a href="{% url 'gabean_mobile:m_home' %}">
+    <div class="logo">
+        <img src="../../static/photo/GaBean.png" alt="Your Logo">
+    </div>
+</a>
+<div id="menu-container">
+    <div class="btn"></div>
+    <div onclick="history.back();" class="page_cover"></div>
+    <div id="menu">
+        <ul class="nav">
+            <li>
+                <a href="{% url 'gabean_mobile:m_info_gabean' %}">GaBean이란?</a>
+            </li>
+            <li>
+                <a>캠퍼스맵</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>후문</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>학교 정보</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>교통</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a>
+            </li>
+        </ul>
+        <div onclick="history.back();" class="close">
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+    $(".btn").click(function() {
+      $("#menu,.page_cover,html").addClass("open");
+      window.location.hash = "#open";
+    })
+    })
+
+    window.onhashchange = function() {
+      if (location.hash != "#open") {
+        $("#menu,.page_cover,html").removeClass("open");
+      }
+    };
+
+    $(document).ready(function(){
+    $("#menu ul.sub_mobile").hide();
+    $("#menu ul.nav li").click(function(){
+    $("ul",this).slideToggle("fast");
+    })
+    })
+</script>
 <button class="fixed-button" id="openSlider"></button>
 
 <!-- 슬라이드인 메뉴 -->
@@ -69,7 +93,6 @@
         <br>(즉, SU-WINGs 로그인과 방식이 같다)
     </div>
 </div>
-
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         // 버튼 엘리먼트 가져오기
@@ -81,15 +104,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '100px'; // 원하는 위치로 조절 가능
+               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '100px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '100px';
-        fixedButton.style.right = '0px';
+        fixedButton.style.top = '200px';
+        fixedButton.style.right = '25%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -99,18 +122,17 @@
         // 클릭 시 이미지 변경
         imageButton.classList.toggle('clicked');
     });
-
 </script>
 <script>
     // 슬라이드인 메뉴 열기/닫기
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '100px';
+    sliderMenu.style.top = '200px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '60px';
+            sliderMenu.style.right = '29%';
         } else {
             sliderMenu.style.right = '-350px';
         }
@@ -118,15 +140,15 @@
 </script>
 <div class="page-title-img">
 </div>
+<div class="list-title">
+    <h1><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></h1>
+</div>
 <div class="main-container">
     <div class="list-container">
-        <div class="list-title">
-            <h1><a href="{% url 'GaBean:humun_food' %}">음식점</a></h1>
-        </div>
         <h3>목록</h3>
         <ul>
-            <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
-            <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
+            <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
+            <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
         </ul>
     </div>
     <div class="content-container">
@@ -136,15 +158,15 @@
             {% for restaurant_type in restaurant_types %}
             <button class="filter-button" data-filter="{{ restaurant_type }}" style="margin-top: 20px;">{{ restaurant_type }}</button>
             {% endfor %}
-            &nbsp;<button id="resetButton" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;" aria-label="Reset"></button>
+            &nbsp;<button id="resetButton" style="background-image: url('../../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;" aria-label="Reset"></button>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="음식점 검색">
                 <button id="search-button">
-                    <img src="../static/photo/search-icon.png" alt="Search">
+                    <img src="../../static/photo/search-icon.png" alt="Search">
                 </button>
             </div>
             <p>현재 시간: {{ current_time }}</p>
-            <ul>
+            <ul style="list-style-type: none;">
                 {% for restaurant in restaurants %}
                 <li>
                     <div class="restaurant" data-status="{{ restaurant.open_status }}">
@@ -173,9 +195,8 @@
                         </p>
                         {% else %}
                         <p>
-                            오늘은
                             <span style = "font-size:1.3em">정기휴무</span>
-                            입니다.
+                            날입니다.
                         </p>
                         {% endif %}
                         <p>{{ restaurant.phone }}</p>
@@ -330,8 +351,8 @@
     });
 </script>
 <div class="footer">
-    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
-    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
     <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park

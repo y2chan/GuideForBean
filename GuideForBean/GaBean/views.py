@@ -703,6 +703,89 @@ class mobile_info_bus(TemplateView):
 
 class mobile_humun_food(TemplateView):
     template_name = 'mobile/m_humun_food.html'  # 모바일 전용 템플릿
+    def get(self, request):
+        # 요일을 숫자로 매핑하는 딕셔너리
+        weekday_mapping = {
+            '월요일': 0,
+            '화요일': 1,
+            '수요일': 2,
+            '목요일': 3,
+            '금요일': 4,
+            '토요일': 5,
+            '일요일': 6,
+            '매일': '매일',
+            '휴무': '휴무',
+        }
+
+        # 가게 목록을 가져옵니다.
+        restaurants = HumunFood.objects.all()
+
+        # 현재 날짜와 시간을 가져옵니다.
+        current_datetime = timezone.now()
+        current_time = current_datetime.time()
+        current_weekday = current_datetime.weekday()
+
+        for restaurant in restaurants:
+            opening_hours = OpeningHours.objects.filter(restaurant=restaurant)
+            current_opening_hour = None
+            if current_weekday is not None:
+                for opening_hour in opening_hours:
+                    week_number = weekday_mapping[opening_hour.week]
+
+                    if week_number == current_weekday or week_number == '매일':
+                        current_opening_hour = opening_hour
+                        break
+
+            time_difference = None  # Initialize time_difference here
+
+            try:
+                if current_opening_hour:
+                    current_datetime = datetime.now().replace(hour=current_time.hour, minute=current_time.minute)
+                    open_datetime = datetime.now().replace(hour=current_opening_hour.open_time.hour, minute=current_opening_hour.open_time.minute)
+                    close_datetime = datetime.now().replace(hour=current_opening_hour.close_time.hour, minute=current_opening_hour.close_time.minute)
+
+                    if open_datetime <= current_datetime <= close_datetime:
+                        restaurant.open_status = "영업 중"
+                        time_difference = close_datetime - current_datetime
+                    elif open_datetime == close_datetime:
+                        # 현재 요일에 해당하는 영업 정보가 없을 경우 "휴무"로 처리
+                        restaurant.open_status = "휴무"
+                        restaurant.remaining_time = None
+                    elif close_datetime == current_datetime:
+                        restaurant.open_status = "마감"
+                        # Calculate the next day's opening time
+                        next_day_open_datetime = open_datetime + timedelta(days=1)
+                        time_difference = next_day_open_datetime - current_datetime
+                    else:
+                        # 그렇지 않으면 "마감"
+                        restaurant.open_status = "마감"
+                        # Calculate the next day's opening time
+                        next_day_open_datetime = open_datetime + timedelta(days=1)
+                        time_difference = next_day_open_datetime - current_datetime
+
+                    if time_difference:
+                        hours, remainder = divmod(time_difference.total_seconds(), 3600)
+                        minutes = remainder // 60
+
+                        restaurant.remaining_time = (int(hours), int(minutes))
+                    else:
+                        restaurant.remaining_time = None
+                else:
+                    # 현재 요일에 해당하는 영업 정보가 없을 경우 "휴무"로 처리
+                    restaurant.open_status = "휴무"
+                    restaurant.remaining_time = None
+            except Exception as e:
+                logger.exception("An error occurred while getting the current time: %s", e)
+
+        # 가게 타입 정보를 가져옵니다.
+        restaurant_types = HumunFood.objects.values_list('type', flat=True).distinct()
+
+        context = {
+            'restaurants': restaurants,
+            'restaurant_types': restaurant_types,
+            'current_time': current_time,
+        }
+        return render(request, self.template_name, context)
 
 class mobile_info_sugang(TemplateView):
     template_name = 'mobile/m_info_sugang.html'  # 모바일 전용 템플릿
