@@ -387,6 +387,9 @@ def info_shuttle(request):
     # 현재 요일을 가져옵니다. (월요일: 0, 일요일: 6)
     current_weekday = now.weekday()
 
+    left_info = {}
+    right_info = {}
+
     # 남은 시간을 계산합니다.
     remaining_times = {}
     if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
@@ -394,13 +397,19 @@ def info_shuttle(request):
     elif current_weekday == 4:  # 금요일
         timetable = get_friday_timetable()
     else:  # 토요일과 일요일
-        timetable = get_weekend_timetable()
+        weekend_timetable = get_weekend_timetable()
+        left_info, right_info = weekend_timetable, weekend_timetable  # 주말은 left_info와 right_info에 둘 다 할당
+        timetable = weekend_timetable  # 이 부분이 빠져있어서 발생한 오류입니다.
 
     for shuttle, times in timetable.items():
         next_departure_time = None
         for time_str in times:
             if time_str == "운행 종료":
                 remaining_times[shuttle] = "운행 종료"
+                if len(left_info) < 3:
+                    left_info[shuttle] = "운행 종료"
+                else:
+                    right_info[shuttle] = "운행 종료"
                 break
             departure_time = datetime.strptime(time_str, "%H:%M")
             departure_time = departure_time.replace(year=now.year, month=now.month, day=now.day)  # 현재 날짜 정보 추가
@@ -412,17 +421,16 @@ def info_shuttle(request):
             time_difference = next_departure_time - now
             remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
             remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
+            if len(left_info) < 3:
+                left_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+            else:
+                right_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
         else:
             remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
-
-    left_info = {}
-    right_info = {}
-
-    for shuttle, time in remaining_times.items():
-        if len(left_info) < 3:  # 왼쪽 그룹에 3개까지 정보 추가
-            left_info[shuttle] = time
-        else:
-            right_info[shuttle] = time
+            if len(left_info) < 3:
+                left_info[shuttle] = "운행 종료"
+            else:
+                right_info[shuttle] = "운행 종료"
 
     return render(request, 'info_shuttle.html', {'left_info': left_info, 'right_info': right_info})
 
@@ -792,24 +800,163 @@ class mobile_info_sugang(TemplateView):
 
 class mobile_info_subway(TemplateView):
     template_name = 'mobile/m_info_subway.html'  # 모바일 전용 템플릿
+    def get(self, request, *args, **kwargs):
+        try:
+            api_key = settings.SUBWAY_API_KEY
+            api_urls = [
+                f"http://swopenapi.seoul.go.kr/api/subway/{api_key}/xml/realtimeStationArrival/0/5/화랑대(서울여대입구)",
+                f"http://swopenapi.seoul.go.kr/api/subway/{api_key}/xml/realtimeStationArrival/0/5/태릉입구",
+                f"http://swopenapi.seoul.go.kr/api/subway/{api_key}/xml/realtimeStationArrival/0/5/석계",
+                f"http://swopenapi.seoul.go.kr/api/subway/{api_key}/xml/realtimeStationArrival/0/5/별내"
+            ]
+
+            grouped_data = {"direction_1": [], "direction_2": [], "direction_3": [], "direction_4": []}
+
+            for api_url in api_urls:
+                response = requests.get(api_url)
+                root = ET.fromstring(response.text)
+
+                statnNm_element = root.find(".//statnNm")
+                if statnNm_element is not None:
+                    data = {
+                        "statnNm": statnNm_element.text,
+                        "trainLineNm": root.find(".//trainLineNm").text,
+                        "arvlMsg2": root.find(".//arvlMsg2").text,
+                        "recptnDt": root.find(".//recptnDt").text,
+                    }
+
+                    if data["statnNm"] in ["화랑대(서울여대입구)"]:
+                        grouped_data["direction_1"].append(data)
+                    elif data["statnNm"] in ["태릉입구"]:
+                        grouped_data["direction_2"].append(data)
+                    elif data["statnNm"] in ["석계"]:
+                        grouped_data["direction_3"].append(data)
+                    else:
+                        grouped_data["direction_4"].append(data)
+
+            return render(request, self.template_name, {'grouped_data': grouped_data})
+
+        except requests.exceptions.RequestException as e:
+            return render(request, 'bus_error_net.html', {'error_message': 'API 서버에 연결할 수 없습니다.'})
+
+        except ET.ParseError as e:
+            return render(request, 'bus_error_xml.html', {'error_message': 'XML 데이터를 파싱할 수 없습니다.'})
 
 class mobile_info_graduate(TemplateView):
     template_name = 'mobile/m_info_graduate.html'  # 모바일 전용 템플릿
 
 class mobile_info_shuttle(TemplateView):
     template_name = 'mobile/m_info_shuttle.html'  # 모바일 전용 템플릿
+    def get_weekday_timetable(self):
+        # 월요일부터 목요일까지 시간표를 반환합니다.
+        timetable = {
+            "화랑대 -> 학교": ["08:10", "08:15", "08:20", "08:25", "08:30", "08:35", "08:40", "08:45", "08:50", "08:55", "09:00", "09:05", "09:10", "09:15", "09:20", "09:25", "09:30", "09:35", "09:40", "09:45", "09:50", "09:55", "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00"],
+            "태릉입구, 석계 -> 학교": ["12:00", "12:25", "12:50", "13:15", "13:40", "14:05", "14:30", "15:00", "15:20", "15:40", "16:00", "16:20", "16:40", "17:00", "17:20", "17:40", "18:00", "18:15"],
+            "별내 -> 학교": ["08:40", "09:40", "10:40", "11:40", "12:40", "13:40", "14:40", "15:40", "16:40", "17:40"],
+            "학교 -> 태릉입구, 석계": ["12:00", "12:25", "12:50", "13:15", "13:40", "14:05", "14:30", "15:00", "15:20", "15:40", "16:00", "16:20", "16:40", "17:00", "17:20", "17:40", "18:00", "18:15"],
+            "학교 -> 별내": ["10:25", "11:25", "12:25", "13:25", "14:25", "15:25", "16:25", "17:25"],
+            # 나머지 노선 시간표도 추가
+        }
+        return timetable
+
+    def get_friday_timetable(self):
+        # 금요일 시간표를 반환합니다.
+        timetable = {
+            "화랑대 -> 학교": ["08:10", "08:15", "08:20", "08:25", "08:30", "08:35", "08:40", "08:45", "08:50", "08:55", "09:00", "09:05", "09:10", "09:15", "09:20", "09:25", "09:30", "09:35", "09:40", "09:50", "09:55", "10:00", "10:20", "10:40", "11:00", "11:20", "11:40", "12:00"],
+            "태릉입구, 석계 -> 학교": ["12:00", "12:25", "12:50", "13:15", "13:40", "14:05", "14:30", "15:00", "15:20", "15:30"],
+            "별내 -> 학교": ["08:40", "09:40", "10:40", "11:40", "12:40", "13:40", "14:40", "15:40"],
+            "학교 -> 태릉입구, 석계": ["12:00", "12:25", "12:50", "13:15", "13:40", "14:05", "14:30", "15:00", "15:20", "15:40"],
+            "학교 -> 별내": ["10:25", "11:25", "12:25", "13:25", "14:25", "15:25"],
+            # 나머지 노선 시간표도 추가
+        }
+        return timetable
+
+    def get_weekend_timetable():
+        # 주말 시간표를 반환합니다.
+        timetable = {
+            "전체 노선": ["운행 종료"],
+        }
+
+        return timetable
+
+    def get(self, request):
+        # 현재 시간을 가져옵니다.
+        now = datetime.now()
+
+        # 현재 요일을 가져옵니다. (월요일: 0, 일요일: 6)
+        current_weekday = now.weekday()
+
+        left_info = {}
+        right_info = {}
+
+        # 남은 시간을 계산합니다.
+        remaining_times = {}
+        if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
+            timetable = get_weekday_timetable()
+        elif current_weekday == 4:  # 금요일
+            timetable = get_friday_timetable()
+        else:  # 토요일과 일요일
+            weekend_timetable = get_weekend_timetable()
+            left_info, right_info = weekend_timetable, weekend_timetable  # 주말은 left_info와 right_info에 둘 다 할당
+            timetable = weekend_timetable  # 이 부분이 빠져있어서 발생한 오류입니다.
+
+        for shuttle, times in timetable.items():
+            next_departure_time = None
+            for time_str in times:
+                if time_str == "운행 종료":
+                    remaining_times[shuttle] = "운행 종료"
+                    if len(left_info) < 3:
+                        left_info[shuttle] = "운행 종료"
+                    else:
+                        right_info[shuttle] = "운행 종료"
+                    break
+                departure_time = datetime.strptime(time_str, "%H:%M")
+                departure_time = departure_time.replace(year=now.year, month=now.month, day=now.day)  # 현재 날짜 정보 추가
+                if departure_time > now:
+                    next_departure_time = departure_time
+                    break
+
+            if next_departure_time is not None:
+                time_difference = next_departure_time - now
+                remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
+                remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
+                if len(left_info) < 3:
+                    left_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+                else:
+                    right_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+            else:
+                remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
+                if len(left_info) < 3:
+                    left_info[shuttle] = "운행 종료"
+                else:
+                    right_info[shuttle] = "운행 종료"
+
+        return render(request, self.template_name, {'left_info': left_info, 'right_info': right_info})
 
 class mobile_info_gabean(TemplateView):
     template_name = 'mobile/m_info_gabean.html'  # 모바일 전용 템플릿
 
 class mobile_sound_kong(TemplateView):
     template_name = 'mobile/m_sound_kong.html'  # 모바일 전용 템플릿
+    def get(self, request):
+        posts = Post.objects.all()
+        return render(request, self.template_name, {'posts': posts})
 
 class mobile_sound_kong_write(TemplateView):
     template_name = 'mobile/m_sound_kong_write.html'  # 모바일 전용 템플릿
+    def get(self, request):
+        if request.method == 'POST':
+            title = request.POST['title']
+            content = request.POST['content']
+            Post.objects.create(title=title, content=content)
+            return redirect('gabean_mobile:m_sound_kong')
+        return render(request, self.template_name)
 
 class mobile_sound_kong_detail(TemplateView):
     template_name = 'mobile/m_sound_kong_detail.html'  # 모바일 전용 템플릿
+    def get(self, request, post_id):
+        post = Post.objects.get(id=post_id)
+        return render(request, self.template_name, {'post': post})
 
 class mobile_campusmap(TemplateView):
     template_name = 'mobile/m_campusmap.html'  # 모바일 전용 템플릿

@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+  <title>콩들의 소리</title>
+  <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<a href="{% url 'gabean_mobile:m_home' %}">
+  <div class="logo">
+    <img src="../../static/photo/GaBean.png" alt="Your Logo">
+  </div>
+</a>
+<div id="menu-container">
+  <div class="btn"></div>
+  <div onclick="history.back();" class="page_cover"></div>
+  <div id="menu">
+    <ul class="nav">
+      <li>
+        <a href="{% url 'gabean_mobile:m_info_gabean' %}">GaBean이란?</a>
+      </li>
+      <li>
+        <a>캠퍼스맵</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
+          <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
+        </ul>
+      </li>
+      <li>
+        <a>후문</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
+          <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
+        </ul>
+      </li>
+      <li>
+        <a>학교 정보</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+          <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+        </ul>
+      </li>
+      <li>
+        <a>교통</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
+          <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
+          <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a>
+      </li>
+    </ul>
+    <div onclick="history.back();" class="close">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+  $(".btn").click(function() {
+    $("#menu,.page_cover,html").addClass("open");
+    window.location.hash = "#open";
+  })
+  })
+
+  window.onhashchange = function() {
+    if (location.hash != "#open") {
+      $("#menu,.page_cover,html").removeClass("open");
+    }
+  };
+
+  $(document).ready(function(){
+  $("#menu ul.sub_mobile").hide();
+  $("#menu ul.nav li").click(function(){
+  $("ul",this).slideToggle("fast");
+  })
+  })
+</script>
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+  <div class="slider-content">
+    ID : 학번 / PW : SU-WINGs PW
+    <br>(즉, SU-WINGs 로그인과 방식이 같다)
+  </div>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+      // 버튼 엘리먼트 가져오기
+      var fixedButton = document.querySelector('.fixed-button');
+
+      // 스크롤 이벤트 리스너 등록
+      window.addEventListener('scroll', function() {
+          // 스크롤 위치 가져오기
+          var scrollY = window.scrollY;
+          // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+          if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+             fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+          } else {
+              fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+          }
+      });
+
+      // 초기 버튼 위치 설정
+      fixedButton.style.top = '200px';
+      fixedButton.style.right = '25%';
+  });
+
+  var imageButton = document.getElementById('openSlider');
+
+  // 클릭 이벤트 리스너 등록
+  imageButton.addEventListener('click', function() {
+      // 클릭 시 이미지 변경
+      imageButton.classList.toggle('clicked');
+  });
+</script>
+<script>
+  // 슬라이드인 메뉴 열기/닫기
+  var openSliderButton = document.getElementById('openSlider');
+  var sliderMenu = document.querySelector('.slider-menu');
+
+  sliderMenu.style.top = '200px';
+
+  openSliderButton.addEventListener('click', function() {
+      if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+          sliderMenu.style.right = '29%';
+      } else {
+          sliderMenu.style.right = '-350px';
+      }
+  });
+</script>
+<div class="page-title-img">
+</div>
+<div class="main-container">
+  <div class="list-container">
+    <div class="list-title">
+      <h1><a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a></h1>
+    </div>
+  </div>
+  <div class="content-container">
+    <div class="left-container">
+      <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">상세 정보</h1>
+      <h2>제목</h2>
+      <h2 style="font-size: 15pt;">{{ post.title }}</h2>
+      <p>작성일자: {{ post.pub_date|date:"Y년 m월 d일 H시 i분" }}</p>
+      <h5>{{ post.content }}</h5>
+      <br><br>
+      <a type="button" onclick="goBack()" class="btn-gradient green small">이전으로 돌아가기</a>
+    </div>
+  </div>
+</div>
+<script>
+  function goBack() {
+      window.history.back();
+  }
+</script>
+<div class="footer">
+  <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+  <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+  <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <br>Dev : Ee Chan Yang
+    <br>Logo : Jun Seong Park
+    <br>Other Website Dev : Sang Yoon Kim</p>
+  <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
+</div>
+</body>
+</html>
