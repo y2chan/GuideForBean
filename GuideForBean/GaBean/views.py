@@ -819,3 +819,31 @@ class mobile_campusmap_detail(TemplateView):
 
 class mobile_humun_random(TemplateView):
     template_name = 'mobile/m_humun_random.html'  # 모바일 전용 템플릿
+    def generate_random_data(self):
+        # "카페"가 아닌 항목만 가져오기
+        non_cafe_items = HumunFood.objects.exclude(type='카페')
+
+        # 무작위로 하나의 아이템 선택
+        random_item = non_cafe_items.order_by('?').first()
+
+        data = {
+            'randomType': random_item.type,
+            'randomName1': random_item.name,
+        }
+
+        # 다시 하나의 아이템 선택
+        random_name2 = non_cafe_items.exclude(name=random_item.name).order_by('?').first()
+        data['randomName2'] = random_name2.name
+
+        return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
+
+    def get(self, request):
+        # 첫 번째 뷰 함수를 호출하여 JSON 데이터를 받기
+        json_data = generate_random_data(request)
+
+        # JSON 데이터를 문자열로 직렬화하여 HTML 템플릿에 전달
+        context = {
+            'json_data': json_data.content.decode('utf-8'),
+        }
+
+        return render(request, self.template_name, context)

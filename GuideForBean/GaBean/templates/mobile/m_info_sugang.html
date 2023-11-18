@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-    <title>오늘 뭐 먹지?</title>
+    <title>수강 정보</title>
     <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -140,89 +140,51 @@
 </script>
 <div class="page-title-img">
 </div>
-<div class="search-results" id="search-results"></div>
 <div class="list-title">
-    <h1 style="font-size: 30pt;"><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></h1>
+    <h1><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></h1>
 </div>
 <div class="main-container">
     <div class="list-container">
         <h3>목록</h3>
         <ul>
-            <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
-            <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
+            <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+            <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
         </ul>
     </div>
     <div class="content-container">
-        <div class="direction">
-            <button id="resetButton" style="background-image: url('../../static/photo/reset.png'); background-size: cover; width: 30px; height: 30px; text-indent: -9999px; border: none; float: right;" aria-label="Reset"></button>
-            <div class="random-button" style="margin-left: 5pt; padding-top: 20px;">
-                <div class="left-info">
-                    <h1>음식 종류 <br>/ 음식점 뽑기</h1>
-                    <div class="btn-container">
-                        <div id="startType" class="button" style="font-size: 14pt;">
-                            <p class="btnText">종류</p>
-                            <div class="btnTwo">
-                                <p class="btnText2">GO!</p>
-                            </div>
-                        </div>
-                        <h3 id="randomType" style="text-align: center; font-size: 14pt;"></h3>
-                    </div>
-                    <div class="btn-container">
-                        <div id="startName1" class="button" style="font-size: 14pt;">
-                            <p class="btnText">음식점</p>
-                            <div class="btnTwo">
-                                <p class="btnText2">GO!</p>
-                            </div>
-                        </div>
-                        <h3 id="randomName1" style="text-align: center; font-size: 14pt;"></h3>
-                    </div>
+        <div class="main-container">
+            <div class="info-bus">
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">수강신청이란?</h1>
+                    <h4>매년 2월 및 8월에 실시하는 제도로, 수강신청 시 본인의 능력에 따라 원하는 수업을 들을 수 있다.</h4>
+                    <a>* 수강신청 사이트 : </a><br><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs)</a><br>
+                    <br><a>* 수강신청 모의 사이트 : </a><a href="https://sugang.syu.kr/testLogin" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/testLogin</a>&nbsp;<a>(해당 웹 개발자: 김상윤)</a>
                 </div>
-                <div class="right-info" style="margin-left: 30pt; text-align: center;">
-                <h1 style="font-size: 23pt; padding-bottom: 45px;">음식점만 뽑기</h1>
-                    <ul id="right-column">
-                        <div class="btn-container">
-                            <div id="startName2" class="button" style="font-size: 14pt;">
-                                <p class="btnText">음식점만</p>
-                                <div class="btnTwo">
-                                    <p class="btnText2">GO!</p>
-                                </div>
-                            </div>
-                            <h3 id="randomName2" style="text-align: center; font-size: 14pt;"></h3>
-                        </div>
-                    </ul>
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">예비 수강신청이란?</h1>
+                    <h4>매년 1월 및 7월에 실시하는 장바구니 제도로, 수강신청 시에 유리하도록 원하는 수업을 미리 장바구니에 담을 수 있다.<br>1학년 2학기부터 사용 가능하다.</h4>
+                    <a>* 예비 수강신청 사이트 : </a><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs) - 수강신청 사이트와 동일</a><br>
+                    <br><a>* 수강신청 경쟁률 조회 사이트 : </a><a href="https://sugang.syu.kr/basket" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/basket</a>&nbsp;<a>(해당 웹 개발자: 김상윤)</a>
+                </div>
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">자주 하는 질문</h1>
+                    <h3>Q. 학기당 최소 몇 학점을 들어야하나요?</h3>
+                    <a>A. 학기인정 최소학점은 </a><a style="color: black; text-decoration: black underline;">12학점</a><a>입니다!</a>
+                    <h3>Q. 학기당 최대 들을 수 있는 학점은 몇 학점인가요?</h3>
+                    <a>A. 수강과목 중 <a style="color: black; text-decoration: black underline;">선택과목에 1학점이 없는 경우 18학점까지</a><a> 가능하며,</a>&nbsp;<a style="color: black; text-decoration: black underline;">평균평점이 3.7이상</a><a>인 학생은 </a><a style="color: black; text-decoration: black underline;">21학점까지</a> 가능합니다!</a>
+                    <h3>Q. 수강신청 확인 및 정정기간은 언제인가요?</h3>
+                    <a>A. </a><a style="color: black; text-decoration: black underline;">매학기 개강 첫주</a><a>입니다!</a>
+                    <h3>Q. 수강신청 폐강의 기준은 어떻게 되나요?</h3>
+                    <a>A. 수강인원이</a> <a style="color: black; text-decoration: black underline;">전공 8명, 교양 16명 미만</a><a>일 경우 폐강됩니다!</a><br>
+                    <a>* 수강신청 폐강위기 조회 사이트 : </a><a href="https://sugang.syu.kr/closed" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/closed</a>&nbsp;<a>(해당 웹 개발자: 김상윤)</a>
+                    <h3>Q. 재수강 시 받을 수 있는 최대 성적은 어떻게 되나요?</h3>
+                    <a>A. </a><a style="color: black; text-decoration: black underline;">B+</a><a>입니다!</a>
                     <br><br><br>
-                    <p style="float: right; font-size: 9pt;">카페 등 음식점이 아닌 곳은 제외하였습니다.</p>
+                    <a style="float: right; font-size:10pt;">모든 정보는 23년도 기준이며 추가로 제보할 내용이 있으면&nbsp;</a><a style="float: right; font-size:10pt;">에 제보 바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">콩들의 소리</a>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        // JavaScript 코드
-        document.addEventListener("DOMContentLoaded", function () {
-            // JSON 데이터 가져오기
-            var jsonData = {{ json_data|safe }};
-
-            document.getElementById('startType').addEventListener('click', function () {
-                const randomTypeElement = document.getElementById('randomType');
-                randomTypeElement.innerText = jsonData.randomType;
-            });
-
-            document.getElementById('startName1').addEventListener('click', function () {
-                const randomNameElement = document.getElementById('randomName1');
-                randomNameElement.innerText = jsonData.randomName1;
-            });
-
-            document.getElementById('startName2').addEventListener('click', function () {
-                const randomNameElement = document.getElementById('randomName2');
-                randomNameElement.innerText = jsonData.randomName2;
-            });
-
-            document.getElementById('resetButton').addEventListener('click', function () {
-                // 페이지를 새로고침
-                location.reload();
-            });
-        });
-    </script>
 </div>
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>

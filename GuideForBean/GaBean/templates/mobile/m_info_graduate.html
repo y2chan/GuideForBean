@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+  <title>졸업 정보</title>
+  <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<a href="{% url 'gabean_mobile:m_home' %}">
+  <div class="logo">
+    <img src="../../static/photo/GaBean.png" alt="Your Logo">
+  </div>
+</a>
+<div id="menu-container">
+  <div class="btn"></div>
+  <div onclick="history.back();" class="page_cover"></div>
+  <div id="menu">
+    <ul class="nav">
+      <li>
+        <a href="{% url 'gabean_mobile:m_info_gabean' %}">GaBean이란?</a>
+      </li>
+      <li>
+        <a>캠퍼스맵</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
+          <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
+        </ul>
+      </li>
+      <li>
+        <a>후문</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
+          <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
+        </ul>
+      </li>
+      <li>
+        <a>학교 정보</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+          <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+        </ul>
+      </li>
+      <li>
+        <a>교통</a>
+        <ul class="sub_mobile">
+          <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
+          <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
+          <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a>
+      </li>
+    </ul>
+    <div onclick="history.back();" class="close">
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+  $(".btn").click(function() {
+    $("#menu,.page_cover,html").addClass("open");
+    window.location.hash = "#open";
+  })
+  })
+
+  window.onhashchange = function() {
+    if (location.hash != "#open") {
+      $("#menu,.page_cover,html").removeClass("open");
+    }
+  };
+
+  $(document).ready(function(){
+  $("#menu ul.sub_mobile").hide();
+  $("#menu ul.nav li").click(function(){
+  $("ul",this).slideToggle("fast");
+  })
+  })
+</script>
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+  <div class="slider-content">
+    ID : 학번 / PW : SU-WINGs PW
+    <br>(즉, SU-WINGs 로그인과 방식이 같다)
+  </div>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+      // 버튼 엘리먼트 가져오기
+      var fixedButton = document.querySelector('.fixed-button');
+
+      // 스크롤 이벤트 리스너 등록
+      window.addEventListener('scroll', function() {
+          // 스크롤 위치 가져오기
+          var scrollY = window.scrollY;
+          // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+          if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+             fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+          } else {
+              fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+          }
+      });
+
+      // 초기 버튼 위치 설정
+      fixedButton.style.top = '200px';
+      fixedButton.style.right = '25%';
+  });
+
+  var imageButton = document.getElementById('openSlider');
+
+  // 클릭 이벤트 리스너 등록
+  imageButton.addEventListener('click', function() {
+      // 클릭 시 이미지 변경
+      imageButton.classList.toggle('clicked');
+  });
+</script>
+<script>
+  // 슬라이드인 메뉴 열기/닫기
+  var openSliderButton = document.getElementById('openSlider');
+  var sliderMenu = document.querySelector('.slider-menu');
+
+  sliderMenu.style.top = '200px';
+
+  openSliderButton.addEventListener('click', function() {
+      if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+          sliderMenu.style.right = '29%';
+      } else {
+          sliderMenu.style.right = '-350px';
+      }
+  });
+</script>
+<div class="page-title-img">
+</div>
+<div class="list-title">
+  <h1><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></h1>
+</div>
+<div class="main-container">
+  <div class="list-container">
+    <h3>목록</h3>
+    <ul>
+      <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+      <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+    </ul>
+  </div>
+  <div class="content-container">
+    <div class="main-container">
+      <div class="info-bus">
+        <div class="direction">
+          <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">졸업 이수 학점</h1>
+          <h2>- 4학년 기준 졸업 이수 학점</h2>
+          <a>&nbsp;&nbsp;<a style="color: black; text-decoration: black underline;">130 학점</a> 이상(약학과는 165학점 이상)</a>
+          <br><br><a>&nbsp;&nbsp; * 전공 과정<a style="color: black; text-decoration: black underline;">(75학점)</a> + 교양 필수/선택<a style="color: black; text-decoration: black underline;">(39학점)</a> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 일반 선택<a style="color: black; text-decoration: black underline;">(16학점)</a> = </a><a style="color: black; text-decoration: black underline;">130 학점</a></a>
+          <h2>- 5학년 기준 졸업 이수 학점</h2>
+          <a>&nbsp;&nbsp;<a style="color: black; text-decoration: black underline;">170 학점</a> 이상</a>
+          <br><br><a>&nbsp;&nbsp;* 졸업 시뮬레이션 : </a><a href="http://suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs)</a><br>
+          <a>&nbsp;&nbsp; -> 로그인 -> [학부] 졸업정보 -> 졸업 시뮬레이션</a>
+          </div>
+        <div class="direction">
+          <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">졸업하기 위해 들어야하는 수업</h1>
+          <h2>- 교양 필수 + 교양 선택 (39학점)</h2>
+          <h4>&nbsp;&nbsp;* 22학번 이후</h4><a>&nbsp;&nbsp;&nbsp;기초 교양 8개(16학점) + 핵심 교양 4개(8학점) <br>&nbsp;&nbsp;&nbsp;+ 교양 선택 각 영역별 수업(15학점)</a>
+          <h4>&nbsp;&nbsp;* 18학번 ~ 21학번</h4><a>&nbsp;&nbsp;&nbsp;기초 교양 8개(16학점) + 핵심 교양 4개(8학점) <br>&nbsp;&nbsp;&nbsp;+ 교양 선택 각 영역별 수업(15학점)</a>
+          <h4>&nbsp;&nbsp;* 17학번 이전</h4><a>&nbsp;&nbsp;&nbsp;기초 교양 9개(17학점) + 핵심 교양 4개(8학점) <br>&nbsp;&nbsp;&nbsp;+ 교양 선택 각 영역별 수업(14학점)</a>
+          <br><br>
+          <h2>- 기초 교양</h2>
+          <h4>&nbsp;&nbsp;* 18학번 이후 </h4><a>&nbsp;&nbsp;&nbsp;사고와 표현(글로컬 사고와 표현), 글로컬 영어 I/II <br>&nbsp;&nbsp;&nbsp;컴퓨팅사고력, 노작교육, 지역사회공헌<br>&nbsp;&nbsp;&nbsp;인생설계와 진로 I/II</a>
+          <br><br>
+          <h2>- 핵심 교양</h2>
+          <h4>&nbsp;&nbsp;* 모든 학번 공통</h4><a>&nbsp;&nbsp;&nbsp;인성과 사회, 종교와 인생, 생활과 윤리, 역사와 문화</a>
+          <br><br>
+          <h2>- 교양 선택 각 영역별 수업</h2>
+          <h4>&nbsp;&nbsp;* 22학번 이후</h4> <a>&nbsp;&nbsp;&nbsp;인성교양, 인문예술, 사회과학, 자연과학, 디지털리터러시</a>
+          <h4>&nbsp;&nbsp;* 22학번 이전</h4> <a>&nbsp;&nbsp;&nbsp;인성교양, 인문학, 사회과학, 자연과학, 문화예술 <br>&nbsp;&nbsp;&nbsp;(*인문학/문화예술은 인문예술로 대체가능 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-> 2개 대체시 2개 이수)</a>
+          <br><br>
+          <h2>- 필수 교양 (P/F : Pass or Fail)</h2>
+          <h4>&nbsp;&nbsp;* 22학번 이후</h4><a>&nbsp;&nbsp;&nbsp;채플(7회) + 흡연음주예방교육(비교과)</a>
+          <h4>&nbsp;&nbsp;* 18학번 ~ 21학번</h4><a>&nbsp;&nbsp;&nbsp;채플(7회) + MVP+교육 + 흡연음주예방교육(비교과)</a>
+          <h4>&nbsp;&nbsp;* 17학번 이전</h4><a>&nbsp;&nbsp;&nbsp;채플(7회) + MVP+교육 + 흡연음주예방교육</a>
+        </div>
+        <div class="direction">
+          <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">자주 하는 질문</h1>
+          <h3>Q. 조기졸업의 기준은 무엇인가요?</h3>
+          <a>A. 조기졸업의 기준은 </a><a style="color: black; text-decoration: black underline;">평균평점 4.20 이상, <br>114학점(5년제는 149학점) 이상</a><a>을 만족해야 합니다!</a>
+          <h3>Q. 우등졸업의 기준은 무엇인가요?</h3>
+          <a>A. 우등졸업의 기준은 <a style="color: black; text-decoration: black underline;"><br>평균평점이 4.20 이상, 4학기 이상 재학한 자,</a><br><a style="color: black; text-decoration: black underline;">D+ 이하의 학점이 없을 것(채플 포함)</a><a>을 만족해야 합니다!</a>
+          <h3>Q. 저희 과는 졸업 이수 학점의 기준이 다른데 정리해주실 수 있나요?</h3>
+          <a>A. 과마다 졸업 이수 학점의 기준은 다를 수 있습니다. <br>각 학과의 조교에게 문의하거나 홈페이지에 방문해보세요!</a>
+            <h3>Q. 각 학과마다 졸업 필수 요건이 있나요?</h3>
+            <a>A. 네. 학과마다 졸업 필수 요건이 있습니다. <br>토익 시험이나 자격증 취득 같은 조건이 있을 수 있으므로</a>
+            <a>각 학과의 조교에게 문의하거나 홈페이지에 방문해보세요!</a>
+          <br><br><br>
+            <a style="float: right; font-size:10pt;">모든 정보는 23년도 기준이며 추가로 제보할 내용이 있으면&nbsp;</a><a style="float: right; font-size:10pt;">에 제보 바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">콩들의 소리</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+  <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+  <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <br>Dev : Ee Chan Yang
+    <br>Logo : Jun Seong Park
+    <br>Other Website Dev : Sang Yoon Kim</p>
+  <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
+</div>
+</body>
+</html>
