@@ -963,6 +963,11 @@ tr + tr {
     border-top: 1px solid #ccc;
 }
 
+.num-col {
+    width: 40px;
+    text-align: center;
+}
+
 .btn.green {background-color: #9abf7f;}
 .color .blue {background: #6698cb;}
 .btn-gradient.green:active  {background: #72B08E;}

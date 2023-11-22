@@ -4,18 +4,18 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'mobile_styles.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
   <title>콩들의 소리</title>
-  <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
+  <link rel="icon" href="{% static 'photo/GaBeanLogo' %}" type="image/x-icon">
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <a href="{% url 'gabean_mobile:m_home' %}">
   <div class="logo">
-    <img src="../../static/photo/GaBean.png" alt="Your Logo">
+    <img src="{% static 'photo/GaBean.png' %}" alt="Your Logo">
   </div>
 </a>
 <div id="menu-container">
@@ -140,19 +140,21 @@
 </script>
 <div class="page-title-img">
 </div>
+<div class="list-title">
+  <h1><a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a></h1>
+</div>
 <div class="main-container">
-  <div class="list-container">
-    <div class="list-title">
-      <h1><a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a></h1>
-    </div>
-  </div>
   <div class="content-container">
     <div class="left-container">
-      <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">상세 정보</h1>
-      <h2>제목</h2>
-      <h2 style="font-size: 15pt;">{{ post.title }}</h2>
-      <p>작성일자: {{ post.pub_date|date:"Y년 m월 d일 H시 i분" }}</p>
+      <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt; text-align: center;">상세 정보</h1>
+      <br>
+      <h2 style="text-align: center;">제목</h2>
+      <h3 style="text-align: center;" style="font-size: 15pt;">{{ post.title }}</h3>
+      <br>
+      <h2 style="text-align: center;">내용</h2>
       <h5>{{ post.content }}</h5>
+      <br>
+      <p style="float: right;">작성일자: {{ post.pub_date|date:"Y년 m월 d일 H시 i분" }}</p>
       <br><br>
       <a type="button" onclick="goBack()" class="btn-gradient green small">이전으로 돌아가기</a>
     </div>
@@ -164,8 +166,8 @@
   }
 </script>
 <div class="footer">
-  <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
-  <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+  <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="{% static 'photo/copyright.jpeg' %}" alt="CopyRight" style="float: right; width: 5%;"></a>
+  <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="{% static 'photo/copyright2.png' %}" alt="CopyRight2" style="float: right; width: 5%;"></a>
   <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
     <br>Dev : Ee Chan Yang
     <br>Logo : Jun Seong Park

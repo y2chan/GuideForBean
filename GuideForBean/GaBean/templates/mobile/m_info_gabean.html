@@ -4,18 +4,18 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'mobile_styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-    <title>콩들의 소리</title>
-    <link rel="icon" href="{% static 'photo/GaBeanLogo.png' %}" type="image/x-icon">
+    <title>GaBean이란?</title>
+    <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 <a href="{% url 'gabean_mobile:m_home' %}">
     <div class="logo">
-        <img src="{% static 'photo/GaBean.png' %}" alt="Your Logo">
+        <img src="../../static/photo/GaBean.png" alt="Your Logo">
     </div>
 </a>
 <div id="menu-container">
@@ -141,35 +141,49 @@
 <div class="page-title-img">
 </div>
 <div class="list-title">
-    <h1><a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a></h1>
+    <h1><a href="{% url 'GaBean:info_gabean' %}" style="font-size: 30pt;">Gabean이란?</a></h1>
 </div>
 <div class="main-container">
     <div class="content-container">
-        <div class="left-container">
-            <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt; text-align: center;">게시물 작성</h1>
-            <form method="post">
-                {% csrf_token %}
-                <label for="title" style="display: block; margin-bottom: 10px; text-align: center;">제목</label>
-                <input type="text" name="title" maxlength="20" required placeholder="제목은 20자 이내로 작성해주세요." style="width: 300px; display: block; margin: auto;"><br><br>
-                <label for="content" style="display: block; margin-bottom: 10px; text-align: center;">내용</label>
-                <textarea name="content" maxlength="300" required placeholder="내용은 300자 이내로 작성해주세요." style="width: 350px; height: 300px; display: block; margin: auto;"></textarea><br>
-                <br>
-                <button type="button" onclick="goBack()" class="btn-gradient green small" style="margin-left: 170px;">이전으로 돌아가기</button>
-                <input type="submit" value="작성완료" class="btn-gradient green small" style="margin-left: 105px;">
-                <br><br><br>
-                <a style="float: right; font-size:10pt;">하니 신중하게 작성바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">삭제 및 수정이 불가능</a><a style="float: right; font-size:10pt;">누구나 자유롭게 작성 가능하나,&nbsp;</a>
-            </form>
+        <div class="main-container">
+            <div class="info-bus">
+                <div class="direction">
+                    <br><br>
+                    <img src="../../static/photo/GaBean.png" alt="GaBeanLogo" style="max-width: 40%; margin-bottom:20px;">
+                    <br>
+                    <a style="font-size:10pt;">로고 제작자: 박준성(아트&디자인학과)</a>
+                    <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">Guide For Bean</h1>
+                    <h3 style="text-decoration: skyblue wavy underline;">Guide</h3>
+                    <a>안내하다</a>
+                    <h3 style="text-decoration: skyblue wavy underline;">Bean</h3>
+                    <a>콩</a><br><a>- 삼육대에서는 학생들 사이에 신입생들을 "콩"으로 표현함</a>
+                    <br><br>
+                    <h3> * 신입생들을 안내하기 위한 페이지를 개설</h3>
+                </div>
+            </div>
+            <div class="container-separator2"></div>
+                <div class="direction">
+                    <br><br><br><br><br><br><br>
+                    <h3 style="color: black; text-decoration: black underline;">캠퍼스맵</h3>
+                    <a>신입생들이 잘 모르는 학교 건물들의 <br>세세한 위치 제공<br>(전체화면으로 보는 것을 권장)</a><br>
+                    <h3 style="color: black; text-decoration: black underline;">후문</h3>
+                    <a>후문 음식점을 가게별로 필터링하여 제공 <br>현재 영업중인 가게도 확인 가능</a><br>
+                    <h3 style="color: black; text-decoration: black underline;">오늘 뭐 먹지?</h3>
+                    <a>후문 음식점들 중 무엇을 먹어야할지 <br>선택하기 어려운 사람을 위한 기능 제공</a><br>
+                    <h3 style="color: black; text-decoration: black underline;">학교 정보</h3>
+                    <a>수강, 졸업 정보 등 신입생이 잘 모를 수 있는 내용들을 간략하게 제공</a><br>
+                    <h3 style="color: black; text-decoration: black underline;">교통</h3>
+                    <a>버스, 지하철, 셔틀버스 등 각 교통수단을 확인 가능하도록 제공 (현재 시간 기준)</a>
+                    <h3 style="color: black; text-decoration: black underline;">콩들의 소리</h3>
+                    <a>개선해야할 점 등을 사용자가 직접 남길 수 있도록 제공<br>(수정, 삭제가 불가능하니 신중하게 작성)</a><br>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
 <div class="footer">
-    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="{% static 'photo/copyright.jpeg' %}" alt="CopyRight" style="float: right; width: 5%;"></a>
-    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="{% static 'photo/copyright2.png' %}" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
     <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park

@@ -944,13 +944,15 @@ class mobile_sound_kong(TemplateView):
 
 class mobile_sound_kong_write(TemplateView):
     template_name = 'mobile/m_sound_kong_write.html'  # 모바일 전용 템플릿
+
     def get(self, request):
-        if request.method == 'POST':
-            title = request.POST['title']
-            content = request.POST['content']
-            Post.objects.create(title=title, content=content)
-            return redirect('gabean_mobile:m_sound_kong')
         return render(request, self.template_name)
+
+    def post(self, request):
+        title = request.POST['title']
+        content = request.POST['content']
+        Post.objects.create(title=title, content=content)
+        return redirect('gabean_mobile:m_sound_kong')
 
 class mobile_sound_kong_detail(TemplateView):
     template_name = 'mobile/m_sound_kong_detail.html'  # 모바일 전용 템플릿
