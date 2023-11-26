@@ -93,31 +93,32 @@
 </div>
 <div style="text-align: center;">
     {% if weather_info.precipitation_type == "서버 응답 시간 초과" %}
-    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 500px; margin-top: 50px; margin-bottom: 50px;">
+    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 300px; margin-top: 0; margin-bottom: 50px;">
         <div style="display: flex;">
-                <img src="../static/photo/sorry.png" alt="Weather Icon" width="240">
-            </div>
-            <div style="text-align: center; padding-left: 10px;">
-                <h2>{{ weather_info.precipitation_type }}</h2>
+            <div style="border-right: 2px solid black; padding-right: 10px;">
+                <img src="../static/photo/sorry.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
+            </div>    
+            <div style="text-align: center; padding-left: 17px;">
+                <p>{{ weather_info.precipitation_type }}</p>
             </div>
         </div>
     </div>
     {% else %}
-    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 500px; margin-top: 50px; margin-bottom: 50px;">
+    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 300px; margin-bottom: 50px;">
         <div style="display: flex;">
             <div style="border-right: 2px solid black; padding-right: 10px;">
                 {% if weather_info.precipitation_type == "맑음" %}
-                <img src="../static/photo/sunny.png" alt="Weather Icon" width="240">
+                <img src="../static/photo/sunny.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
                 {% elif weather_info.precipitation_type == "비" %}
-                <img src="../static/photo/rainy.png" alt="Weather Icon" width="240">
+                <img src="../static/photo/rainy.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
                 {% elif weather_info.precipitation_type == "비/눈" %}
-                <img src="../static/photo/rain&snow.png" alt="Weather Icon" width="240">
+                <img src="../static/photo/rain&snow.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
                 {% elif weather_info.precipitation_type == "눈" %}
-                <img src="../static/photo/snow.png" alt="Weather Icon" width="240">
+                <img src="../static/photo/snow.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
                 {% elif weather_info.precipitation_type == "맑음" and weather_info.weather_status == "흐림" %}
-                <img src="../static/photo/cloudy.png" alt="Weather Icon" width="240">
+                <img src="../static/photo/cloudy.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
                 {% elif weather_info.precipitation_type == "맑음" and weather_info.weather_status == "구름 많음" %}
-                <img src="../static/photo/very-cloudy.png" alt="Weather Icon" width="240">
+                <img src="../static/photo/very-cloudy.png" alt="Weather Icon" width="144" style="margin-top: 30px;">
                 {% endif %}
             </div>
             <div style="text-align: center; padding-left: 17px;">
@@ -134,14 +135,14 @@
 <div class="home-description">
     <h2>🏢 캠퍼스맵 🏢</h2>
     <br>
-    <a href="{% url 'gabean_mobile:m_campusmap' %}"><img src="../static/photo/도면1.jpg" alt="Campus Map" style="width:30%;"></a>
-    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
-    <h4>삼육대학교의 전체적인 도면입니다.<br>-> PC 이용 시 전체화면으로 하셔야 기능을 온전히 사용하실 수 있습니다.</h4>
+    <a href="{% url 'gabean_mobile:m_campusmap' %}"><img src="../static/photo/도면1.jpg" alt="Campus Map" style="width:70%;"></a>
+    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동</p>
+    <h4>삼육대학교의 전체적인 도면입니다.<br>-> PC 이용 시 전체화면으로 하셔야<br> 기능을 온전히 사용하실 수 있습니다.</h4>
 </div>
 <div class="home-description">
     <h2>🍴 오늘 뭐 먹지? 🍴</h2>
-    <a href="{% url 'gabean_mobile:m_humun_random' %}"><img src="../static/photo/random.jpeg" alt="Campus Map" style="width:30%;" ></a>
-    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
+    <a href="{% url 'gabean_mobile:m_humun_random' %}"><img src="../static/photo/random.jpeg" alt="Campus Map" style="width:70%;" ></a>
+    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동</p>
     <h4>선택하기 어려운 사람을 위한 후문 음식점 랜덤 뽑기<br>-> 다음 업데이트 때는 최대한 재밌게 만들어 볼게요!</h4>
 </div>
 <div class="home-description">
@@ -150,25 +151,25 @@
             <div class="first-info">
                 <div class="first-column">
                     <h2>🚃 버스 🚃</h2>
-                    <a href="{% url 'gabean_mobile:m_info_bus' %}"><img src="../static/photo/1155.jpg" alt="Campus Map" style="width:70%;" ></a>
-                    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
-                    <h4>주로 이용하는 정류장 버스 <br>현 위치 & 남은 시간</h4>
+                    <a href="{% url 'gabean_mobile:m_info_bus' %}"><img src="../static/photo/1155.jpg" alt="Campus Map" style="width:90%; margin-bottom: 14px;"></a>
+		    <p style="font-size: 7pt;">↑ 클릭 시 해당 페이지로 이동</p>
+                    <h4>위치 & 남은 시간</h4>
                 </div>
             </div>
             <div class="center-info">
                 <div class="center-column">
                     <h2>🚊 지하철 🚊</h2>
-                    <a href="{% url 'gabean_mobile:m_info_subway' %}"><img src="../static/photo/석계.jfif" alt="Campus Map" style="width:60%;" ></a>
-                    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
-                    <h4>학생들이 자주 이용하는 지하철역<br>열차 방향 & 남은 시간</h4>
+                    <a href="{% url 'gabean_mobile:m_info_subway' %}"><img src="../static/photo/석계.jfif" alt="Campus Map" style="width:90%;" ></a>
+                    <p style="font-size: 7pt;">↑ 클릭 시 해당 페이지로 이동</p>
+                    <h4>방향 & 남은 시간</h4>
                 </div>
             </div>
             <div class="last-info">
                 <div class="last-column">
-                    <h2>🚋 셔틀버스 🚋</h2>
-                    <a href="{% url 'gabean_mobile:m_info_shuttle' %}"><img src="../static/photo/shuttle.jpg" alt="Campus Map" style="width:60%;" ></a>
-                    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동합니다.</p>
-                    <h4>학교 셔틀버스<br>버스 방향 & 남은 시간<br>(시간표 기준)</h4>
+                    <h2>🚋 셔틀 🚋</h2>
+                    <a href="{% url 'gabean_mobile:m_info_shuttle' %}"><img src="../static/photo/shuttle.jpg" alt="Campus Map" style="width:90%;" ></a>
+                    <p style="font-size: 7pt;">↑ 클릭 시 해당 페이지로 이동</p>
+                    <h4>방향 & 남은 시간<br>(시간표 기준)</h4>
                 </div>
             </div>
         </div>
@@ -195,15 +196,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '200px';
-        fixedButton.style.right = '25%';
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -219,11 +220,11 @@
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '200px';
+    sliderMenu.style.bottom = '100px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '29%';
+            sliderMenu.style.right = '60px';
         } else {
             sliderMenu.style.right = '-350px';
         }
@@ -241,7 +242,7 @@
 
       // 2.5초 후에 작은 공을 이동하면서 왼쪽 위로 이동
       setTimeout(function() {
-        document.getElementById('transition-image').style.transform = 'scale(0.47) translate(0px, -736px)';
+        document.getElementById('transition-image').style.transform = 'scale(0.47) translate(0px, -555px)';
       }, 2000);
 
       // 4.5초 후에 home.html 보여주기 (1초 동안 이미지를 보여주고 2.5초 동안 이동)
@@ -264,7 +265,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px; font-size: 8px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>

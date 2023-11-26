@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-tfl98nfn)kn2_sr^g&%r7b$f_z8txp7$400u%n1eh8+y!$d!n6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gabean.kr', 'm.gabean.kr', '3.35.174.115']
 
 LOGGING = {
     'version': 1,
@@ -96,7 +96,7 @@ DATABASES = {
              'ENGINE': 'django.db.backends.mysql',
              'NAME': 'GaBean',
              'USER': 'root',
-             'PASSWORD': 'root',
+             'PASSWORD': 'diddlcks123@',
              'HOST': 'localhost',
              'PORT': '3306',
         }
@@ -136,7 +136,12 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'GaBean', 'static'),
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -124,7 +124,6 @@ def get_weather(city):
     base_date, base_time = get_current_base_datetime()
     url = f'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey={api_key}&numOfRows=10&pageNo=1&base_date={base_date}&base_time={base_time}&nx=62&ny=128&dataType=JSON'
     response = requests.get(url, timeout=10)
-    print(f"base_date: {base_date}, base_time: {base_time}")
 
     try:
         data = response.json()
@@ -190,8 +189,6 @@ def get_weather(city):
         }
 
     except ValueError as e:
-        print(f"Error processing API response: {e}")
-        print(f"API Response: {response.text}")
         weather_info = {
             'today_date': 'N/A',
             'current_time': 'N/A',
@@ -552,7 +549,6 @@ class mobile_home(TemplateView):
         base_date, base_time = self.get_current_base_datetime()
         url = f'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey={api_key}&numOfRows=10&pageNo=1&base_date={base_date}&base_time={base_time}&nx=62&ny=128&dataType=JSON'
         response = requests.get(url, timeout=10)
-        print(f"base_date: {base_date}, base_time: {base_time}")
 
         try:
             data = response.json()
@@ -618,8 +614,6 @@ class mobile_home(TemplateView):
             }
 
         except ValueError as e:
-            print(f"Error processing API response: {e}")
-            print(f"API Response: {response.text}")
             weather_info = {
                 'today_date': 'N/A',
                 'current_time': 'N/A',
@@ -996,3 +990,11 @@ class mobile_humun_random(TemplateView):
         }
 
         return render(request, self.template_name, context)
+
+def some_view(request):
+    user_agent = request.META['HTTP_USER_AGENT']
+    if 'Mobile' in user_agent:
+        return HttpResponseRedirect('http://m.gabean.kr')
+    else:
+        return HttpResponseRedirect('http://gabean.kr')
+

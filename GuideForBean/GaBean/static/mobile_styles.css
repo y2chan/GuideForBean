@@ -1,8 +1,8 @@
 /* styles.css */
-
 body {
-    max-width: 800px;
+    max-width: 400px;
     margin: 0 auto;
+    overflow-x: hidden;
 }
 
 .fixed-button {
@@ -32,10 +32,10 @@ body {
 /* 슬라이드인 메뉴 스타일 */
 .slider-menu {
     position: fixed;
-    width: 350px;
+    width: 300px;
     height: 60px;
-    top: 0;
-    right: -350px; /* 초기에 숨겨져 있음 */
+    bottom: 100px;
+    right: -300px; /* 초기에 숨겨져 있음 */
     background-color: #FFF;
     color: #000;
     transition: left 0.3s;
@@ -52,7 +52,7 @@ body {
 
 .logo {
     margin-top: 120px;
-    margin-left: 43.6%;
+    margin-left: 37%;
     margin-bottom: 10px;
 }
 
@@ -69,7 +69,7 @@ a {
 #menu-container {
     position: fixed;
     top: 0;
-    left: 24%;
+    left: 0%;
     padding: 10px;
     z-index: 1000;
 }
@@ -143,7 +143,7 @@ html.open {
  }
 
 #menu.open {
-  left: 24%;
+  left: 0%;
 }
 
 .page_cover.open {
@@ -259,21 +259,21 @@ html.open {
 .content-container {
     flex: 1;
     display: flex;
+    padding: 0;
 }
 
 .list-container {
-    width: 25%; /* 목록 창의 너비 조정 */
-    background-color: #FFF;
-    padding: 20px;
-    border-right: 1px solid #ddd; /* 목록 창 오른쪽 테두리 추가 */
-    box-sizing: border-box; /* padding, border가 너비에 포함되도록 설정 */
-    margin-right: 30px;
+    width: 400px; /* 너비를 100%로 설정 */
+    display: flex; /* flex를 활용하여 내부 요소를 가로로 배열 */
+    flex-direction: row; /* 요소들을 가로로 배열 */
+    justify-content: space-between; /* 요소들 사이에 균등한 간격을 두기 */
+    align-items: center; /* 요소들을 세로 방향 중앙에 배치 */
+    box-sizing: border-box;
 }
 
 .list-container ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    width: 300px;
+    padding: 0 auto;
 }
 
 .list-container li {
@@ -281,18 +281,10 @@ html.open {
     display: flex;
     justify-content: center; /* 수평 가운데 정렬 */
     align-items: center; /* 수직 가운데 정렬 */
-    padding: 10px;
     border-bottom: 1px solid #ccc;
+    padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.list-container li:last-child {
-    border-bottom: none; /* 마지막 아이템의 아래 테두리 제거 */
-}
-
-.list-container li:hover {
-    background-color: #d0d0d0;
 }
 
 .list-container h3 {
@@ -302,17 +294,21 @@ html.open {
     align-items: center; /* 수직 가운데 정렬 */
     margin-bottom: 40px;
     background-color: #d0d0d0;
+    width: 100%;
     height: 60px;
 }
 
+.list-container h5 {
+    width: 50%;
+}
+
 .left-container {
-    flex: 0 0 700px; /* 고정된 크기로 설정 */
-    max-width: 104%;
+    flex: 0 0 400px; /* 고정된 크기로 설정 */
+    max-width: 100%;
     position: relative;
 }
 
 .left-container h5 {
-    margin-top: 60px;
     max-width: 100%;
     text-align: center;
     font-size: 16px;
@@ -321,19 +317,19 @@ html.open {
 
 #map-container {
     position: relative;
-    width: 100%;
+    width: 400px;
     height: 100%;
 }
 
 #map-container img {
     margin-top: 40px;
-    max-width: 100%;
+    max-width: 300px;
     height: auto;
 }
 
 .right-container {
     margin-top: 40px;
-    flex: 0 0 600px; /* 고정된 크기로 설정 */
+    flex: 0 0 400px; /* 고정된 크기로 설정 */
     max-width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     background-color: #FFF;
@@ -374,8 +370,8 @@ html.open {
     border: none;
     padding: 0;
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     background-image: url('photo/mapmarker.png');
     background-size: 100%;
     background-repeat: no-repeat;
@@ -500,7 +496,7 @@ html.open {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 300px;
+    width: 200px;
 }
 
 #search-button {
@@ -557,8 +553,9 @@ html.open {
     background-image: url("photo/titleimage.jpg"); /* 이미지 경로 설정 */
     background-repeat: no-repeat;
     background-size: cover; /* 이미지를 버튼 크기에 맞게 조절 */
-    width: 800px; /* 요소의 너비를 조절 */
-    height: 300px; /* 요소의 높이를 조절 */
+    width: 390px; /* 요소의 너비를 조절 */
+    height: 200px; /* 요소의 높이를 조절 */
+    overflow: hidden;
 }
 
 .list-title {
@@ -603,6 +600,7 @@ html.open {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .right-column ul {
@@ -729,18 +727,13 @@ html.open {
 }
 
 .restaurant {
-    width: calc(50% - 20px); /* 가로로 3개씩 나열하므로 각 요소의 너비는 약 33.33% */
-    height: 340px;
-    margin: 10px;
+    width: 280px; /* 가로로 3개씩 나열하므로 각 요소의 너비는 약 33.33% */
+    height: 300px;
+    margin: 5px;
     padding: 10px;
     border: 5px solid rgba(6, 186, 242, 0.23);
     float: left; /* 요소들을 왼쪽으로 나열합니다. */
     box-sizing: border-box; /* padding과 border를 요소의 크기에 포함시킵니다. */
-}
-
-/* 너비가 33.33%인 요소마다 clear:both를 적용하여 다음 줄로 넘어가도록 설정합니다. */
-.restaurant:nth-child(3n) {
-    clear: both;
 }
 
 .filter-buttons {
@@ -1014,7 +1007,7 @@ tr + tr {
     justify-content: center;
     align-items: start;
     margin-top: 50px;
-    height: 400px;
+    height: 200px;
     overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
 }
 
@@ -1022,6 +1015,7 @@ tr + tr {
     width: 100%; /* 이미지 컨테이너의 너비를 원하는 크기(30%)로 설정 */
     text-align: center; /* 이미지 수평 가운데 정렬 */
     overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
+    margin-bottom: 0;
 }
 
 .image-container img {
@@ -1046,6 +1040,7 @@ tr + tr {
 
 .first-column {
     flex: 1;
+    margin-left: 5px;
     align-self: stretch; /* 컨테이너의 높이에 맞게 늘리기 */
     border-right: 1px solid #ddd; /* 목록 창 오른쪽 테두리 추가 */
 }
@@ -1070,7 +1065,6 @@ tr + tr {
 .home-direction {
     width: 100%;
     margin: 0 auto;
-    padding: 20px;
     display: flex;
     flex-direction: column; /* 수직 레이아웃 유지 */
     overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
@@ -1096,13 +1090,19 @@ tr + tr {
     width: 800px;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
     align-items: center;
     overflow: hidden;
     background-color: #FFF;
-    z-index: 1; /* 다른 요소보다 앞에 나타나도록 함 */
+    z-index: 1;
     transition: background-color 1s ease-in-out;
 }
+
+#transition-container > * {
+    margin-left: 75px; /* 아이템을 오른쪽으로 20px 이동 */
+    margin-bottom: 200px;
+}
+
 
 #transition-image {
     width: 30%;

@@ -16,7 +16,7 @@
         window.addEventListener('DOMContentLoaded', (event) => {
             // 경고 메시지를 나타내는 div를 생성
             var warningDiv = document.createElement("div");
-            warningDiv.innerHTML = "이 기능은 검색 후 사용하는 것을 권장합니다. 일반적인 버튼 클릭 시 버튼이 겹쳐 불편할 수 있습니다.";
+    	    warningDiv.innerHTML = "이 기능은 검색 후 사용하는 것을 권장합니다. <br> 일반적인 버튼 클릭 시 버튼이 겹쳐 불편할 수 있습니다.";
 
             // 스타일을 적용
             warningDiv.style.position = "absolute";
@@ -38,7 +38,7 @@
         });
     </script>
 </head>
-<body>
+<body style="overflow-x: hidden;">
 <a href="{% url 'gabean_mobile:m_home' %}">
     <div class="logo">
         <img src="../../static/photo/GaBean.png" alt="Your Logo">
@@ -130,15 +130,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '200px';
-        fixedButton.style.right = '25%';
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -154,11 +154,11 @@
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '200px';
+    sliderMenu.style.bottom = '100px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '29%';
+            sliderMenu.style.right = '60px';
         } else {
             sliderMenu.style.right = '-350px';
         }
@@ -168,6 +168,13 @@
 </div>
 <div class="list-title">
     <h1><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></h1>
+</div>
+<div class="list-container">
+    <ul>
+        <h3>목록</h3>
+	<li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
+        <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
+    </ul>
 </div>
 <div class="search-container">
     <input type="text" id="search-input" placeholder="건물 이름 검색">
@@ -179,18 +186,6 @@
     <div class="search-results" id="search-results"></div>
 </div>
 <div class="main-container">
-    <div class="list-container">
-        <h3>목록</h3>
-        <ul>
-            <li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
-            <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
-        </ul>
-        <h5 style="text-align: center;">삼육대학교를 <br>간단하게 나타낸 <br>도면입니다. <p style="margin: 3px;"></p>변경할 사항이<br>있으시다면 <br><span class="half_background">"콩들의 소리"</span>에 <br>제보 바랍니다.</h5>
-        <div style="display: block; margin: 0 auto; text-align: center;" class="button-2">
-            <div class="eff-2"></div>
-            <a href="{% url 'gabean_mobile:m_sound_kong' %}">바로가기</a>
-        </div>
-    </div>
     <div class="main-container2">
         <div class="content-container">
             <div class="left-container">
@@ -207,6 +202,12 @@
         </div>
     </div>
 </div>
+<h5 style="text-align: center;">삼육대학교를 간단하게 나타낸<br> 도면입니다. <p style="margin: 3px;"></p>변경할 사항이 있으시다면 <br><<span class="half_background">"콩들의 소리"</span>>에 제보 바랍니다.<br><br>
+    <div style="display: block; margin: 0 auto; text-align: center;" class="button-2">
+        <div class="eff-2"></div>
+        <a href="{% url 'gabean_mobile:m_sound_kong' %}">바로가기</a>
+    </div>
+</h5>
 <script>
     const mapContainer = document.getElementById("map-container");
     const descriptionAside = document.getElementById("description-aside");
@@ -356,7 +357,7 @@
 
 
     // 버튼을 원하는 위치에 추가합니다. 버튼마다 설명과 역할을 지정하세요.
-    addMarkerButton(226, 128, "셔틀버스 정류장", function() {
+    addMarkerButton(140, 80, "셔틀버스 정류장", function() {
         addMarkerDetail(
             "<br><br><h1>셔틀버스 정류장<h1><br><h3>사진 왼쪽 뒤로 보이는게 셔틀버스 정류장입니다.<br> 학교 내에는 2-2버스가 구리역을 통해 다니고 있습니다.<br></h3>",
             "../../static/photo/셔틀버스 정류장.jpg"
@@ -373,28 +374,28 @@
     addMarkerButton(364, 280, "대운동장", function() {
         addMarkerDetail(
             "<br><br><h1>대운동장</h1><br><h3>풋살장과 농구장, 그리고 축구장이 함께 있는 운동장입니다.<br>바로 옆에는 삼육고등학교와 체육관이 있습니다.</h3>",
-            "../../static/photo/운동장.png"
+            "../../static/photo/운동장.PNG"
         );
     });
 
     addMarkerButton(305, 285, "체육관", function() {
         addMarkerDetail(
             "<br><br><h1>체육관</h1><br><h2>1층</h2><h3>수영장 / 남ㆍ여 탈의실 및 샤워실 / 체력측정실 / 운동처방실<br> 체력관리실 / 시청각실 / 탁구장 / 무도관 / 스크린 골프장</h3><br><h2>2층</h2><h3>주경기장 (농구코트 1면, 배구코트 1면, 배드민턴코트 4면)<br> 스쿼시장 / 남ㆍ여 탈의실 및 샤워실 / 등록실 / 관리지원실 / 보건소</h3><br><h2>3층</h2><h3>주경기장 관람석 (370석)</h3>",
-            "../../static/photo/체육관.png"
+            "../../static/photo/체육관.PNG"
         );
     });
 
     addMarkerButton(370, 213, "다니엘관/요한관<br>(박물관)", function() {
         addMarkerDetail(
             "<br><br><h1>다니엘관/요한관<br>(박물관)</h1><br><h3>2012년 신축건물로 우리대학의 로고를 응용한 랜드마크 건물입니다.<br>다니엘관과 요한관은 거의 같은 건물이라고 봐도 무방합니다. </h3>",
-            "../../static/photo/다니엘관.png"
+            "../../static/photo/다니엘관.PNG"
         );
     });
 
     addMarkerButton(415, 180, "제3과학관", function() {
         addMarkerDetail(
             "<br><br><h1>제3과학관</h1><br><h3>물리치료학과와 간호학과, 약학과가 사용하는 건물입니다.<br>건물 전체에 실험실과 연구실들이 다양하게 있습니다.</h3>",
-            "../../static/photo/제3과학관.png"
+            "../../static/photo/제3과학관.PNG"
         );
     });
 
@@ -436,14 +437,14 @@
     addMarkerButton(325, 125, "에스라관", function() {
         addMarkerDetail(
             "<br><br><h1>에스라관</h1><br><h3>보건관리학과에서 사용하는 건물입니다.<br> 강의실이 다양하게 있고, 1층에는 헬스장과 휴게실이 있습니다.</h3>",
-            "../../static/photo/에스라관.png"
+            "../../static/photo/에스라관.PNG"
         );
     });
 
     addMarkerButton(300, 160, "도서관", function() {
         addMarkerDetail(
             "<br><br><h1>도서관</h1><br><h3>지하 1층부터 3층까지 공부하는 공간이 있는 도서관입니다.<br>다양한 자료와 서적들이 구비되어 있고, 휴게실과 스터디룸도 있습니다.</h3>",
-            "../../static/photo/도서관.png"
+            "../../static/photo/도서관.PNG"
         );
     });
 
@@ -457,14 +458,14 @@
     addMarkerButton(328, 230, "학생회관", function() {
         addMarkerDetail(
             "<br><br><h1>학생회관</h1><br><h2>1층</h2><h3>매점(CU편의점) / 파인하우스(식당) / 우리은행 현금인출기</h3><br><h2>2층</h2><h3>대학총학생회 / 취업지원팀 / 예비군대대 / 학생휴게실 / 안경점</h3><br><h2>3층</h2><h3>총대의원회 / 졸업준비위원회 / 학회연합회 / (영자)신문사 / 각 동아리방</h3><br><h2>4층</h2><h3>동아리연합회 / 각 동아리방</h3>",
-            "../../static/photo/학생회관.png"
+            "../../static/photo/학생회관.PNG"
         );
     });
 
     addMarkerButton(240, 100, "70주년 기념관<br>(대강당)", function() {
         addMarkerDetail(
             "<br><br><h1>70주년 기념관</h1><br><h2>지하1층</h2><h3>음악학과 연습실 / 악기실 / 작곡실 / 첼로실 / 관현악실 / 렛슨실</h3><br><h2>1층</h2><h3>강당무대 / 강당홀 / 컨서바토리 / 영상선교팀</h3><br><h2>2층</h2><h3>강당홀 / VOS방송실 / 편집실 / 영상선교팀</h3>",
-            "../../static/photo/70주년기념관.png"
+            "../../static/photo/70주년기념관.PNG"
         );
     });
 
@@ -478,21 +479,21 @@
     addMarkerButton(275, 63, "디자인관(구 제2실습관)", function() {
         addMarkerDetail(
             "<br><br><h1>디자인관(구 제2실습관)</h1><br><h3>아트앤디자인학과와 건축학과가 사용하는 건물입니다. <br>101호에 아트앤디자인학과 사무실이 있고,<br> 202호에는 건축학과 사무실이 있습니다.</h3>",
-            "../../static/photo/디자인관.png"
+            "../../static/photo/디자인관.PNG"
         );
     });
 
     addMarkerButton(273, 82, "아트&디자인관", function() {
         addMarkerDetail(
             "<br><br><h1>아트&디자인관</h1><br><h3>아트앤디자인학과가 사용하는 건물입니다.<br>1층에 조교실이 있고, 다른 층에는 강의실들이 있습니다.</h3>",
-            "../../static/photo/아트앤디자인관.png"
+            "../../static/photo/아트앤디자인관.PNG"
         );
     });
 
     addMarkerButton(220, 180, "백주년기념관", function() {
         addMarkerDetail(
             "<br><br><h1>백주년기념관</h1><br><h2>1층</h2><h3>총무과(건축·구매팀, 인사팀) / 입학처 / 대학원 / 재무처 / 우편물취급소</h3><br><h2>2층</h2><h3>총장실 / 부총장실 / 기획처 / 사무처 / 교수실 / 기획처 / 소회의실</h3><br><h2>3층</h2><h3>대외협력처 / 대회의실 / 국제교육관 연결통로</h3><br><h2>4층</h2><h3>SU-MVP강의실 / 홍보팀(401호) / 산학협력단 / 연구처 / 문서보관실</h3>",
-            "../../static/photo/100주년기념관.png"
+            "../../static/photo/100주년기념관.PNG"
         );
     });
 
@@ -506,7 +507,7 @@
     addMarkerButton(180, 220, "신학관", function() {
         addMarkerDetail(
             "<br><br><h1>신학관</h1><br><h3>신학과에서 주로 사용하는 건물입니다. 종교 관련 교양 수업을 들을 때 주로 방문해야하는 건물입니다.</h3>",
-            "../../static/photo/신학관.png"
+            "../../static/photo/신학관.PNG"
         );
     });
 
@@ -534,7 +535,7 @@
     addMarkerButton(190, 120, "음악관", function() {
         addMarkerDetail(
             "<br><br><h1>음악관</h1><br><h3>음악학과 학생들이 사용하는 건물입니다. <br>피아노실과 레슨실, 실내악실 등이 있습니다.</h3>",
-            "../../static/photo/음악관.png"
+            "../../static/photo/음악관.PNG"
         );
     });
 
@@ -611,7 +612,7 @@
     addMarkerButton(300, 60, "온실", function() {
         addMarkerDetail(
             "<br><br><h1>온실</h1><br><h3>온실입니다.</h3>",
-            "../../static/photo/온실.png"
+            "../../static/photo/온실.PNG"
         );
     });
 
@@ -625,7 +626,7 @@
     addMarkerButton(280, 40, "실험동물실", function() {
         addMarkerDetail(
             "<br><br><h1>실험동물실</h1><br><h3>실험동물실입니다.</h3>",
-            "../../static/photo/실험동물실.png"
+            "../../static/photo/실험동물실.PNG"
         );
     });
 
@@ -633,7 +634,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px; font-size: 8px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>

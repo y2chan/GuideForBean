@@ -104,15 +104,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '200px';
-        fixedButton.style.right = '25%';
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -128,11 +128,11 @@
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '200px';
+    sliderMenu.style.bottom = '100px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '29%';
+            sliderMenu.style.right = '60px';
         } else {
             sliderMenu.style.right = '-350px';
         }
@@ -143,29 +143,27 @@
 <div class="list-title">
     <h1><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></h1>
 </div>
-<div class="main-container">
-    <div class="list-container">
-        <h3>목록</h3>
+<div class="list-container">
         <ul>
+	    <h3>목록</h3>
             <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
             <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
         </ul>
     </div>
-    <div class="content-container">
+<div class="main-container">
         <div class="filter-buttons">
             <input type="checkbox" id="open-now-toggle" class="hidden-checkbox">
             <label for="open-now-toggle" class="toggle-label"></label>
             {% for restaurant_type in restaurant_types %}
             <button class="filter-button" data-filter="{{ restaurant_type }}" style="margin-top: 20px;">{{ restaurant_type }}</button>
             {% endfor %}
-            &nbsp;<button id="resetButton" style="background-image: url('../../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;" aria-label="Reset"></button>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="음식점 검색">
                 <button id="search-button">
                     <img src="../../static/photo/search-icon.png" alt="Search">
                 </button>
             </div>
-            <p>현재 시간: {{ current_time }}</p>
+	    <p>현재 시간: {{ current_time }} &nbsp;<button id="resetButton" style="background-image: url('../../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;" aria-label="Reset"></button></p>
             <ul style="list-style-type: none;">
                 {% for restaurant in restaurants %}
                 <li>

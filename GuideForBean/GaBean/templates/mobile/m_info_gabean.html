@@ -104,15 +104,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '200px';
-        fixedButton.style.right = '25%';
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -128,23 +128,23 @@
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '200px';
+    sliderMenu.style.bottom = '100px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '29%';
+            sliderMenu.style.right = '60px';
         } else {
             sliderMenu.style.right = '-350px';
         }
     });
 </script>
-<div class="page-title-img">
+<div class="page-title-img" style="overflow: hidden;">
 </div>
 <div class="list-title">
     <h1><a href="{% url 'GaBean:info_gabean' %}" style="font-size: 30pt;">Gabean이란?</a></h1>
 </div>
 <div class="main-container">
-    <div class="content-container">
+    <div class="content-container" style="display: flex; flex-direction: column;">
         <div class="main-container">
             <div class="info-bus">
                 <div class="direction">
@@ -152,30 +152,33 @@
                     <img src="../../static/photo/GaBean.png" alt="GaBeanLogo" style="max-width: 40%; margin-bottom:20px;">
                     <br>
                     <a style="font-size:10pt;">로고 제작자: 박준성(아트&디자인학과)</a>
-                    <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">Guide For Bean</h1>
+                    <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size: 23pt;">Guide For Bean</h1>
                     <h3 style="text-decoration: skyblue wavy underline;">Guide</h3>
                     <a>안내하다</a>
                     <h3 style="text-decoration: skyblue wavy underline;">Bean</h3>
-                    <a>콩</a><br><a>- 삼육대에서는 학생들 사이에 신입생들을 "콩"으로 표현함</a>
+		    <a>콩</a><br><a>- 삼육대에서는 학생들 사이에서  <br>신입생들을 "콩"으로 표현함</a>
                     <br><br>
-                    <h3> * 신입생들을 안내하기 위한 페이지를 개설</h3>
+		    <h3> * 신입생들을 안내하기 위한 <br>페이지를 개설</h3>
                 </div>
             </div>
-            <div class="container-separator2"></div>
+        </div>
+        <div class="main-container">
+            <div class="info-bus">
                 <div class="direction">
-                    <br><br><br><br><br><br><br>
+		    <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size: 23pt;">주요 기능</h1>
+		    <br>
                     <h3 style="color: black; text-decoration: black underline;">캠퍼스맵</h3>
-                    <a>신입생들이 잘 모르는 학교 건물들의 <br>세세한 위치 제공<br>(전체화면으로 보는 것을 권장)</a><br>
+                    <a>신입생들이 잘 모르는 학교 건물들의 <br>세세한 위치를 제공하는 기능<br>(전체화면으로 보는 것을 권장)</a><br>
                     <h3 style="color: black; text-decoration: black underline;">후문</h3>
-                    <a>후문 음식점을 가게별로 필터링하여 제공 <br>현재 영업중인 가게도 확인 가능</a><br>
+                    <a>후문 음식점을 가게별로 필터링 기능 <br>현재 영업중인 가게도 확인 가능</a><br>
                     <h3 style="color: black; text-decoration: black underline;">오늘 뭐 먹지?</h3>
-                    <a>후문 음식점들 중 무엇을 먹어야할지 <br>선택하기 어려운 사람을 위한 기능 제공</a><br>
+                    <a>후문 음식점들 중 무엇을 먹어야할지 <br>선택하기 어려운 사람을 위한 기능</a><br>
                     <h3 style="color: black; text-decoration: black underline;">학교 정보</h3>
-                    <a>수강, 졸업 정보 등 신입생이 잘 모를 수 있는 내용들을 간략하게 제공</a><br>
+                    <a>수강, 졸업 정보 등 신입생이 잘 모를 수 있는 내용들을 간략하게 제공하는 기능</a><br>
                     <h3 style="color: black; text-decoration: black underline;">교통</h3>
-                    <a>버스, 지하철, 셔틀버스 등 각 교통수단을 확인 가능하도록 제공 (현재 시간 기준)</a>
+		    <a>버스, 지하철, 셔틀버스 등 <br>각 교통수단을 확인 가능하도록 제공 (현재 시간 기준)</a>
                     <h3 style="color: black; text-decoration: black underline;">콩들의 소리</h3>
-                    <a>개선해야할 점 등을 사용자가 직접 남길 수 있도록 제공<br>(수정, 삭제가 불가능하니 신중하게 작성)</a><br>
+		    <a>개선해야할 점 등을 사용자가 직접 <br>남길 수 있도록 제공<br>(수정, 삭제가 불가능하니 신중하게 작성 요망)</a><br>
                 </div>
             </div>
         </div>
@@ -184,7 +187,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px; font-size: 8px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>
