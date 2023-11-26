@@ -110,15 +110,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '200px';
-        fixedButton.style.right = '25%';
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -134,11 +134,11 @@
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '200px';
+    sliderMenu.style.bottom = '100px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '29%';
+            sliderMenu.style.right = '60px';
         } else {
             sliderMenu.style.right = '-350px';
         }
@@ -149,20 +149,20 @@
 <div class="list-title" style="font-size: 20pt;">
     <h1><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></h1>
 </div>
-<div class="main-container">
-    <div class="list-container">
-        <h3>목록</h3>
+<div class="list-container">
         <ul>
+            <h3>목록</h3>
             <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
             <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
             <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></li>
         </ul>
     </div>
+<div class="main-container">
     <div class="content-container">
         <div class="main-container">
             <div class="info-bus">
-                <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1>
+                <div class="direction" style="width: 310px;">
+			<h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1><br><br>
                     {% for data in grouped_data.direction_1 %}
                     <div class="bus-info-container">
                         <div style="width: 100%;" class="left-column">
@@ -182,7 +182,7 @@
                     {% endfor %}
                 </div>
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1>
+			<h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1><br><br>
                     {% for data in grouped_data.direction_2 %}
                     <div class="bus-info-container">
                         <div style="width: 100%;"class="left-column">
@@ -208,7 +208,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px; font-size: 8pt;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>

@@ -104,15 +104,15 @@
             var scrollY = window.scrollY;
             // 원하는 스크롤 위치 이상이면 버튼 위치 변경
             if (scrollY > 200) { // 원하는 스크롤 위치로 수정
-               fixedButton.style.top = '200px'; // 원하는 위치로 조절 가능
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
             } else {
-                fixedButton.style.top = '200px'; // 다시 초기 위치로 조절 가능
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
             }
         });
 
         // 초기 버튼 위치 설정
-        fixedButton.style.top = '200px';
-        fixedButton.style.right = '25%';
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
     });
 
     var imageButton = document.getElementById('openSlider');
@@ -128,11 +128,11 @@
     var openSliderButton = document.getElementById('openSlider');
     var sliderMenu = document.querySelector('.slider-menu');
 
-    sliderMenu.style.top = '200px';
+    sliderMenu.style.bottom = '100px';
 
     openSliderButton.addEventListener('click', function() {
         if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
-            sliderMenu.style.right = '29%';
+            sliderMenu.style.right = '60px';
         } else {
             sliderMenu.style.right = '-350px';
         }
@@ -143,17 +143,17 @@
 <div class="list-title">
     <h1><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></h1>
 </div>
-<div class="main-container">
-    <div class="list-container">
+<div class="list-container">
+    <ul>
         <h3>목록</h3>
-        <ul>
-            <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
-            <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
-            <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀 버스</a></li>
-        </ul>
-    </div>
+        <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
+        <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
+        <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀 버스</a></li>
+    </ul>
+</div>
+<div class="main-container">
     <div class="content-container">
-        <div class="direction">
+        <div class="direction" style="width: 310px;">
             <h1 style="background-color: rgba(6, 186, 242, 0.23); font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">남은 시간</h1>
             <div class="shuttle-info-container">
                 <div class="left-info" style="font-size: 11pt;">
@@ -251,7 +251,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px; font-size: 8pt;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>

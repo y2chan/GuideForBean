@@ -219,10 +219,11 @@ html.open {
     align-items: center;
     margin: 0 10px; /* 양쪽 여백 추가 */
     margin-bottom: 20px; /* 아래 여백 추가 */
+    overflow-x: hidden;
 }
 
 .detail-description img {
-    max-width: auto; /* 이미지의 최대 너비 */
+    max-width: 90%;
     margin-right: 20px; /* 이미지와 텍스트 간격 */
     margin-top: 20px;
     display : block;
@@ -943,7 +944,7 @@ html.open {
 
 table {
     border-collapse: collapse;
-    width: 750px;
+    width: 340px;
 }
 
 th, td {
@@ -954,6 +955,10 @@ th, td {
 
 tr + tr {
     border-top: 1px solid #ccc;
+}
+
+tbody {
+    width: 100px;
 }
 
 .num-col {
