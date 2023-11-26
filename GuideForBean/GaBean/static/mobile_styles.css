@@ -564,6 +564,7 @@ html.open {
     text-align: start;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16pt;
+    width: 310px;
     color: #000;
     background-color: white;
     padding: 10px; /* 추가된 내용: 내용과의 간격 조절 */
