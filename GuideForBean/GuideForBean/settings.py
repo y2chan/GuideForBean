@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-tfl98nfn)kn2_sr^g&%r7b$f_z8txp7$400u%n1eh8+y!$d!n6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gabean.kr', 'm.gabean.kr', '3.35.174.115']
+ALLOWED_HOSTS = ['gabean.kr', 'm.gabean.kr', '52.78.55.70']
 
 LOGGING = {
     'version': 1,

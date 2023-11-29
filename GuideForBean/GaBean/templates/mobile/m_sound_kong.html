@@ -3,6 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6M724Q9WN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Y6M724Q9WN');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -163,8 +172,8 @@
                 {% for post in posts|dictsortreversed:"pub_date" %}
                 <tr>
                     <td><a href="{% url 'gabean_mobile:m_sound_kong_detail' post.id %}" class="btn-gradient blue small">{{ forloop.counter }}</a></td>
-                    <td>{{ post.title|slice:":4" }}{% if post.title|length > 4 %}...{% endif %}</a></td>
-                    <td>{{ post.content|slice:":10" }}{% if post.content|length > 10 %}...{% endif %}</td>
+                    <td>{{ post.title|slice:":7" }}{% if post.title|length > 7 %}...{% endif %}</a></td>
+                    <td>{{ post.content|slice:":7" }}{% if post.content|length > 7 %}...{% endif %}</td>
                 </tr>
                 {% endfor %}
                 {% else %}

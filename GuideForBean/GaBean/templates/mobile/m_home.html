@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6M724Q9WN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-Y6M724Q9WN');
+    </script>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../static/mobile_styles.css">
     <title>GaBean</title>
@@ -242,7 +251,7 @@
 
       // 2.5초 후에 작은 공을 이동하면서 왼쪽 위로 이동
       setTimeout(function() {
-        document.getElementById('transition-image').style.transform = 'scale(0.47) translate(0px, -555px)';
+        document.getElementById('transition-image').style.transform = 'scale(0.47) translate(0px, -525px)';
       }, 2000);
 
       // 4.5초 후에 home.html 보여주기 (1초 동안 이미지를 보여주고 2.5초 동안 이동)

@@ -1,9 +1,21 @@
 /* styles.css */
+
 body {
+    background-color: white;
+    color: black;
     max-width: 400px;
     margin: 0 auto;
     overflow-x: hidden;
 }
+
+/* 다크 모드에 대한 스타일 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: white;
+    color: black;
+  }
+}
+
 
 .fixed-button {
     position: fixed;
@@ -42,7 +54,7 @@ body {
     border: 1px solid #ccc;
     text-align: center;
     z-index: 9999; /* 적절한 큰 숫자로 설정 */
-}
+/home/ubuntu/GuideForBean/GuideForBean/GuideForBean/GaBean/static/.mobile_styles.css.swp}
 
 /* 내용 스타일 */
 .slider-content {
@@ -564,7 +576,6 @@ html.open {
     text-align: start;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 16pt;
-    width: 310px;
     color: #000;
     background-color: white;
     padding: 10px; /* 추가된 내용: 내용과의 간격 조절 */
