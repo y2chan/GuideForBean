@@ -20,5 +20,6 @@ urlpatterns = [
     path('sound_kong/detail/<int:post_id>/', views.sound_kong_detail, name='sound_kong_detail'),
     path('campusmap_detail/', views.campusmap_detail, name='campusmap_detail'),
     path('humun_random/', views.humun_random, name='humun_random'),
+    path('news', views.news_search, name='news'),
     path('test/', views.test, name='test'),
 ]

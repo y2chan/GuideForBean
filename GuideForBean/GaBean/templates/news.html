@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>인권 뉴스</title>
+    <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+</head>
+<body>
+
+<div class="header">
+    <div class="logo-and-menu">
+        <a href="{% url 'GaBean:home' %}">
+            <div class="logo">
+                <img src="../static/photo/GaBean.png" alt="Your Logo">
+            </div>
+        </a>
+        <div id="menu">
+            <ul>
+                <li>
+                    <a href="{% url 'GaBean:info_gabean' %}">GaBean이란?</a>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:campusmap' %}">캠퍼스맵</a></li>
+                        <li><a href="{% url 'GaBean:campusmap_detail' %}">상세 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:humun_food' %}">후문</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:humun_food' %}">음식점</a></li>
+                        <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+                        <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:info_bus' %}">교통</a>
+                    <ul>
+                        <li><a href="{% url 'GaBean:info_bus' %}">버스</a></li>
+                        <li><a href="{% url 'GaBean:info_subway' %}">지하철</a></li>
+                        <li><a href="{% url 'GaBean:info_shuttle' %}">셔틀버스</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{% url 'GaBean:sound_kong' %}">콩들의 소리</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+    <div class="slider-content">
+        ID : 학번 / PW : SU-WINGs PW
+        <br>(즉, SU-WINGs 로그인과 방식이 같다)
+    </div>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 버튼 엘리먼트 가져오기
+        var fixedButton = document.querySelector('.fixed-button');
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function() {
+            // 스크롤 위치 가져오기
+            var scrollY = window.scrollY;
+            // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+            if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+               fixedButton.style.top = '100px'; // 원하는 위치로 조절 가능
+            } else {
+                fixedButton.style.top = '100px'; // 다시 초기 위치로 조절 가능
+            }
+        });
+
+        // 초기 버튼 위치 설정
+        fixedButton.style.top = '100px';
+        fixedButton.style.right = '0px';
+    });
+
+    var imageButton = document.getElementById('openSlider');
+
+    // 클릭 이벤트 리스너 등록
+    imageButton.addEventListener('click', function() {
+        // 클릭 시 이미지 변경
+        imageButton.classList.toggle('clicked');
+    });
+</script>
+<script>
+    // 슬라이드인 메뉴 열기/닫기
+    var openSliderButton = document.getElementById('openSlider');
+    var sliderMenu = document.querySelector('.slider-menu');
+
+    sliderMenu.style.top = '100px';
+
+    openSliderButton.addEventListener('click', function() {
+        if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+            sliderMenu.style.right = '60px';
+        } else {
+            sliderMenu.style.right = '-350px';
+        }
+    });
+</script>
+<div class="news-button-container">
+    <button id="newsButton" class="newsButton">인권<br>뉴스</button>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        var newsButton = document.getElementById('newsButton');
+
+        // 초기 버튼 위치 설정
+        newsButton.style.top = '170px';
+        newsButton.style.right = '0px';
+
+        newsButton.addEventListener('click', function() {
+            window.location.href = "{% url 'GaBean:news' %}";
+        });
+    });
+</script>
+
+<div class="page-title-img">
+</div>
+<div class="main-container">
+    <div class="list-container">
+        <div class="list-title">
+            <h1><a href="{% url 'GaBean:news' %}">인권 뉴스</a></h1>
+        </div>
+    </div>
+    <div class="content-container">
+        <div class="main-container">
+            <div class="info-bus">
+                <div class="direction">
+
+                    <h1>Keyword<a style="font-size: 11pt; margin-left: 50px;">키워드 하나당 20개씩 최신 / 관련 순으로 정렬됩니다.</a></h1><br>
+
+
+                    <!-- 검색어 버튼 -->
+                    <h3>인권의 정의</h3>
+                    <a href="?query=인권"><button class="filter-button" style="margin-top: 20px;">인권</button></a>
+                    <a href="?query=인권 침해"><button class="filter-button" style="margin-top: 20px;">인권 침해</button></a>
+                    <a href="?query=인권 운동"><button class="filter-button" style="margin-top: 20px;">인권 운동</button></a>
+                    <a href="?query=인권 정책"><button class="filter-button" style="margin-top: 20px;">인권 정책</button></a>
+                    <a href="?query=인권과 사회적 정의"><button class="filter-button" style="margin-top: 20px;">인권과 사회적 정의</button></a>
+                    <br>
+                    <h3>인권 보호와 법적 제도</h3>
+                    <a href="?query=인권 보호"><button class="filter-button" style="margin-top: 20px;">인권 보호</button></a>
+                    <a href="?query=인권 보호를 위한 법적 제도"><button class="filter-button" style="margin-top: 20px;">인권 보호를 위한 법적 제도</button></a>
+                    <a href="?query=인권 조약"><button class="filter-button" style="margin-top: 20px;">인권 조약</button></a>
+                    <a href="?query=인권 기관"><button class="filter-button" style="margin-top: 20px;">인권 기관</button></a>
+                    <a href="?query=인권 선언"><button class="filter-button" style="margin-top: 20px;">인권 선언</button></a>
+                    <br>
+                    <h3>특정 그룹의 인권</h3>
+                    <a href="?query=난민의 인권"><button class="filter-button" style="margin-top: 20px;">난민의 인권</button></a>
+                    <a href="?query=소수 집단의 인권"><button class="filter-button" style="margin-top: 20px;">소수 집단의 인권</button></a>
+                    <a href="?query=아동과 청소년의 인권"><button class="filter-button" style="margin-top: 20px;">아동과 청소년의 인권</button></a>
+                    <a href="?query=노동자의 인권"><button class="filter-button" style="margin-top: 20px;">노동자의 인권</button></a>
+                    <a href="?query=다문화 사회와 다양성 인권"><button class="filter-button" style="margin-top: 20px;">다문화 사회와 다양성 인권</button></a>
+                    <br>
+                    <h3>기타 주제</h3>
+                    <a href="?query=환경 인권"><button class="filter-button" style="margin-top: 20px;">환경 인권</button></a>
+                    <a href="?query=디지털 시대의 인권"><button class="filter-button" style="margin-top: 20px;">디지털 시대의 인권</button></a>
+                    <a href="?query=인권과 건강권"><button class="filter-button" style="margin-top: 20px;">인권과 건강권</button></a>
+                    <a href="?query=인권과 예술의 자유"><button class="filter-button" style="margin-top: 20px;">인권과 예술의 자유</button></a>
+                    <a href="?query=인권과 인공지능"><button class="filter-button" style="margin-top: 20px;">인권과 인공지능</button></a>
+                    <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
+                    <br><br>
+                    <hr>
+                    <h1>Result</h1>
+                    {% if query == "" %}
+                    {% else %}
+                    <h2 style="margin-bottom: 40px;">검색어: "{{ query }}"</h2>
+                    {% endif %}
+                    {% if news %}
+                    <ul>
+                        {% for item in news %}
+                        <li>
+                            <a href="{{ item.link }}" target="_blank"><h3>◼ {{ item.title|safe }}</h3></a>
+                            <p>📆 {{ item.pubDate }}</p>
+                            <p style="border-bottom: 2px solid #ddd; padding: 8px;">▪ {{ item.description|safe }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h2 style="margin-top: 50px;">검색어를 클릭하세요</h2>
+                    {% endif %}
+                    <a style="float: right; font-size:10pt;">모든 내용은 네이버 뉴스에서 최신 / 관련순으로 가져왔습니다.</a><br>
+                    <a href="https://news.naver.com/" style="color: black; text-decoration: black underline; float: right; font-size:11pt;" target="_blank">네이버 뉴스</a><a style="float: right; font-size:10pt;">출처:&nbsp;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
+        <br>Dev : Ee Chan Yang
+        <br>Logo : Jun Seong Park
+        <br>Other Website Dev : Sang Yoon Kim</p>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
+</div>
+</body>
+</html>

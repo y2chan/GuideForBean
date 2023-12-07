@@ -24,6 +24,41 @@ session = requests.Session()
 session.mount('http://', adapter)
 session.mount('https://', adapter)
 
+
+def news_search(request):
+    # 네이버 검색 API를 호출할 URL을 설정합니다.
+    url = "https://openapi.naver.com/v1/search/news.json"
+
+    # URL 파라미터에서 검색어를 가져옵니다. 기본값은 빈 문자열입니다.
+    query = request.GET.get('query', '')
+
+    if query:
+        # API를 호출할 때 사용할 파라미터를 설정합니다.
+        params = {'query': query, 'display': 20}
+
+        # API를 호출할 때 사용할 헤더를 설정합니다. 클라이언트 ID와 시크릿은 실제 값으로 변경해야 합니다.
+        headers = {
+            'X-Naver-Client-Id': '48KtNy0_eHdwWFg3vDUg',
+            'X-Naver-Client-Secret': 'LFiuNrJGef'
+        }
+
+        # API를 호출하고 응답을 가져옵니다.
+        response = requests.get(url, headers=headers, params=params)
+
+        # 응답을 JSON 형식으로 파싱합니다.
+        result = json.loads(response.text)
+
+        for item in result['items']:
+            item['title'] = item['title'].replace('<b>', '<strong>').replace('</b>', '</strong>')
+            item['description'] = item['description'].replace('<b>', '<strong>').replace('</b>', '</strong>')
+            item['pubDate'] = datetime.strptime(item['pubDate'], '%a, %d %b %Y %H:%M:%S +0900').strftime('%Y년 %m월 %d일 %H시 %M분')
+
+        # 결과와 검색어를 템플릿에 전달합니다.
+        return render(request, 'news.html', {'news': result['items'], 'query': query})
+
+    else:  # 검색어가 없는 경우 빈 결과를 전달합니다.
+        return render(request, 'news.html', {'news': [], 'query': query})
+
 def get_bus_info(request):
     try:
         api_key = settings.BUS_API_KEY
@@ -266,24 +301,22 @@ def humun_food(request):
                 open_datetime = datetime.now().replace(hour=current_opening_hour.open_time.hour, minute=current_opening_hour.open_time.minute)
                 close_datetime = datetime.now().replace(hour=current_opening_hour.close_time.hour, minute=current_opening_hour.close_time.minute)
 
-                if open_datetime <= current_datetime <= close_datetime:
+                if open_datetime <= current_datetime < close_datetime:
                     restaurant.open_status = "영업 중"
                     time_difference = close_datetime - current_datetime
                 elif open_datetime == close_datetime:
                     # 현재 요일에 해당하는 영업 정보가 없을 경우 "휴무"로 처리
                     restaurant.open_status = "휴무"
                     restaurant.remaining_time = None
-                elif close_datetime == current_datetime:
+                elif current_datetime >= close_datetime:
                     restaurant.open_status = "마감"
-                    # Calculate the next day's opening time
                     next_day_open_datetime = open_datetime + timedelta(days=1)
-                    time_difference = next_day_open_datetime - current_datetime
+                    if current_datetime.time() < open_datetime.time():
+                        next_day_open_datetime = open_datetime
+                        time_difference = next_day_open_datetime - current_datetime
                 else:
-                    # 그렇지 않으면 "마감"
-                    restaurant.open_status = "마감"
-                    # Calculate the next day's opening time
-                    next_day_open_datetime = open_datetime + timedelta(days=1)
-                    time_difference = next_day_open_datetime - current_datetime
+                    restaurant.open_status = "영업 중"
+                    time_difference = close_datetime - current_datetime
 
                 if time_difference:
                     hours, remainder = divmod(time_difference.total_seconds(), 3600)
