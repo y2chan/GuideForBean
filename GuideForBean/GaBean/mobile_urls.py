@@ -18,4 +18,5 @@ urlpatterns = [
     path('sound_kong/detail/<int:post_id>/', views.mobile_sound_kong_detail.as_view(), name='m_sound_kong_detail'),
     path('campusmap_detail/', views.mobile_campusmap_detail.as_view(), name='m_campusmap_detail'),
     path('humun_random/', views.mobile_humun_random.as_view(), name='m_humun_random'),
+    path('m_news', views.mobile_news_search.as_view(), name='m_news'),
 ]

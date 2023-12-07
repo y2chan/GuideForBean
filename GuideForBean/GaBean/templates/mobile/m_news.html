@@ -3,21 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6M724Q9WN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-Y6M724Q9WN');
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-    <title>수강 정보</title>
+    <title>인권 뉴스</title>
     <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -159,53 +150,77 @@
         newsButton.style.right = '0px';
 
         newsButton.addEventListener('click', function() {
-            window.location.href = "{% url 'GaBean:news' %}";
+            window.location.href = "{% url 'gabean_mobile:m_news' %}";
         });
     });
 </script>
 <div class="page-title-img">
 </div>
 <div class="list-title">
-    <h1><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></h1>
+    <h1><a href="{% url 'gabean_mobile:m_news' %}">인권 뉴스</a></h1>
 </div>
-<div class="list-container">
-        <ul>
-            <h3>목록</h3>
-            <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
-            <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
-        </ul>
-    </div>
 <div class="main-container">
     <div class="content-container">
         <div class="main-container">
             <div class="info-bus">
-                <div class="direction" style="width: 310px;">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">수강신청이란?</h1>
-                    <h4>매년 2월 및 8월에 실시하는 제도로, 수강신청 시 본인의 능력에 따라 원하는 수업을 들을 수 있다.</h4>
-                    <a>* 수강신청 사이트 : </a><br><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs)</a><br>
-		    <br><a>* 수강신청 모의 사이트 : </a><a href="https://sugang.syu.kr/testLogin" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/testLogin</a><br><a>(해당 웹 개발자: 김상윤)</a>
-                </div>
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">예비 수강신청이란?</h1>
-                    <h4>매년 1월 및 7월에 실시하는 장바구니 제도로, 수강신청 시에 유리하도록 원하는 수업을 미리 장바구니에 담을 수 있다.<br>1학년 2학기부터 사용 가능하다.</h4>
-                    <a>* 예비 수강신청 사이트 : </a><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs) - 수강신청 사이트와 동일</a><br>
-		    <br><a>* 수강신청 경쟁률 조회 사이트 : </a><a href="https://sugang.syu.kr/basket" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/basket</a><br><a>(해당 웹 개발자: 김상윤)</a>
-                </div>
-                <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">자주 하는 질문</h1>
-                    <h3>Q. 학기당 최소 몇 학점을 들어야하나요?</h3>
-                    <a>A. 학기인정 최소학점은 </a><a style="color: black; text-decoration: black underline;">12학점</a><a>입니다!</a>
-                    <h3>Q. 학기당 최대 들을 수 있는 학점은 몇 학점인가요?</h3>
-                    <a>A. 수강과목 중 <a style="color: black; text-decoration: black underline;">선택과목에 1학점이 없는 경우 18학점까지</a><a> 가능하며,</a>&nbsp;<a style="color: black; text-decoration: black underline;">평균평점이 3.7이상</a><a>인 학생은 </a><a style="color: black; text-decoration: black underline;">21학점까지</a> 가능합니다!</a>
-                    <h3>Q. 수강신청 확인 및 정정기간은 언제인가요?</h3>
-                    <a>A. </a><a style="color: black; text-decoration: black underline;">매학기 개강 첫주</a><a>입니다!</a>
-                    <h3>Q. 수강신청 폐강의 기준은 어떻게 되나요?</h3>
-                    <a>A. 수강인원이</a> <a style="color: black; text-decoration: black underline;">전공 8명, 교양 16명 미만</a><a>일 경우 폐강됩니다!</a><br>
-		    <a>* 수강신청 폐강위기 조회 사이트 : </a><a href="https://sugang.syu.kr/closed" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/closed</a><br><a>(해당 웹 개발자: 김상윤)</a>
-                    <h3>Q. 재수강 시 받을 수 있는 최대 성적은 어떻게 되나요?</h3>
-                    <a>A. </a><a style="color: black; text-decoration: black underline;">B+</a><a>입니다!</a>
-                    <br><br><br>
-                    <a style="float: right; font-size:10pt;">모든 정보는 23년도 기준이며 추가로 제보할 내용이 있으면&nbsp;</a><a style="float: right; font-size:10pt;">에 제보 바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">콩들의 소리</a>
+
+			<h1 style="text-align: center;">Keyword</h1>
+			<a style="font-size: 11pt;">키워드 하나당 10개씩 최신/관련순 으로 정렬됩니다.</a>
+
+
+                    <!-- 검색어 버튼 -->
+                    <h3>인권의 정의</h3>
+                    <a href="?query=인권"><button class="filter-button" style="margin-top: 20px;">인권</button></a>
+                    <a href="?query=인권 침해"><button class="filter-button" style="margin-top: 20px;">인권 침해</button></a>
+                    <a href="?query=인권 운동"><button class="filter-button" style="margin-top: 20px;">인권 운동</button></a>
+                    <a href="?query=인권 정책"><button class="filter-button" style="margin-top: 20px;">인권 정책</button></a>
+                    <a href="?query=인권과 사회적 정의"><button class="filter-button" style="margin-top: 20px;">인권과 사회적 정의</button></a>
+		    <br><br>
+                    <h3>인권 보호와 법적 제도</h3>
+                    <a href="?query=인권 보호"><button class="filter-button" style="margin-top: 20px;">인권 보호</button></a>
+                    <a href="?query=인권 보호를 위한 법적 제도"><button class="filter-button" style="margin-top: 20px;">인권 보호를 위한 법적 제도</button></a>
+                    <a href="?query=인권 조약"><button class="filter-button" style="margin-top: 20px;">인권 조약</button></a>
+                    <a href="?query=인권 기관"><button class="filter-button" style="margin-top: 20px;">인권 기관</button></a>
+                    <a href="?query=인권 선언"><button class="filter-button" style="margin-top: 20px;">인권 선언</button></a>
+		    <br><br>
+                    <h3>특정 그룹의 인권</h3>
+                    <a href="?query=난민의 인권"><button class="filter-button" style="margin-top: 20px;">난민의 인권</button></a>
+                    <a href="?query=소수 집단의 인권"><button class="filter-button" style="margin-top: 20px;">소수 집단의 인권</button></a>
+                    <a href="?query=아동과 청소년의 인권"><button class="filter-button" style="margin-top: 20px;">아동과 청소년의 인권</button></a>
+                    <a href="?query=노동자의 인권"><button class="filter-button" style="margin-top: 20px;">노동자의 인권</button></a>
+                    <a href="?query=다문화 사회와 다양성 인권"><button class="filter-button" style="margin-top: 20px;">다문화 사회와 다양성 인권</button></a>
+		    <br><br>
+                    <h3>기타 주제</h3>
+                    <a href="?query=환경 인권"><button class="filter-button" style="margin-top: 20px;">환경 인권</button></a>
+                    <a href="?query=디지털 시대의 인권"><button class="filter-button" style="margin-top: 20px;">디지털 시대의 인권</button></a>
+                    <a href="?query=인권과 건강권"><button class="filter-button" style="margin-top: 20px;">인권과 건강권</button></a>
+                    <a href="?query=인권과 예술의 자유"><button class="filter-button" style="margin-top: 20px;">인권과 예술의 자유</button></a>
+                    <a href="?query=인권과 인공지능"><button class="filter-button" style="margin-top: 20px;">인권과 인공지능</button></a>
+                    <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
+                    <br><br>
+                    <hr>
+                    <h1 style="text-align: center;">Result</h1>
+                    {% if query == "" %}
+                    {% else %}
+		    <h2 style="margin-bottom: 40px; text-align: center;">검색어 <br>"{{ query }}"</h2>
+                    {% endif %}
+                    {% if news %}
+		    <ul>
+                        {% for item in news %}
+                        <li>
+                            <a href="{{ item.link }}" target="_blank"><h3>{{ item.title|slice:":20"|safe }}{% if item.title|length > 16 %}...{% endif %}</h3></a>
+                            <p>📆 {{ item.pubDate }}</p>
+                            <p style="border-bottom: 2px solid #ddd; padding: 8px;">▪ {{ item.description|slice:":40"|safe }}{% if item.description|length > 25 %}...{% endif %}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h2 style="margin-top: 50px;">검색어를 클릭하세요</h2>
+                    {% endif %}
+                    <a style="float: right; font-size:10pt;">모든 내용은 네이버 뉴스에서</a><br>
+		    <a style="float: right; font-size:10pt;">최신 / 관련순으로 가져왔습니다.</a><br>
+                    <a href="https://news.naver.com/" style="color: black; text-decoration: black underline; float: right; font-size:11pt;" target="_blank">네이버 뉴스</a><a style="float: right; font-size:10pt;">출처:&nbsp;</a>
                 </div>
             </div>
         </div>

@@ -1127,3 +1127,19 @@ tbody {
     object-fit: cover; /* 이미지가 가득 차도록 설정 */
     transition: transform 1s ease-in-out; /* 변형(이동)과 투명도에 대한 트랜지션 효과 */
 }
+
+.newsButton {
+    position: fixed;
+    bottom: 170px;
+    right: 0px;
+    border: none;
+    border-radius: 50%;
+    width: 60px; /* 버튼의 가로 길이 */
+    height: 60px; /* 버튼의 세로 길이 */
+    padding: 10px;
+    line-height: 1.5; /* 줄 간격 조절 */
+    background-color: #8FDB19;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
