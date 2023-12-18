@@ -21,7 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SETTINGS_SECRET_KEY')
+SECRET_KEY = 'django-insecure-tfl98nfn)kn2_sr^g&%r7b$f_z8txp7$400u%n1eh8+y!$d!n6'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -95,7 +96,7 @@ DATABASES = {
              'ENGINE': 'django.db.backends.mysql',
              'NAME': 'GaBean',
              'USER': 'root',
-             'PASSWORD': os.environ.get('SETTINGS_DATABASE'),
+             'PASSWORD': 'diddlcks123@',
              'HOST': 'localhost',
              'PORT': '3306',
         }
@@ -147,5 +148,5 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-BUS_API_KEY = os.environ.get('SETTINGS_BUS_API_KEY')
-SUBWAY_API_KEY = os.environ.get('SETTINGS_SUBWAY_API_KEY')
+BUS_API_KEY = 'mogcuiLBAxr03JYAaBObRQuyTUU0tyR%2FYDbztxd11VVfCtcbbNIyr%2BJpU0Ir5DY1whzpR9blc%2Fsb7qf37lA0Cw%3D%3D'
+SUBWAY_API_KEY = '67496c716565636834387579417a70'
