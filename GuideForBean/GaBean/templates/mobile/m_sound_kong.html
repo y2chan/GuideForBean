@@ -178,18 +178,16 @@
             <table style="width: 340px">
                 <thead>
                 <tr>
-                    <th class="num-col">번호</th>
-                    <th style="width: 150px">제목</th>
-                    <th style="width: 150px">내용</th>
+                    <th style="width: 100px">제목</th>
+                    <th style="width: 200px">내용</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% if posts %}
                 {% for post in posts|dictsortreversed:"pub_date" %}
                 <tr>
-                    <td><a href="{% url 'gabean_mobile:m_sound_kong_detail' post.id %}" class="btn-gradient blue small">{{ forloop.counter }}</a></td>
-                    <td>{{ post.title|slice:":7" }}{% if post.title|length > 7 %}...{% endif %}</a></td>
-                    <td>{{ post.content|slice:":7" }}{% if post.content|length > 7 %}...{% endif %}</td>
+			<td><a href="{% url 'GaBean:sound_kong_detail' post.id %}" style="text-decoration: black underline;">{{ post.title|slice:":5" }}</a></td>
+                    <td>{{ post.content|slice:":10" }}{% if post.content|length > 7 %}...{% endif %}</td>
                 </tr>
                 {% endfor %}
                 {% else %}
