@@ -19,4 +19,5 @@ urlpatterns = [
     path('campusmap_detail/', views.mobile_campusmap_detail.as_view(), name='m_campusmap_detail'),
     path('humun_random/', views.mobile_humun_random.as_view(), name='m_humun_random'),
     path('m_news', views.mobile_news_search.as_view(), name='m_news'),
+    path('m_get_all_restaurant', views.mobile_get_all_restaurant.as_view(), name='m_get_all_restaurant'),
 ]

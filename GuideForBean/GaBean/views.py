@@ -58,6 +58,11 @@ def news_search(request):
 
     else:  # 검색어가 없는 경우 빈 결과를 전달합니다.
         return render(request, 'news.html', {'news': [], 'query': query})
+from itertools import groupby
+import requests
+from django.conf import settings
+import xml.etree.ElementTree as ET
+from django.shortcuts import render
 
 def get_bus_info(request):
     try:
@@ -100,15 +105,14 @@ def get_bus_info(request):
             else:
                 grouped_data["direction_2"].append(data)
 
-        # 중복된 stNm 값을 그룹화하기 위한 딕셔너리 생성
-        for data in grouped_data["direction_1"] + grouped_data["direction_2"]:
-            stNm = data.get('stNm')
-            if stNm is not None:
-                if stNm not in grouped_data:
-                    grouped_data[stNm] = []
-                grouped_data[stNm].append(data)
+        def group_by_stNm(data):
+            # stNm 기준으로 데이터를 먼저 정렬합니다.
+            sorted_data = sorted(data, key=lambda x: x['stNm'])
+            return {k: list(g) for k, g in groupby(sorted_data, key=lambda x: x['stNm'])}
 
-        # 그룹화된 데이터를 템플릿으로 전달
+        grouped_data["direction_1"] = group_by_stNm(grouped_data["direction_1"])
+        grouped_data["direction_2"] = group_by_stNm(grouped_data["direction_2"])
+
         return render(request, 'info_bus.html', {'grouped_data': grouped_data})
 
     except requests.exceptions.RequestException as e:
@@ -342,34 +346,14 @@ def humun_food(request):
     }
     return render(request, 'humun_food.html', context)
 
-def generate_random_data(request):
-    # "카페"가 아닌 항목만 가져오기
-    non_cafe_items = HumunFood.objects.exclude(type='카페')
-
-    # 무작위로 하나의 아이템 선택
-    random_item = non_cafe_items.order_by('?').first()
-
-    data = {
-        'randomType': random_item.type,
-        'randomName1': random_item.name,
-    }
-
-    # 다시 하나의 아이템 선택
-    random_name2 = non_cafe_items.exclude(name=random_item.name).order_by('?').first()
-    data['randomName2'] = random_name2.name
-
-    return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
+def get_all_restaurant(request):
+    # 모든 'type' 데이터 가져오기
+    types = list(HumunFood.objects.exclude(type='카페').values_list('type', flat=True).distinct())
+    items = list(HumunFood.objects.exclude(type='카페').values_list('name', flat=True).distinct())
+    return JsonResponse({'types': types, 'items': items})
 
 def humun_random(request):
-    # 첫 번째 뷰 함수를 호출하여 JSON 데이터를 받기
-    json_data = generate_random_data(request)
-
-    # JSON 데이터를 문자열로 직렬화하여 HTML 템플릿에 전달
-    context = {
-        'json_data': json_data.content.decode('utf-8'),
-    }
-
-    return render(request, 'humun_random.html', context)
+    return render(request, 'humun_random.html')
 
 def info_sugang(request):
     # 강의 정보 데이터 처리 로직 작성
@@ -725,6 +709,14 @@ class mobile_info_bus(TemplateView):
                         grouped_data[stNm] = []
                     grouped_data[stNm].append(data)
 
+            def group_by_stNm(data):
+                # stNm 기준으로 데이터를 먼저 정렬합니다.
+                sorted_data = sorted(data, key=lambda x: x['stNm'])
+                return {k: list(g) for k, g in groupby(sorted_data, key=lambda x: x['stNm'])}
+
+            grouped_data["direction_1"] = group_by_stNm(grouped_data["direction_1"])
+            grouped_data["direction_2"] = group_by_stNm(grouped_data["direction_2"])
+
             # 그룹화된 데이터를 템플릿으로 전달
             return render(request, self.template_name, {'grouped_data': grouped_data})
 
@@ -993,36 +985,17 @@ class mobile_campusmap(TemplateView):
 class mobile_campusmap_detail(TemplateView):
     template_name = 'mobile/m_campusmap_detail.html'  # 모바일 전용 템플릿
 
+class mobile_get_all_restaurant(TemplateView):
+    def get_all_restaurant(self, request):
+        # 모든 'type' 데이터 가져오기
+        types = list(HumunFood.objects.exclude(type='카페').values_list('type', flat=True).distinct())
+        items = list(HumunFood.objects.exclude(type='카페').values_list('name', flat=True).distinct())
+        return JsonResponse({'types': types, 'items': items})
 class mobile_humun_random(TemplateView):
     template_name = 'mobile/m_humun_random.html'  # 모바일 전용 템플릿
-    def generate_random_data(self):
-        # "카페"가 아닌 항목만 가져오기
-        non_cafe_items = HumunFood.objects.exclude(type='카페')
-
-        # 무작위로 하나의 아이템 선택
-        random_item = non_cafe_items.order_by('?').first()
-
-        data = {
-            'randomType': random_item.type,
-            'randomName1': random_item.name,
-        }
-
-        # 다시 하나의 아이템 선택
-        random_name2 = non_cafe_items.exclude(name=random_item.name).order_by('?').first()
-        data['randomName2'] = random_name2.name
-
-        return JsonResponse(data, json_dumps_params={'ensure_ascii': False})
 
     def get(self, request):
-        # 첫 번째 뷰 함수를 호출하여 JSON 데이터를 받기
-        json_data = generate_random_data(request)
-
-        # JSON 데이터를 문자열로 직렬화하여 HTML 템플릿에 전달
-        context = {
-            'json_data': json_data.content.decode('utf-8'),
-        }
-
-        return render(request, self.template_name, context)
+        return render(request, self.template_name)
 
 def some_view(request):
     user_agent = request.META['HTTP_USER_AGENT']

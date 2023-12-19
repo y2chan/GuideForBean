@@ -163,45 +163,37 @@
         </ul>
     </div>
     <div class="content-container">
-        <div class="main-container">
+	<div class="main-container">
             <div class="info-bus">
                 <div class="direction">
                     <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1>
-                    {% for data in grouped_data.direction_1 %}
-                    <div class="bus-info-container">
-                        <div style="float:left" class="left-column">
-                            <h3>{{ data.stNm }}</h3>
-                        </div>
-                        <div style="float:right" class="right-column">
-                            <ul>
-                                <li>
-                                    <h3>{{ data.rtNm }}</h3>
-                                    <h5>{{ data.arrmsg1 }}</h5>
-                                    <h5>{{ data.arrmsg2 }}</h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    {% for stNm, bus_list in grouped_data.direction_1.items %}
+                    <h3 style="font-size: 16pt;">{{ stNm }}</h3>
+                    {% for bus in bus_list %}
+                    <ul>
+                        <li style="list-style-type: disc;">
+                            <h3>{{ bus.rtNm }}</h3>
+                            <h5>{{ bus.arrmsg1 }}</h5>
+                            <h5>{{ bus.arrmsg2 }}</h5>
+                        </li>
+                    </ul>
+                    {% endfor %}
                     <hr>
                     {% endfor %}
                 </div>
                 <div class="direction">
                     <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1>
-                    {% for data in grouped_data.direction_2 %}
-                    <div class="bus-info-container">
-                        <div style="float:left" class="left-column">
-                            <h3>{{ data.stNm }}</h3>
-                        </div>
-                        <div style="float:right" class="right-column">
-                            <ul>
-                                <li>
-                                    <h3>{{ data.rtNm }}</h3>
-                                    <h5>{{ data.arrmsg1 }}</h5>
-                                    <h5>{{ data.arrmsg2 }}</h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    {% for stNm, bus_list in grouped_data.direction_2.items %}
+                    <h3 style="font-size: 16pt;">{{ stNm }}</h3>
+                    {% for bus in bus_list %}
+                    <ul>
+                        <li style="list-style-type: disc;">
+                            <h3>{{ bus.rtNm }}</h3>
+                            <h5>{{ bus.arrmsg1 }}</h5>
+                            <h5>{{ bus.arrmsg2 }}</h5>
+                        </li>
+                    </ul>
+                    {% endfor %}
                     <hr>
                     {% endfor %}
                 </div>

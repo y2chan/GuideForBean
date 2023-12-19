@@ -184,45 +184,37 @@
     </div>
 <div class="main-container">
     <div class="content-container">
-        <div class="main-container">
+	<div class="main-container">
             <div class="info-bus">
-                <div class="direction" style="width: 310px;">
-			<h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1><br><br>
-                    {% for data in grouped_data.direction_1 %}
-                    <div class="bus-info-container">
-                        <div style="width: 100%;" class="left-column">
-                            <h3>{{ data.stNm }}</h3>
-                        </div>
-                        <div style="width: 100%;" class="right-column">
-                            <ul>
-                                <li>
-                                    <h3>{{ data.rtNm }}</h3>
-                                    <h5>{{ data.arrmsg1 }}</h5>
-                                    <h5>{{ data.arrmsg2 }}</h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="direction">
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1>
+                    {% for stNm, bus_list in grouped_data.direction_1.items %}
+                    <h3 style="font-size: 16pt;">{{ stNm }}</h3>
+                    {% for bus in bus_list %}
+                    <ul>
+                        <li>
+                            <h3>{{ bus.rtNm }}</h3>
+                            <h5>{{ bus.arrmsg1 }}</h5>
+                            <h5>{{ bus.arrmsg2 }}</h5>
+                        </li>
+                    </ul>
+                    {% endfor %}
                     <hr>
                     {% endfor %}
                 </div>
                 <div class="direction">
-			<h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1><br><br>
-                    {% for data in grouped_data.direction_2 %}
-                    <div class="bus-info-container">
-                        <div style="width: 100%;"class="left-column">
-                            <h3>{{ data.stNm }}</h3>
-                        </div>
-                        <div style="width: 100%;" class="right-column">
-                            <ul>
-                                <li>
-                                    <h3>{{ data.rtNm }}</h3>
-                                    <h5>{{ data.arrmsg1 }}</h5>
-                                    <h5>{{ data.arrmsg2 }}</h5>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1>
+                    {% for stNm, bus_list in grouped_data.direction_2.items %}
+                    <h3 style="font-size: 16pt;">{{ stNm }}</h3>
+                    {% for bus in bus_list %}
+                    <ul>
+                        <li>
+                            <h3>{{ bus.rtNm }}</h3>
+                            <h5>{{ bus.arrmsg1 }}</h5>
+                            <h5>{{ bus.arrmsg2 }}</h5>
+                        </li>
+                    </ul>
+                    {% endfor %}
                     <hr>
                     {% endfor %}
                 </div>
@@ -233,7 +225,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px; font-size: 8pt;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>

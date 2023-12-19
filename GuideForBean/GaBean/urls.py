@@ -22,4 +22,5 @@ urlpatterns = [
     path('humun_random/', views.humun_random, name='humun_random'),
     path('news', views.news_search, name='news'),
     path('test/', views.test, name='test'),
+    path('get_all_restaurant', views.get_all_restaurant, name='get_all_restaurant'),
 ]
