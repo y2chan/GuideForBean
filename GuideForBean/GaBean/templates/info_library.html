@@ -1,18 +1,22 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
-    <title>인권 뉴스</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/earlyaccess/notosanskr.css" rel="stylesheet">
+    <title>버스</title>
     <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
 </head>
 <body>
-
 <div class="header">
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
@@ -39,12 +43,12 @@
                         <li><a href="{% url 'GaBean:humun_random' %}">오늘 뭐 먹지?</a></li>
                     </ul>
                 </li>
-                <li>
+                <li style="background-color: skyblue; color: #FFF;">
                     <a href="{% url 'GaBean:info_sugang' %}">학교 정보</a>
                     <ul>
                         <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
                         <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
-			<li><a href="{% url 'GaBean:info_library' %}">도서관</a></li>
+                        <li><a href="{% url 'GaBean:info_library' %}">도서관</a></li>
                     </ul>
                 </li>
                 <li>
@@ -132,74 +136,25 @@
         });
     });
 </script>
-
 <div class="page-title-img">
 </div>
 <div class="main-container">
     <div class="list-container">
-        <div class="list-title">
-            <h1><a href="{% url 'GaBean:news' %}">인권 뉴스</a></h1>
+        <div class="list-title" style="font-size: 16pt;">
+            <h1><a href="{% url 'GaBean:info_library' %}">도서관</a></h1>
         </div>
+        <h3>목록</h3>
+        <ul>
+            <li><a href="{% url 'GaBean:info_sugang' %}">수강 정보</a></li>
+            <li><a href="{% url 'GaBean:info_graduate' %}">졸업 정보</a></li>
+            <li><a href="{% url 'GaBean:info_library' %}">도서관</a></li>
+        </ul>
     </div>
     <div class="content-container">
         <div class="main-container">
             <div class="info-bus">
                 <div class="direction">
-
-                    <h1>Keyword<a style="font-size: 11pt; margin-left: 50px;">키워드 하나당 20개씩 최신 / 관련 순으로 정렬됩니다.</a></h1><br>
-
-
-                    <!-- 검색어 버튼 -->
-                    <h3>인권의 정의</h3>
-                    <a href="?query=인권"><button class="filter-button" style="margin-top: 20px;">인권</button></a>
-                    <a href="?query=인권 침해"><button class="filter-button" style="margin-top: 20px;">인권 침해</button></a>
-                    <a href="?query=인권 운동"><button class="filter-button" style="margin-top: 20px;">인권 운동</button></a>
-                    <a href="?query=인권 정책"><button class="filter-button" style="margin-top: 20px;">인권 정책</button></a>
-                    <a href="?query=인권과 사회적 정의"><button class="filter-button" style="margin-top: 20px;">인권과 사회적 정의</button></a>
-                    <br>
-                    <h3>인권 보호와 법적 제도</h3>
-                    <a href="?query=인권 보호"><button class="filter-button" style="margin-top: 20px;">인권 보호</button></a>
-                    <a href="?query=인권 보호를 위한 법적 제도"><button class="filter-button" style="margin-top: 20px;">인권 보호를 위한 법적 제도</button></a>
-                    <a href="?query=인권 조약"><button class="filter-button" style="margin-top: 20px;">인권 조약</button></a>
-                    <a href="?query=인권 기관"><button class="filter-button" style="margin-top: 20px;">인권 기관</button></a>
-                    <a href="?query=인권 선언"><button class="filter-button" style="margin-top: 20px;">인권 선언</button></a>
-                    <br>
-                    <h3>특정 그룹의 인권</h3>
-                    <a href="?query=난민의 인권"><button class="filter-button" style="margin-top: 20px;">난민의 인권</button></a>
-                    <a href="?query=소수 집단의 인권"><button class="filter-button" style="margin-top: 20px;">소수 집단의 인권</button></a>
-                    <a href="?query=아동과 청소년의 인권"><button class="filter-button" style="margin-top: 20px;">아동과 청소년의 인권</button></a>
-                    <a href="?query=노동자의 인권"><button class="filter-button" style="margin-top: 20px;">노동자의 인권</button></a>
-                    <a href="?query=다문화 사회와 다양성 인권"><button class="filter-button" style="margin-top: 20px;">다문화 사회와 다양성 인권</button></a>
-                    <br>
-                    <h3>기타 주제</h3>
-                    <a href="?query=환경 인권"><button class="filter-button" style="margin-top: 20px;">환경 인권</button></a>
-                    <a href="?query=디지털 시대의 인권"><button class="filter-button" style="margin-top: 20px;">디지털 시대의 인권</button></a>
-                    <a href="?query=인권과 건강권"><button class="filter-button" style="margin-top: 20px;">인권과 건강권</button></a>
-                    <a href="?query=인권과 예술의 자유"><button class="filter-button" style="margin-top: 20px;">인권과 예술의 자유</button></a>
-                    <a href="?query=인권과 인공지능"><button class="filter-button" style="margin-top: 20px;">인권과 인공지능</button></a>
-                    <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
-                    <br><br>
-                    <hr>
-                    <h1>Result</h1>
-                    {% if query == "" %}
-                    {% else %}
-                    <h2 style="margin-bottom: 40px;">검색어: "{{ query }}"</h2>
-                    {% endif %}
-                    {% if news %}
-                    <ul>
-                        {% for item in news %}
-                        <li>
-                            <a href="{{ item.link }}" target="_blank"><h3>◼ {{ item.title|safe }}</h3></a>
-                            <p>📆 {{ item.pubDate }}</p>
-                            <p style="border-bottom: 2px solid #ddd; padding: 8px;">▪ {{ item.description|safe }}</p>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                    <h2 style="margin-top: 50px;">검색어를 클릭하세요</h2>
-                    {% endif %}
-                    <a style="float: right; font-size:10pt;">모든 내용은 네이버 뉴스에서 최신 / 관련순으로 가져왔습니다.</a><br>
-                    <a href="https://news.naver.com/" style="color: black; text-decoration: black underline; float: right; font-size:11pt;" target="_blank">네이버 뉴스</a><a style="float: right; font-size:10pt;">출처:&nbsp;</a>
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">도서관</h1>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ urlpatterns = [
     path('info_graduate/', views.mobile_info_graduate.as_view(), name='m_info_graduate'),
     path('info_shuttle/', views.mobile_info_shuttle.as_view(), name='m_info_shuttle'),
     path('info_gabean/', views.mobile_info_gabean.as_view(), name='m_info_gabean'),
+    path('info_library/', views.mobile_info_library.as_view(), name='m_info_library'),
     path('sound_kong/', views.mobile_sound_kong.as_view(), name='m_sound_kong'),
     path('sound_kong/write/', views.mobile_sound_kong_write.as_view(), name='m_sound_kong_write'),
     path('sound_kong/detail/<int:post_id>/', views.mobile_sound_kong_detail.as_view(), name='m_sound_kong_detail'),

@@ -24,6 +24,8 @@ session = requests.Session()
 session.mount('http://', adapter)
 session.mount('https://', adapter)
 
+def info_library(request):
+    return render(request, 'info_library.html')
 
 def news_search(request):
     # 네이버 검색 API를 호출할 URL을 설정합니다.
@@ -1040,3 +1042,9 @@ class mobile_news_search(TemplateView):
 
         else:  # 검색어가 없는 경우 빈 결과를 전달합니다.
             return render(request, self.template_name, {'news': [], 'query': query})
+
+class mobile_info_library(TemplateView):
+    template_name = 'mobile/m_info_library.html'  # 모바일 전용 템플릿
+
+    def get(self, request):
+        return render(request, self.template_name)

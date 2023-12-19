@@ -15,6 +15,7 @@ urlpatterns = [
     path('info_graduate/', views.info_graduate, name='info_graduate'),
     path('info_shuttle/', views.info_shuttle, name='info_shuttle'),
     path('info_gabean/', views.info_gabean, name='info_gabean'),
+    path('info_library/', views.info_library, name='info_library'),
     path('sound_kong/', views.sound_kong, name='sound_kong'),
     path('sound_kong/write/', views.sound_kong_write, name='sound_kong_write'),
     path('sound_kong/detail/<int:post_id>/', views.sound_kong_detail, name='sound_kong_detail'),

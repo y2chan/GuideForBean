@@ -3,15 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6M724Q9WN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-Y6M724Q9WN');
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +45,7 @@
                 <ul class="sub_mobile">
                     <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
                     <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
-		    <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
                 </ul>
             </li>
             <li>
@@ -160,54 +151,29 @@
         newsButton.style.right = '0px';
 
         newsButton.addEventListener('click', function() {
-			window.location.href = "{% url 'gabean_mobile:m_news' %}";
+            window.location.href = "{% url 'gabean_mobile:m_news' %}";
         });
     });
 </script>
 <div class="page-title-img">
 </div>
 <div class="list-title">
-    <h1><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></h1>
+    <h1><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></h1>
 </div>
 <div class="list-container">
-        <ul>
-            <h3>목록</h3>
-            <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
-            <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
-	    <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
-        </ul>
-    </div>
+    <ul>
+        <h3>목록</h3>
+        <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+        <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+        <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
+    </ul>
+</div>
 <div class="main-container">
     <div class="content-container">
         <div class="main-container">
             <div class="info-bus">
-                <div class="direction" style="width: 310px;">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">수강신청이란?</h1>
-                    <h4>매년 2월 및 8월에 실시하는 제도로, 수강신청 시 본인의 능력에 따라 원하는 수업을 들을 수 있다.</h4>
-                    <a>* 수강신청 사이트 : </a><br><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs)</a><br>
-		    <br><a>* 수강신청 모의 사이트 : </a><a href="https://sugang.syu.kr/testLogin" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/testLogin</a><br><a>(해당 웹 개발자: 김상윤)</a>
-                </div>
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">예비 수강신청이란?</h1>
-                    <h4>매년 1월 및 7월에 실시하는 장바구니 제도로, 수강신청 시에 유리하도록 원하는 수업을 미리 장바구니에 담을 수 있다.<br>1학년 2학기부터 사용 가능하다.</h4>
-                    <a>* 예비 수강신청 사이트 : </a><a href="http://sugang.suwings.syu.ac.kr" style="color: black; text-decoration: black underline;" target="_blank">http://sugang.suwings.syu.ac.kr</a>&nbsp;<a>(SU-WINGs) - 수강신청 사이트와 동일</a><br>
-		    <br><a>* 수강신청 경쟁률 조회 사이트 : </a><a href="https://sugang.syu.kr/basket" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/basket</a><br><a>(해당 웹 개발자: 김상윤)</a>
-                </div>
-                <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">자주 하는 질문</h1>
-                    <h3>Q. 학기당 최소 몇 학점을 들어야하나요?</h3>
-                    <a>A. 학기인정 최소학점은 </a><a style="color: black; text-decoration: black underline;">12학점</a><a>입니다!</a>
-                    <h3>Q. 학기당 최대 들을 수 있는 학점은 몇 학점인가요?</h3>
-                    <a>A. 수강과목 중 <a style="color: black; text-decoration: black underline;">선택과목에 1학점이 없는 경우 18학점까지</a><a> 가능하며,</a>&nbsp;<a style="color: black; text-decoration: black underline;">평균평점이 3.7이상</a><a>인 학생은 </a><a style="color: black; text-decoration: black underline;">21학점까지</a> 가능합니다!</a>
-                    <h3>Q. 수강신청 확인 및 정정기간은 언제인가요?</h3>
-                    <a>A. </a><a style="color: black; text-decoration: black underline;">매학기 개강 첫주</a><a>입니다!</a>
-                    <h3>Q. 수강신청 폐강의 기준은 어떻게 되나요?</h3>
-                    <a>A. 수강인원이</a> <a style="color: black; text-decoration: black underline;">전공 8명, 교양 16명 미만</a><a>일 경우 폐강됩니다!</a><br>
-		    <a>* 수강신청 폐강위기 조회 사이트 : </a><a href="https://sugang.syu.kr/closed" style="color: black; text-decoration: black underline;" target="_blank">https://sugang.syu.kr/closed</a><br><a>(해당 웹 개발자: 김상윤)</a>
-                    <h3>Q. 재수강 시 받을 수 있는 최대 성적은 어떻게 되나요?</h3>
-                    <a>A. </a><a style="color: black; text-decoration: black underline;">B+</a><a>입니다!</a>
-                    <br><br><br>
-                    <a style="float: right; font-size:10pt;">모든 정보는 23년도 기준이며 추가로 제보할 내용이 있으면&nbsp;</a><a style="float: right; font-size:10pt;">에 제보 바랍니다.</a><a style="color: black; text-decoration: black underline; float: right; font-size:11pt;">콩들의 소리</a>
+                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">도서관</h1>
                 </div>
             </div>
         </div>
@@ -216,7 +182,7 @@
 <div class="footer">
     <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
     <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
-    <p style="margin-left: 20px; font-size: 8pt;">Copyright © 2023 양이찬 All rights reserved.
+    <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
         <br>Dev : Ee Chan Yang
         <br>Logo : Jun Seong Park
         <br>Other Website Dev : Sang Yoon Kim</p>
