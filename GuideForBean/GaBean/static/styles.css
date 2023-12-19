@@ -1,5 +1,6 @@
 /* styles.css */
 
+
 .fixed-button {
     position: fixed;
     width: 60px;
@@ -77,7 +78,7 @@ a {
 /* 글자 크기를 16px 맑은 고딕 굵게하고 width 넓이 700, 높이 50만큼 배경색은 #ccc, 글자색은 검정색, 라인 높이 50px menu 박스 가운데 정렬, 글자 가운데 정렬 */
 #menu {
     font: bold 16px "malgun gothic";
-    width: 700px;
+    width: 1000px;
     height: 50px;
     background: #FFF;
     color: black;
