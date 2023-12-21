@@ -179,7 +179,15 @@
 <div class="main-container">
     <div class="content-container">
         <div class="direction" style="width: 310px;">
-            <h1 style="background-color: rgba(6, 186, 242, 0.23); font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">남은 시간</h1>
+	    <h1 style="background-color: rgba(6, 186, 242, 0.23); font-family: 'Noto Sans KR', sans-serif; font-size: 20pt;">
+                {% if is_special_period %}
+                계절학기 셔틀 시간표
+		{% elif is_vacation_period %}
+                방학 셔틀 시간표
+                {% else %}
+                셔틀 시간표
+                {% endif %}
+            </h1>
             <div class="shuttle-info-container">
                 <div class="left-info" style="font-size: 11pt;">
                     <h1>학교 방향</h1>

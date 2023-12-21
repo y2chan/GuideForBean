@@ -17,6 +17,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+    var UserAgent = navigator.userAgent;
+    if (UserAgent.match(/iPhone|ipad|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || UserAgent.match(/LG|SAMSUNG|Samsung/) != null)
+    {
+        location.href = "/m/"; /* 모바일 홈페이지 경로 */
+    }
+    </script>
     <!-- 경고 메시지를 표시하는 스크립트를 head에 추가 -->
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
@@ -253,7 +260,7 @@
 
       // 2.5초 후에 작은 공을 이동하면서 왼쪽 위로 이동
       setTimeout(function() {
-        document.getElementById('transition-image').style.transform = 'scale(0.25) translate(-2147px, -1070px)';
+        document.getElementById('transition-image').style.transform = 'scale(0.25) translate(-465%, -495%)';
       }, 2000);
 
       // 4.5초 후에 home.html 보여주기 (1초 동안 이미지를 보여주고 2.5초 동안 이동)

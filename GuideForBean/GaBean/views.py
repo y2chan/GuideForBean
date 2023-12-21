@@ -396,6 +396,29 @@ def get_weekend_timetable():
     }
     return timetable
 
+def get_seasonal_weekday_timetable():
+    # 특정 기간(23년 12월 15일부터 24년 1월 16일) 동안 월~목 시간표를 반환합니다.
+    timetable = {
+        "화랑대 -> 학교": ["08:00", "08:10", "09:10", "10:10", "11:10", "12:10", "13:10", "14:10", "15:10", "16:10", "17:10"],
+        "학교 -> 화랑대": ["08:30", "08:40", "09:30" , "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", "16:30"],
+    }
+    return timetable
+
+def get_seasonal_friday_timetable():
+    # 특정 기간(23년 12월 15일부터 24년 1월 16일) 동안 금요일 시간표를 반환합니다.
+    timetable = {
+        "화랑대 -> 학교": ["08:00", "08:10", "09:10", "10:10", "11:10", "12:10", "13:10", "14:10"],
+        "학교 -> 화랑대": ["08:30", "08:40", "09:30" , "10:30", "11:30", "12:30", "13:30", "14:30"],
+    }
+    return timetable
+
+def get_seasonal_weekend_timetable():
+    # 주말 시간표를 반환합니다.
+    timetable = {
+        "전체 노선": ["운행 종료"],
+    }
+    return timetable
+
 def info_shuttle(request):
     # 현재 시간을 가져옵니다.
     now = datetime.now()
@@ -406,23 +429,49 @@ def info_shuttle(request):
     left_info = {}
     right_info = {}
 
+    # 새로운 시간표가 적용되는 기간을 정의합니다.
+    special_period_start = datetime(2023, 12, 15)
+    special_period_end = datetime(2024, 1, 16)
+
+    # 방학 기간을 정의합니다.
+    vacation_period_start = datetime(2024, 1, 17)
+    vacation_period_end = datetime(2024, 3, 1)
+
+    # 현재 날짜가 새로운 시간표가 적용되는 기간에 속하는지 확인합니다.
+    is_special_period = special_period_start <= now <= special_period_end
+
+    # 현재 날짜가 방학 기간에 속하는지 확인합니다.
+    is_vacation_period = vacation_period_start <= now <= vacation_period_end
+
     # 남은 시간을 계산합니다.
     remaining_times = {}
-    if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
-        timetable = get_weekday_timetable()
-    elif current_weekday == 4:  # 금요일
-        timetable = get_friday_timetable()
-    else:  # 토요일과 일요일
-        weekend_timetable = get_weekend_timetable()
-        left_info, right_info = weekend_timetable, weekend_timetable  # 주말은 left_info와 right_info에 둘 다 할당
-        timetable = weekend_timetable  # 이 부분이 빠져있어서 발생한 오류입니다.
+    if is_special_period:  # 특정 기간 동안
+        if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
+            timetable = get_seasonal_weekday_timetable()
+        elif current_weekday == 4:  # 금요일
+            timetable = get_seasonal_friday_timetable()
+        else:  # 토요일과 일요일
+            timetable = get_seasonal_weekend_timetable()
+    else:  # 특정 기간이 아닌 경우
+        if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
+            timetable = get_weekday_timetable()
+        elif current_weekday == 4:  # 금요일
+            timetable = get_friday_timetable()
+        else:  # 토요일과 일요일
+            timetable = get_weekend_timetable()
 
     for shuttle, times in timetable.items():
+        # 방학 기간 동안 운행하지 않는다는 정보를 표시합니다.
+        if is_vacation_period:
+            remaining_times[shuttle] = "운행 중지"
+            left_info[shuttle] = "운행 중지"
+            right_info[shuttle] = "운행 중지"
+            continue
         next_departure_time = None
         for time_str in times:
             if time_str == "운행 종료":
                 remaining_times[shuttle] = "운행 종료"
-                if len(left_info) < 3:
+                if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
                     left_info[shuttle] = "운행 종료"
                 else:
                     right_info[shuttle] = "운행 종료"
@@ -437,19 +486,18 @@ def info_shuttle(request):
             time_difference = next_departure_time - now
             remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
             remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
-            if len(left_info) < 3:
+            if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
                 left_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
             else:
                 right_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
         else:
             remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
-            if len(left_info) < 3:
+            if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
                 left_info[shuttle] = "운행 종료"
             else:
                 right_info[shuttle] = "운행 종료"
 
-    return render(request, 'info_shuttle.html', {'left_info': left_info, 'right_info': right_info})
-
+    return render(request, 'info_shuttle.html', {'left_info': left_info, 'right_info': right_info, 'is_special_period': is_special_period, 'is_vacation_period': is_vacation_period})
 
 
 def campusmap_detail(request):
@@ -892,12 +940,35 @@ class mobile_info_shuttle(TemplateView):
         }
         return timetable
 
-    def get_weekend_timetable():
+    def get_weekend_timetable(self):
         # 주말 시간표를 반환합니다.
         timetable = {
             "전체 노선": ["운행 종료"],
         }
 
+        return timetable
+
+    def get_seasonal_weekday_timetable(self):
+        # 특정 기간(23년 12월 15일부터 24년 1월 16일) 동안 월~목 시간표를 반환합니다.
+        timetable = {
+            "화랑대 -> 학교": ["08:00", "08:10", "09:10", "10:10", "11:10", "12:10", "13:10", "14:10", "15:10", "16:10", "17:10"],
+            "학교 -> 화랑대": ["08:30", "08:40", "09:30" , "10:30", "11:30", "12:30", "13:30", "14:30", "15:30", "16:30"],
+        }
+        return timetable
+
+    def get_seasonal_friday_timetable(self):
+        # 특정 기간(23년 12월 15일부터 24년 1월 16일) 동안 금요일 시간표를 반환합니다.
+        timetable = {
+            "화랑대 -> 학교": ["08:00", "08:10", "09:10", "10:10", "11:10", "12:10", "13:10", "14:10"],
+            "학교 -> 화랑대": ["08:30", "08:40", "09:30" , "10:30", "11:30", "12:30", "13:30", "14:30"],
+        }
+        return timetable
+
+    def get_seasonal_weekend_timetable(self):
+        # 주말 시간표를 반환합니다.
+        timetable = {
+            "전체 노선": ["운행 종료"],
+        }
         return timetable
 
     def get(self, request):
@@ -910,23 +981,50 @@ class mobile_info_shuttle(TemplateView):
         left_info = {}
         right_info = {}
 
+        # 새로운 시간표가 적용되는 기간을 정의합니다.
+        special_period_start = datetime(2023, 12, 15)
+        special_period_end = datetime(2024, 1, 16)
+
+        # 방학 기간을 정의합니다.
+        vacation_period_start = datetime(2024, 1, 17)
+        vacation_period_end = datetime(2024, 3, 1)
+
+        # 현재 날짜가 방학 기간에 속하는지 확인합니다.
+        is_vacation_period = vacation_period_start <= now <= vacation_period_end
+
+        # 현재 날짜가 새로운 시간표가 적용되는 기간에 속하는지 확인합니다.
+        is_special_period = special_period_start <= now <= special_period_end
+
         # 남은 시간을 계산합니다.
         remaining_times = {}
-        if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
-            timetable = get_weekday_timetable()
-        elif current_weekday == 4:  # 금요일
-            timetable = get_friday_timetable()
-        else:  # 토요일과 일요일
-            weekend_timetable = get_weekend_timetable()
-            left_info, right_info = weekend_timetable, weekend_timetable  # 주말은 left_info와 right_info에 둘 다 할당
-            timetable = weekend_timetable  # 이 부분이 빠져있어서 발생한 오류입니다.
+        if is_special_period:  # 특정 기간 동안
+            if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
+                timetable = get_seasonal_weekday_timetable()
+            elif current_weekday == 4:  # 금요일
+                timetable = get_seasonal_friday_timetable()
+            else:  # 토요일과 일요일
+                timetable = get_seasonal_weekend_timetable()
+        else:  # 특정 기간이 아닌 경우
+            if 0 <= current_weekday < 4:  # 월요일부터 목요일까지
+                timetable = get_weekday_timetable()
+            elif current_weekday == 4:  # 금요일
+                timetable = get_friday_timetable()
+            else:  # 토요일과 일요일
+                timetable = get_weekend_timetable()
 
         for shuttle, times in timetable.items():
+            # 방학 기간 동안 운행하지 않는다는 정보를 표시합니다.
+            if is_vacation_period:
+                remaining_times[shuttle] = "운행 중지"
+                left_info[shuttle] = "운행 중지"
+                right_info[shuttle] = "운행 중지"
+                continue
+            
             next_departure_time = None
             for time_str in times:
                 if time_str == "운행 종료":
                     remaining_times[shuttle] = "운행 종료"
-                    if len(left_info) < 3:
+                    if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
                         left_info[shuttle] = "운행 종료"
                     else:
                         right_info[shuttle] = "운행 종료"
@@ -941,18 +1039,18 @@ class mobile_info_shuttle(TemplateView):
                 time_difference = next_departure_time - now
                 remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
                 remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
-                if len(left_info) < 3:
+                if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
                     left_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
                 else:
                     right_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
             else:
                 remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
-                if len(left_info) < 3:
+                if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
                     left_info[shuttle] = "운행 종료"
                 else:
                     right_info[shuttle] = "운행 종료"
 
-        return render(request, self.template_name, {'left_info': left_info, 'right_info': right_info})
+        return render(request, self.template_name, {'left_info': left_info, 'right_info': right_info, 'is_special_period': is_special_period, 'is_vacation_period': is_vacation_period})
 
 class mobile_info_gabean(TemplateView):
     template_name = 'mobile/m_info_gabean.html'  # 모바일 전용 템플릿
