@@ -4,11 +4,11 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y6M724Q9WN"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      gtag('config', 'G-Y6M724Q9WN');
+        gtag('config', 'G-Y6M724Q9WN');
     </script>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../static/mobile_styles.css">
@@ -20,9 +20,21 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
+
 <a href="{% url 'gabean_mobile:m_home' %}">
+    <style>
+        .logo {
+            margin-top: -25px;
+            margin-left: 27.5%;
+            margin-bottom: -45px;
+        }
+
+        .logo img {
+            max-width: 200px;
+        }
+    </style>
     <div class="logo">
-        <img src="../static/photo/GaBean.png" alt="Your Logo">
+        <img src="../static/photo/GaBean1.png" alt="Your Logo">
     </div>
 </a>
 <div id="menu-container">
@@ -52,7 +64,7 @@
                 <ul class="sub_mobile">
                     <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
                     <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
-		    <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
                 </ul>
             </li>
             <li>
@@ -93,96 +105,53 @@
     })
 </script>
 <div class="separator"></div>
-<div class="home-container" style="margin-top: 5px;">
-    <div class="image-container">
-        <img src="../static/photo/home.png" alt="Campus Map">
-    </div>
 </div>
-<div style="text-align: center; margin-top: 5px;">
-    <h4>{{ city }}</h4>
-    {% if weather_info.precipitation_type == "서버 응답 시간 초과" %}
-    <div style="border: 2px solid black; padding: 10px; display: inline-block; width: 200px; height: 100px; margin-top: 0; margin-bottom: 0">
-        <div style="display: flex;">
-            <div style="border-right: 2px solid black; padding-right: 10px;">
-                <img src="../static/photo/sorry.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-            </div>    
-            <div style="text-align: center; padding-left: 17px;">
-                <p>{{ weather_info.precipitation_type }}</p>
-            </div>
-        </div>
-    </div>
-    {% else %}
-    <div style="border: 2px solid black; display: inline-block; width: 230px; height: 90px; margin-top: 0; margin-bottom: 0;">
-        <div style="display: flex; height: 90px;">
-            <div style="margin-left: 5px; margin-top: -20px;">
-                {% if weather_info.precipitation_type == "맑음" %}
-                <img src="../static/photo/sunny.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-                {% elif weather_info.precipitation_type == "비" %}
-                <img src="../static/photo/rainy.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-                {% elif weather_info.precipitation_type == "비/눈" %}
-                <img src="../static/photo/rain&snow.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-                {% elif weather_info.precipitation_type == "눈" %}
-                <img src="../static/photo/snow.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-                {% elif weather_info.precipitation_type == "맑음" and weather_info.weather_status == "흐림" %}
-                <img src="../static/photo/cloudy.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-                {% elif weather_info.precipitation_type == "맑음" and weather_info.weather_status == "구름 많음" %}
-                <img src="../static/photo/very-cloudy.png" alt="Weather Icon" width="72" style="margin-top: 30px;">
-                {% endif %}
-            </div>
-            <div style="text-align: center; padding-left: 17px;">
-                <p style="margin-top: 0; margin-bottom: -5px; padding:1px;">{{ weather_info.today_date }} {{ weather_info.current_time }}</p>
-                <p style="margin: -5px; padding: 1px;">{{ weather_info.precipitation_type }}</p>
-                <p style="margin: -5px; padding: 1px;">{{ weather_info.temperature }}°C</p>
-                <p style="margin: -5px; padding: 1px;">{{ weather_info.weather_status }} / {{ weather_info.wind_speed }}</p>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-</div>
-<div class="home-description">
-    <h2>🏢 캠퍼스맵 🏢</h2>
-    <br>
-    <a href="{% url 'gabean_mobile:m_campusmap' %}"><img src="../static/photo/도면1.jpg" alt="Campus Map" style="width:70%;"></a>
-    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동</p>
-    <h4>삼육대학교의 전체적인 도면입니다.<br>-> PC 이용 시 전체화면으로 하셔야<br> 기능을 온전히 사용하실 수 있습니다.</h4>
-</div>
-<div class="home-description">
-    <h2>🍴 오늘 뭐 먹지? 🍴</h2>
-    <a href="{% url 'gabean_mobile:m_humun_random' %}"><img src="../static/photo/random.jpeg" alt="Campus Map" style="width:70%;" ></a>
-    <p style="font-size: 9pt;">↑ 클릭 시 해당 페이지로 이동</p>
-    <h4>선택하기 어려운 사람을 위한 후문 음식점 랜덤 뽑기<br>-> 다음 업데이트 때는 최대한 재밌게 만들어 볼게요!</h4>
-</div>
-<div class="home-description">
-    <div class="home-direction">
-        <div class="home-traffic">
-            <div class="first-info">
-                <div class="first-column">
-                    <h2>🚃 버스 🚃</h2>
-                    <a href="{% url 'gabean_mobile:m_info_bus' %}"><img src="../static/photo/1155.jpg" alt="Campus Map" style="width:90%; margin-bottom: 14px;"></a>
-		    <p style="font-size: 7pt;">↑ 클릭 시 해당 페이지로 이동</p>
-                    <h4>위치 & 남은 시간</h4>
-                </div>
-            </div>
-            <div class="center-info">
-                <div class="center-column">
-                    <h2>🚊 지하철 🚊</h2>
-                    <a href="{% url 'gabean_mobile:m_info_subway' %}"><img src="../static/photo/석계.jfif" alt="Campus Map" style="width:90%;" ></a>
-                    <p style="font-size: 7pt;">↑ 클릭 시 해당 페이지로 이동</p>
-                    <h4>방향 & 남은 시간</h4>
-                </div>
-            </div>
-            <div class="last-info">
-                <div class="last-column">
-                    <h2>🚋 셔틀 🚋</h2>
-                    <a href="{% url 'gabean_mobile:m_info_shuttle' %}"><img src="../static/photo/shuttle.jpg" alt="Campus Map" style="width:90%;" ></a>
-                    <p style="font-size: 7pt;">↑ 클릭 시 해당 페이지로 이동</p>
-                    <h4>방향 & 남은 시간<br>(시간표 기준)</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="home-description" style="display: flex; justify-content: center; margin-bottom: 70px; margin-top: 70px;">
+    <style>
+        table {
+            width: 90%;
+            height: 300px;
+        }
+        button {
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border: none;
+            padding: 2px;
+            outline: none;
+            background-clip: padding-box;
+            font-size: 14pt;
+        }
+        td {
+            width: 70px;
+            height: 150px;
+            border: none; /* 모든 테두리 제거 */
+            border-right: 1px solid #c0c0c0; /* 오른쪽 테두리 생성 */
+            border-bottom: 1px solid #c0c0c0;
+            padding: 0;
+            outline: none;
+        }
 
+        td:last-child {
+            border-right: none; /* 마지막 요소의 테두리 제거 */
+        }
+
+    </style>
+    <table>
+        <tr>
+		<td><a href="{% url 'gabean_mobile:m_campusmap' %}"><button><span style="font-size: 30pt;">🏢</span><br><br>캠퍼스맵</button></a></td>
+		<td><a href="{% url 'gabean_mobile:m_info_bus' %}"><button><span style="font-size: 30pt;">🚃</span><br><br>버스</button></a></td>
+		<td><a href="{% url 'gabean_mobile:m_info_subway' %}"><button><span style="font-size: 30pt;">🚊</span><br><br>지하철</button></a></td>
+	    <td><a href="{% url 'gabean_mobile:m_info_shuttle' %}"><button><span style="font-size: 30pt;">🚋</span><br><br>셔틀</button></a></td>
+        </tr>
+        <tr>
+		<td style="border-bottom: none;"><a href="{% url 'gabean_mobile:m_humun_random' %}"><button><span style="font-size: 30pt;">🍴</span><br>오늘 뭐<br> 먹지?</button></a></td>
+		<td style="border-bottom: none;"><a href="{% url 'gabean_mobile:m_info_sugang' %}"><button><span style="font-size: 30pt;">📝</span><br><br>수강 정보</button></a></td>
+		<td style="border-bottom: none;"><a href="{% url 'gabean_mobile:m_info_graduate' %}"><button><span style="font-size: 30pt;">🎓</span><br><br>졸업 정보</button></a></td>
+	    <td style="border-bottom: none;"><a href="{% url 'gabean_mobile:m_info_library' %}"><button><span style="font-size: 30pt;">📚</span><br><br>도서관</button></a></td>
+        </tr>
+    </table>
+</div>
 <button class="fixed-button" id="openSlider"></button>
 
 <!-- 슬라이드인 메뉴 -->
@@ -238,14 +207,14 @@
     });
 </script>
 <div class="news-button-container">
-    <button id="newsButton" class="newsButton">인권<br>뉴스</button>
+    <button id="newsButton" class="newsButton" style="font-size: 15px;">인권<br>뉴스</button>
 </div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
         var newsButton = document.getElementById('newsButton');
 
         // 초기 버튼 위치 설정
-        newsButton.style.bottom = '170px';
+        newsButton.style.bottom = '35px';
         newsButton.style.right = '0px';
 
         newsButton.addEventListener('click', function() {
