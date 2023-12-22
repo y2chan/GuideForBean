@@ -485,11 +485,11 @@ def info_shuttle(request):
         if next_departure_time is not None:
             time_difference = next_departure_time - now
             remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
-            remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
+            remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다. ({next_departure_time.strftime('%H:%M')}에 출발)"  # 분을 붙여서 저장
             if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
-                left_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+                left_info[shuttle] = f"{remaining_minutes} 분 남았습니다. ({next_departure_time.strftime('%H:%M')}에 출발)"
             else:
-                right_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+                right_info[shuttle] = f"{remaining_minutes} 분 남았습니다. ({next_departure_time.strftime('%H:%M')}에 출발)"
         else:
             remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
             if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
@@ -1034,15 +1034,14 @@ class mobile_info_shuttle(TemplateView):
                 if departure_time > now:
                     next_departure_time = departure_time
                     break
-
             if next_departure_time is not None:
                 time_difference = next_departure_time - now
                 remaining_minutes = int(time_difference.total_seconds() / 60)  # 초를 분으로 변환
-                remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다."  # 분을 붙여서 저장
+                remaining_times[shuttle] = f"{remaining_minutes} 분 남았습니다. ({next_departure_time.strftime('%H:%M')}에 출발)"  # 분을 붙여서 저장
                 if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
-                    left_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+                    left_info[shuttle] = f"{remaining_minutes} 분 남았습니다. ({next_departure_time.strftime('%H:%M')}에 출발)"
                 else:
-                    right_info[shuttle] = f"{remaining_minutes} 분 남았습니다."
+                    right_info[shuttle] = f"{remaining_minutes} 분 남았습니다. ({next_departure_time.strftime('%H:%M')}에 출발)"
             else:
                 remaining_times[shuttle] = "운행 종료"  # next_departure_time이 None인 경우 처리
                 if len(left_info) < (1 if is_special_period else 3):  # 특정 기간 동안은 1개로 제한
