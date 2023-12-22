@@ -307,22 +307,24 @@ def humun_food(request):
                 open_datetime = datetime.now().replace(hour=current_opening_hour.open_time.hour, minute=current_opening_hour.open_time.minute)
                 close_datetime = datetime.now().replace(hour=current_opening_hour.close_time.hour, minute=current_opening_hour.close_time.minute)
 
-                if open_datetime <= current_datetime < close_datetime:
+                if open_datetime <= current_datetime <= close_datetime:
                     restaurant.open_status = "영업 중"
                     time_difference = close_datetime - current_datetime
                 elif open_datetime == close_datetime:
                     # 현재 요일에 해당하는 영업 정보가 없을 경우 "휴무"로 처리
                     restaurant.open_status = "휴무"
                     restaurant.remaining_time = None
-                elif current_datetime >= close_datetime:
+                elif close_datetime == current_datetime:
                     restaurant.open_status = "마감"
+                    # Calculate the next day's opening time
                     next_day_open_datetime = open_datetime + timedelta(days=1)
-                    if current_datetime.time() < open_datetime.time():
-                        next_day_open_datetime = open_datetime
-                        time_difference = next_day_open_datetime - current_datetime
+                    time_difference = next_day_open_datetime - current_datetime
                 else:
-                    restaurant.open_status = "영업 중"
-                    time_difference = close_datetime - current_datetime
+                    # 그렇지 않으면 "마감"
+                    restaurant.open_status = "마감"
+                    # Calculate the next day's opening time
+                    next_day_open_datetime = open_datetime + timedelta(days=1)
+                    time_difference = next_day_open_datetime - current_datetime
 
                 if time_difference:
                     hours, remainder = divmod(time_difference.total_seconds(), 3600)

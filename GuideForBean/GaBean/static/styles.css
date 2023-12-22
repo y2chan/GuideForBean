@@ -478,7 +478,7 @@ ul li {
     background-image: url("photo/titleimage.jpg"); /* 이미지 경로 설정 */
     background-repeat: no-repeat;
     background-size: cover; /* 이미지를 버튼 크기에 맞게 조절 */
-    width: 1500px; /* 요소의 너비를 조절 */
+    width: 100%; /* 요소의 너비를 조절 */
     height: 300px; /* 요소의 높이를 조절 */
 }
 
@@ -866,7 +866,7 @@ ul li {
 
 table {
     border-collapse: collapse;
-    width: 700px;
+    width: 100%;
 }
 
 th, td {
