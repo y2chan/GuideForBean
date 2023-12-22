@@ -52,9 +52,6 @@
     </script>
 </head>
 <body>
-<div id="transition-container">
-    <img id="transition-image" src="../static/photo/GaBean1.png" alt="Your Logo">
-</div>
 <div class="header" style="margin-bottom: 5px;">
     <div class="logo-and-menu">
         <a href="{% url 'GaBean:home' %}">
@@ -247,36 +244,6 @@
             sliderMenu.style.right = '-350px';
         }
     });
-</script>
-<script>
-    // 이미지가 로드된 후에 스크립트 실행
-    document.getElementById('transition-image').onload = function() {
-      // 1초 동안 이미지를 보여준 후에 작게 줄이고 투명하게 만들어 초록색 작은 공 모양으로 변형
-      setTimeout(function() {
-        var transitionImage = document.getElementById('transition-image');
-        transitionImage.style.transform = 'scale(0.25)';
-        transitionImage.style.zIndex = '2';  // 이미지를 제일 앞으로 가져오기
-      }, 1000);
-
-      // 2.5초 후에 작은 공을 이동하면서 왼쪽 위로 이동
-      setTimeout(function() {
-        document.getElementById('transition-image').style.transform = 'scale(0.25) translate(-465%, -495%)';
-      }, 2000);
-
-      // 4.5초 후에 home.html 보여주기 (1초 동안 이미지를 보여주고 2.5초 동안 이동)
-      setTimeout(function() {
-        var transitionContainer = document.getElementById('transition-container');
-        transitionContainer.style.transition = 'background-color 1s ease-in-out'; // 배경색 변경에 트랜지션 효과 추가
-        transitionContainer.style.backgroundColor = 'rgba(255, 255, 255, 0)'; // 투명해지도록 변경
-
-        setTimeout(function() {
-          transitionContainer.style.display = 'none';
-          // home.html 보여주기
-          var homeContainer = document.getElementById('home-container');
-          homeContainer.style.display = 'block';
-        }, 1000); // 2초 후에 home.html 보여주기
-      }, 3000);
-    };
 </script>
 <div class="news-button-container">
     <button id="newsButton" class="newsButton">인권<br>뉴스</button>

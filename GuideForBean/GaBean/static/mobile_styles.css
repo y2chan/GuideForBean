@@ -1020,7 +1020,7 @@ tbody {
     justify-content: center;
     align-items: start;
     margin-top: 50px;
-    height: 200px;
+    height: 100px;
     overflow: hidden; /* 컨테이너를 넘어가는 내용 가리기 */
 }
 
@@ -1096,32 +1096,6 @@ tbody {
 
 .home-description img:hover {
     transform: scale(1.05); /* 버튼 확대 */
-}
-
-#transition-container {
-    position: absolute;
-    width: 800px;
-    height: 100vh;
-    display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    align-items: center;
-    overflow: hidden;
-    background-color: #FFF;
-    z-index: 1;
-    transition: background-color 1s ease-in-out;
-}
-
-#transition-container > * {
-    margin-left: 75px; /* 아이템을 오른쪽으로 20px 이동 */
-    margin-bottom: 200px;
-}
-
-
-#transition-image {
-    width: 30%;
-    height: 30%;
-    object-fit: cover; /* 이미지가 가득 차도록 설정 */
-    transition: transform 1s ease-in-out; /* 변형(이동)과 투명도에 대한 트랜지션 효과 */
 }
 
 .newsButton {
