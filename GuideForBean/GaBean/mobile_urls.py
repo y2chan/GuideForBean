@@ -21,4 +21,5 @@ urlpatterns = [
     path('humun_random/', views.mobile_humun_random.as_view(), name='m_humun_random'),
     path('m_news', views.mobile_news_search.as_view(), name='m_news'),
     path('m_get_all_restaurant', views.mobile_get_all_restaurant.as_view(), name='m_get_all_restaurant'),
+    path('m_summarize', views.mobile_summarize.as_view(), name='m_summarize'),
 ]

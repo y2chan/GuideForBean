@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'corsheaders',
     'GaBean',
 ]
 
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -150,3 +152,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 BUS_API_KEY = 'mogcuiLBAxr03JYAaBObRQuyTUU0tyR%2FYDbztxd11VVfCtcbbNIyr%2BJpU0Ir5DY1whzpR9blc%2Fsb7qf37lA0Cw%3D%3D'
 SUBWAY_API_KEY = '67496c716565636834387579417a70'
+CLIENT_ID = 'oac8zvofr1'
+CLIENT_SECRET = '2ERrq3wlzj6mZOUHStnUy7AEprr9UWtjNQV8qQWj'
+
+CORS_ORIGIN_WHITELIST = [
+    "https://gabean.kr",
+    "http://gabean.kr",
+]

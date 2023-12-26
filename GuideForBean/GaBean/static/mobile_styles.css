@@ -254,8 +254,6 @@ html.open {
     justify-content: center; /* 가운데 정렬 */
     margin-top: 10px; /* 위 여백 추가 */
     margin-bottom: 50px;
-    margin-left: 30px; /* 왼쪽 여백 추가 */
-    margin-right: 30px; /* 오른쪽 여백 추가 */
 }
 
 .main-container2 {
@@ -270,13 +268,14 @@ html.open {
 }
 
 .content-container {
-    flex: 1;
+    width: 400px;
     display: flex;
     padding: 0;
+    margin: 0;
 }
 
 .list-container {
-    width: 400px; /* 너비를 100%로 설정 */
+    width: 100%; /* 너비를 100%로 설정 */
     display: flex; /* flex를 활용하여 내부 요소를 가로로 배열 */
     flex-direction: row; /* 요소들을 가로로 배열 */
     justify-content: space-between; /* 요소들 사이에 균등한 간격을 두기 */

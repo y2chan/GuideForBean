@@ -24,4 +24,5 @@ urlpatterns = [
     path('news', views.news_search, name='news'),
     path('test/', views.test, name='test'),
     path('get_all_restaurant', views.get_all_restaurant, name='get_all_restaurant'),
+    path('summarize/', views.summarize, name='summarize'),
 ]

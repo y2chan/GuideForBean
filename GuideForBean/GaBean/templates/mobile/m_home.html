@@ -106,7 +106,7 @@
 </script>
 <div class="separator"></div>
 </div>
-<div class="home-description" style="display: flex; justify-content: center; margin-bottom: 130px; margin-top: 70px;">
+<div class="home-description" style="display: flex; justify-content: center; margin-bottom: 20px; margin-top: 70px;">
     <style>
         table {
             width: 90%;
@@ -151,6 +151,40 @@
 	    <td style="border-bottom: none;"><a href="{% url 'gabean_mobile:m_info_library' %}"><button><span style="font-size: 30pt;">📚</span><br><br>도서관</button></a></td>
         </tr>
     </table>
+</div>
+<style>
+    .button_ai {
+        display: inline-block;
+        padding: 12px 24px;
+        width: 50%;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007BFF;
+        border-radius: 4px;
+        border: none;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .button_ai:hover {
+        background-color: #0056b3;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .button_ai:active {
+        background-color: #004085;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+</style>
+<div class="home-description" style="margin-top: 40px;">
+    <a href="{% url 'gabean_mobile:m_summarize' %}"><div class="button_ai">AI 문서 요약 서비스</div></a>
+    <a href="{% url 'gabean_mobile:m_humun_food' %}"><div class="button_ai" style="margin-top: 10px;">후문
+ 음식점 정보 보기</div></a>
+
 </div>
 <button class="fixed-button" id="openSlider"></button>
 

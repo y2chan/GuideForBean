@@ -1,0 +1,284 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../static/mobile_styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+    <title>AI 문서 요약 서비스</title>
+    <link rel="icon" href="../../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+<a href="{% url 'gabean_mobile:m_home' %}">
+    <div class="logo">
+        <img src="../../static/photo/GaBean.png" alt="Your Logo">
+    </div>
+</a>
+<div id="menu-container">
+    <div class="btn"></div>
+    <div onclick="history.back();" class="page_cover"></div>
+    <div id="menu">
+        <ul class="nav">
+            <li>
+                <a href="{% url 'gabean_mobile:m_info_gabean' %}">GaBean이란?</a>
+            </li>
+            <li>
+                <a>캠퍼스맵</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_campusmap' %}">캠퍼스맵</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_campusmap_detail' %}">상세 정보</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>후문</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_humun_food' %}">음식점</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_humun_random' %}">오늘 뭐 먹지?</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>학교 정보</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_info_sugang' %}">수강 정보</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_graduate' %}">졸업 정보</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_library' %}">도서관</a></li>
+                </ul>
+            </li>
+            <li>
+                <a>교통</a>
+                <ul class="sub_mobile">
+                    <li><a href="{% url 'gabean_mobile:m_info_bus' %}">버스</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_subway' %}">지하철</a></li>
+                    <li><a href="{% url 'gabean_mobile:m_info_shuttle' %}">셔틀버스</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'gabean_mobile:m_sound_kong' %}">콩들의 소리</a>
+            </li>
+        </ul>
+        <div onclick="history.back();" class="close">
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+    $(".btn").click(function() {
+      $("#menu,.page_cover,html").addClass("open");
+      window.location.hash = "#open";
+    })
+    })
+
+    window.onhashchange = function() {
+      if (location.hash != "#open") {
+        $("#menu,.page_cover,html").removeClass("open");
+      }
+    };
+
+    $(document).ready(function(){
+    $("#menu ul.sub_mobile").hide();
+    $("#menu ul.nav li").click(function(){
+    $("ul",this).slideToggle("fast");
+    })
+    })
+</script>
+<button class="fixed-button" id="openSlider"></button>
+
+<!-- 슬라이드인 메뉴 -->
+<div class="slider-menu">
+    <div class="slider-content">
+        ID : 학번 / PW : SU-WINGs PW
+        <br>(즉, SU-WINGs 로그인과 방식이 같다)
+    </div>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 버튼 엘리먼트 가져오기
+        var fixedButton = document.querySelector('.fixed-button');
+
+        // 스크롤 이벤트 리스너 등록
+        window.addEventListener('scroll', function() {
+            // 스크롤 위치 가져오기
+            var scrollY = window.scrollY;
+            // 원하는 스크롤 위치 이상이면 버튼 위치 변경
+            if (scrollY > 200) { // 원하는 스크롤 위치로 수정
+               fixedButton.style.bottom = '100px'; // 원하는 위치로 조절 가능
+            } else {
+                fixedButton.style.bottom = '100px'; // 다시 초기 위치로 조절 가능
+            }
+        });
+
+        // 초기 버튼 위치 설정
+        fixedButton.style.bottom = '100px';
+        fixedButton.style.right = '0%';
+    });
+
+    var imageButton = document.getElementById('openSlider');
+
+    // 클릭 이벤트 리스너 등록
+    imageButton.addEventListener('click', function() {
+        // 클릭 시 이미지 변경
+        imageButton.classList.toggle('clicked');
+    });
+</script>
+<script>
+    // 슬라이드인 메뉴 열기/닫기
+    var openSliderButton = document.getElementById('openSlider');
+    var sliderMenu = document.querySelector('.slider-menu');
+
+    sliderMenu.style.bottom = '100px';
+
+    openSliderButton.addEventListener('click', function() {
+        if (sliderMenu.style.right === '-350px' || sliderMenu.style.right === '') {
+            sliderMenu.style.right = '60px';
+        } else {
+            sliderMenu.style.right = '-350px';
+        }
+    });
+</script>
+<div class="news-button-container">
+    <button id="newsButton" class="newsButton" style="font-size: 15px;">인권<br>뉴스</button>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        var newsButton = document.getElementById('newsButton');
+
+        // 초기 버튼 위치 설정
+        newsButton.style.bottom = '35px';
+        newsButton.style.right = '0px';
+
+        newsButton.addEventListener('click', function() {
+                        window.location.href = "{% url 'gabean_mobile:m_news' %}";
+        });
+    });
+</script>
+
+<div class="page-title-img">
+</div>
+<div class="list-title">
+    <h1 style="font-size: 30pt; border-bottom: 2px solid black; padding-bottom:30px;"><a href="{% url 'GaBean:summarize' %}">AI 문서<br> 요약 서비스</a></h1>
+    <h2 style="font-size: 13pt; text-align: center; margin-bottom: -10px;">긴 문서의 내용을 단 3줄로 요약해주는</h2>
+    <h2 style="font-size: 16pt; text-align: center; text-decoration: black underline;">AI 기반 서비스</h2>
+    <p style="font-size: 20pt; text-align: center; margin-bottom: -20px;">🙏</p>
+    <p style="font-size: 10pt; text-align: center; text-decoration: black underline; margin-top: 30px;">해당 기능을 과도하게 사용할 경우, <br>사용량만큼 요금이 발생합니다.<br>따라서 무분별한 사용은 제 지갑이 위험합니다.</p>
+    <p style="font-size: 9.25pt; text-align: center; margin-top: 30px;">아직 기능이 완벽하지 않습니다.<br> 참고용으로만 사용하세요</p>
+</div>
+<div class="main-container">
+    <div class="content-container">
+        <div class="main-container">
+            <div class="info-bus">
+                <div class="direction">
+                    <h1 style="text-align: center; font-family: 'Noto Sans KR', sans-serif; font-size: 22pt;">요약할 내용 입력</h1>
+		    <p style="font-size: 10pt; text-align: center;">최소 한 문장 이상의 글이 있어야하고,<br>한 문장은 5 어절 이상, 200 자 이하로 작성해야 합니다.<br>또한 최대 1000자까지 입력가능합니다.</p>
+                    <br>
+                    <form id="summary-form" method="post">
+                        {% csrf_token %}
+                        <textarea id="content" name="text" rows="20%" cols="50%" style="resize: none; display: block; margin: auto;" maxlength="1000"
+                                  required placeholder="[예시]
+간편송금 이용금액이 하루 평균 2000억원을 넘어섰다. 한국은행이 17일 발표한 '2019년 상반기중 전자지급서비스 이용 현황'에 따르면 올해 상반기 간편송금서비스 이용금액(일평균)은 지난해 하반기 대비 60.7% 증가한 2005억원으로 집계됐다. 같은 기간 이용건수(일평균)는 34.8% 늘어난 218만건이었다. 간편 송금 시장에는 선불전자지급서비스를 제공하는 전자금융업자와 금융기관 등이 참여하고 있다. 이용금액은 전자금융업자가 하루평균 1879억원, 금융기관이 126억원이었다. 한은은 카카오페이, 토스 등 간편송금 서비스를 제공하는 업체 간 경쟁이 심화되면서 이용규모가 크게 확대됐다고 분석했다. 국회 정무위원회 소속 바른미래당 유의동 의원에 따르면 카카오페이, 토스 등 선불전자지급서비스 제공업체는 지난해 마케팅 비용으로 1000억원 이상을 지출했다. 마케팅 비용 지출규모는 카카오페이가 491억원, 비바리퍼블리카(토스)가 134억원 등 순으로 많았다."></textarea>
+                        <br>
+                        <input type="button" id="submit-button" value="요약하기" style="margin-top: 1%; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #007BFF; border: none; border-radius: 4px; cursor: pointer; transition: all 0.3s ease 0s; display: block; margin: auto;">
+
+                        <script>
+                            $("#submit-button").hover(function(){
+                                $(this).css("background-color", "rgba(6, 186, 242, 1)");
+                            }, function(){
+                                $(this).css("background-color", "#007BFF");
+                            });
+                        </script>
+
+                        <p id="error-message" style="color:red;"></p>
+                    </form>
+                    <br><br>
+                    <h2 id="summary-title" style="display: none; text-align: center;">요약 결과</h2>
+                    <br>
+                    <div style="text-align: center; align-items: center;">
+                        <pre id="summary-result" style="width: 90%; display: block; margin: auto; white-space: pre-wrap; font-size: 11pt;"></pre>
+                    </div>
+                </div>
+
+                <script>
+                    var totalLength = 0;  // 전역 변수로 선언
+
+                    function validateForm() {
+                        var content = document.getElementById("content").value;
+                        var sentences = content.split(/\.\s+/); // 수정된 부분
+
+                        var errorFlag = false;
+
+                        if (content.trim() === '') {
+                            document.getElementById("error-message").innerHTML = "문장을 입력해주세요.";
+                            return false;
+                        }
+
+                        for(var i = 0; i < sentences.length; i++) {
+                            var sentence = sentences[i].trim();
+                            var words = sentence.split(" ").length;
+                            var characters = sentence.length;
+
+                            // 각 문장에 대해 어절 수와 길이를 체크합니다.
+                            if (words < 5 || characters > 200) {
+                                document.getElementById("error-message").innerHTML = "문장은 5 어절 이상, 200 자 이하로 작성해 주세요.";
+                                errorFlag = true;
+                                break;  // 하나의 문장이라도 조건에 맞지 않으면 반복문 탈출
+                            }
+                        }
+
+                        if (!errorFlag) {
+                            totalLength += content.length;
+
+                            if (totalLength > 1000) {
+                                document.getElementById("error-message").innerHTML = "최대 1000자까지 입력 가능합니다.";
+                                totalLength -= content.length;
+                                return false;
+                            }
+                        }
+
+                        return !errorFlag;
+                    }
+
+
+                    $(document).ready(function(){
+                        $("#submit-button").click(function(){
+                            $("#error-message").text("");
+                            if (validateForm()) {
+                                $.ajax({
+                                    url: '/summarize/',  // your summary API endpoint
+                                    type: 'post',
+                                    data: $('#summary-form').serialize(),
+                                    beforeSend: function(xhr, settings) {
+                                        xhr.setRequestHeader("X-CSRFToken", $('input[name="csrfmiddlewaretoken"]').val());
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                        if(response && response.summary){
+                                            $('#summary-result').text(response.summary).show();
+                                            $('#summary-title').show();
+                                        } else {
+                                            $('#summary-result').text("오류로 인해 요약 결과를 받아오지 못했습니다.").show();
+                                            $('#summary-title').show();
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
+    <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+    <p style="margin-left: 20px; font-size: 8px;">Copyright © 2023 양이찬 All rights reserved.
+        <br>Dev : Ee Chan Yang
+        <br>Logo : Jun Seong Park
+        <br>Other Website Dev : Sang Yoon Kim</p>
+    <a href="https://www.flaticon.com/kr/free-icons/" title="맑은 아이콘" style="float: right; margin-right: 10px; color: white; font-size: 8pt;">맑은 아이콘  제작자: Freepik - Flaticon</a>
+</div>
+</body>
+</html>

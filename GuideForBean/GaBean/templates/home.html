@@ -147,6 +147,43 @@
     </div>
     {% endif %}
 </div>
+<style>
+    .button_ai {
+        display: inline-block;
+        padding: 12px 24px;
+        width: 13%;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        background-color: #007BFF;
+        border-radius: 4px;
+        border: none;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .button_ai:hover {
+        background-color: #0056b3;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .button_ai:active {
+        background-color: #004085;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+</style>
+<div class="home-description" style="margin-top: 50px;">
+    <h2>📑 AI 문서 요약 서비스 📑</h2>
+    <br>
+    <br>
+    <h2 style="font-size: 13pt; text-align: center; margin-bottom: -10px; margin-top: -30px;">긴 문서의 내용을 단 3줄로 요약해주는</h2>
+    <h2 style="font-size: 16pt; text-align: center; text-decoration: black underline;">AI 기반 서비스</h2>
+    <br>
+    <a href="{% url 'GaBean:summarize' %}"><div class="button_ai">바로가기</div></a>
+</div>
 <div class="home-description">
     <h2>🏢 캠퍼스맵 🏢</h2>
     <br>

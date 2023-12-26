@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
+from django.views.decorators.csrf import csrf_exempt
 
 retry_strategy = Retry(
     total=3,
@@ -23,6 +24,50 @@ adapter = HTTPAdapter(max_retries=retry_strategy)
 session = requests.Session()
 session.mount('http://', adapter)
 session.mount('https://', adapter)
+
+# API 호출 함수
+def summarize_text(text):
+    url = "https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize"
+
+    headers = {
+        'X-NCP-APIGW-API-KEY-ID': settings.CLIENT_ID,
+        'X-NCP-APIGW-API-KEY': settings.CLIENT_SECRET,
+    }
+
+    data = {
+        'document': {
+            'content': text,
+        },
+        'option': {
+            'language': 'ko',
+            'model': 'general',
+            'tone': 2,
+            'summaryCount': 3,
+        }
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    print(f"Response status code: {response.status_code}")
+
+    if response.status_code == 200:
+        try:
+            result = response.json()
+            print(f"Response JSON: {result}")
+            summary = result['summary']  # JSON 파싱 부분 제거
+            return summary
+        except ValueError:
+            print("Error: Response is not valid JSON.")
+            return "Error: Response is not valid JSON."
+    else:
+        return f"Error: Server returned status code {response.status_code}/{response.content.decode('utf-8')}."
+
+@csrf_exempt
+def summarize(request):
+    if request.method == 'POST':
+        text = request.POST.get('text')
+        summary = summarize_text(text)
+        return JsonResponse({'summary': summary})
+    return render(request, 'summarize.html')
 
 def info_library(request):
     return render(request, 'info_library.html')
@@ -1146,4 +1191,48 @@ class mobile_info_library(TemplateView):
     template_name = 'mobile/m_info_library.html'  # 모바일 전용 템플릿
 
     def get(self, request):
+        return render(request, self.template_name)
+
+class mobile_summarize(TemplateView):
+    template_name = 'mobile/m_summarize.html'  # 모바일 전용 템플릿
+    def summarize_text(self, text):
+        url = "https://naveropenapi.apigw.ntruss.com/text-summary/v1/summarize"
+
+        headers = {
+            'X-NCP-APIGW-API-KEY-ID': settings.CLIENT_ID,
+            'X-NCP-APIGW-API-KEY': settings.CLIENT_SECRET,
+        }
+
+        data = {
+            'document': {
+                'content': text,
+            },
+            'option': {
+                'language': 'ko',
+                'model': 'general',
+                'tone': 2,
+                'summaryCount': 3,
+            }
+        }
+
+        response = requests.post(url, headers=headers, json=data)
+        print(f"Response status code: {response.status_code}")
+
+        if response.status_code == 200:
+            try:
+                result = response.json()
+                print(f"Response JSON: {result}")
+                summary = result['summary']  # JSON 파싱 부분 제거
+                return summary
+            except ValueError:
+                print("Error: Response is not valid JSON.")
+                return "Error: Response is not valid JSON."
+        else:
+            return f"Error: Server returned status code {response.status_code}/{response.content.decode('utf-8')}."
+
+    def get(self, request):
+        if request.method == 'POST':
+            text = request.POST.get('text')
+            summary = summarize_text(text)
+            return JsonResponse({'summary': summary})
         return render(request, self.template_name)
