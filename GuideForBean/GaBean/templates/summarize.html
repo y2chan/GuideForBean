@@ -119,6 +119,22 @@
         }
     });
 </script>
+<div class="news-button-container">
+    <button id="newsButton" class="newsButton">SYU<br>뉴스</button>
+</div>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        var newsButton = document.getElementById('newsButton');
+
+        // 초기 버튼 위치 설정
+        newsButton.style.top = '170px';
+        newsButton.style.right = '0px';
+
+        newsButton.addEventListener('click', function() {
+            window.location.href = "{% url 'GaBean:news' %}";
+        });
+    });
+</script>
 <div class="page-title-img">
 </div>
 <div class="main-container">

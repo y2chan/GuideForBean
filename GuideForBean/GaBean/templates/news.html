@@ -10,6 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
     <title>인권 뉴스</title>
     <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("h4").each(function(){
+                var option = new Option($(this).text(), $(this).text());
+                $(option).html($(this).text());
+                $("#collegeSelect").append(option);
+            });
+
+            $("#collegeSelect").change(function(){
+                var selectedCollege = $(this).val();
+                $("li").hide(); // 모든 li 태그를 숨깁니다.
+                $("h4:contains('" + selectedCollege + "')").parent().show(); // 선택된 대학의 li 태그만 보여줍니다.
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -117,7 +133,7 @@
     });
 </script>
 <div class="news-button-container">
-    <button id="newsButton" class="newsButton">인권<br>뉴스</button>
+    <button id="newsButton" class="newsButton">SYU<br>뉴스</button>
 </div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
@@ -138,7 +154,7 @@
 <div class="main-container">
     <div class="list-container">
         <div class="list-title">
-            <h1><a href="{% url 'GaBean:news' %}">인권 뉴스</a></h1>
+            <h1><a href="{% url 'GaBean:news' %}">SYU 뉴스</a></h1>
         </div>
     </div>
     <div class="content-container">
@@ -150,34 +166,72 @@
 
 
                     <!-- 검색어 버튼 -->
-                    <h3>인권의 정의</h3>
-                    <a href="?query=인권"><button class="filter-button" style="margin-top: 20px;">인권</button></a>
-                    <a href="?query=인권 침해"><button class="filter-button" style="margin-top: 20px;">인권 침해</button></a>
-                    <a href="?query=인권 운동"><button class="filter-button" style="margin-top: 20px;">인권 운동</button></a>
-                    <a href="?query=인권 정책"><button class="filter-button" style="margin-top: 20px;">인권 정책</button></a>
-                    <a href="?query=인권과 사회적 정의"><button class="filter-button" style="margin-top: 20px;">인권과 사회적 정의</button></a>
+                    <h3>- 삼육대학교 이슈</h3>
+                    <ul>
+                        <li>
+                            <a href="?query=삼육대학교"><button class="filter-button" style="margin-top: 20px;">삼육대학교</button></a>
+                            <a href="?query=삼육대학교 신설"><button class="filter-button" style="margin-top: 20px;">삼육대학교 신설</button></a>
+                            <a href="?query=삼육대학교 수시등급"><button class="filter-button" style="margin-top: 20px;">삼육대학교 수시등급</button></a>
+                            <a href="?query=삼육대학교 정시등급"><button class="filter-button" style="margin-top: 20px;">삼육대학교 정시등급</button></a>
+                        </li>
+                    </ul>
                     <br>
-                    <h3>인권 보호와 법적 제도</h3>
-                    <a href="?query=인권 보호"><button class="filter-button" style="margin-top: 20px;">인권 보호</button></a>
-                    <a href="?query=인권 보호를 위한 법적 제도"><button class="filter-button" style="margin-top: 20px;">인권 보호를 위한 법적 제도</button></a>
-                    <a href="?query=인권 조약"><button class="filter-button" style="margin-top: 20px;">인권 조약</button></a>
-                    <a href="?query=인권 기관"><button class="filter-button" style="margin-top: 20px;">인권 기관</button></a>
-                    <a href="?query=인권 선언"><button class="filter-button" style="margin-top: 20px;">인권 선언</button></a>
-                    <br>
-                    <h3>특정 그룹의 인권</h3>
-                    <a href="?query=난민의 인권"><button class="filter-button" style="margin-top: 20px;">난민의 인권</button></a>
-                    <a href="?query=소수 집단의 인권"><button class="filter-button" style="margin-top: 20px;">소수 집단의 인권</button></a>
-                    <a href="?query=아동과 청소년의 인권"><button class="filter-button" style="margin-top: 20px;">아동과 청소년의 인권</button></a>
-                    <a href="?query=노동자의 인권"><button class="filter-button" style="margin-top: 20px;">노동자의 인권</button></a>
-                    <a href="?query=다문화 사회와 다양성 인권"><button class="filter-button" style="margin-top: 20px;">다문화 사회와 다양성 인권</button></a>
-                    <br>
-                    <h3>기타 주제</h3>
-                    <a href="?query=환경 인권"><button class="filter-button" style="margin-top: 20px;">환경 인권</button></a>
-                    <a href="?query=디지털 시대의 인권"><button class="filter-button" style="margin-top: 20px;">디지털 시대의 인권</button></a>
-                    <a href="?query=인권과 건강권"><button class="filter-button" style="margin-top: 20px;">인권과 건강권</button></a>
-                    <a href="?query=인권과 예술의 자유"><button class="filter-button" style="margin-top: 20px;">인권과 예술의 자유</button></a>
-                    <a href="?query=인권과 인공지능"><button class="filter-button" style="margin-top: 20px;">인권과 인공지능</button></a>
-                    <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
+                    <h3>- 단과별 실시간 이슈</h3>
+                    <select id="collegeSelect" style="margin-left: 3%">
+                        <option>단과를 선택하세요</option>
+                    </select>
+                    <ul>
+                        <li>
+                            <h4>📚 인문사회대학</h4>
+                            <a href="?query=영어영문학과"><button class="filter-button" style="margin-top: 20px;">영어영문학과</button></a>
+                            <a href="?query=중국어학과"><button class="filter-button" style="margin-top: 20px;">중국어학과</button></a>
+                            <a href="?query=일본어학과"><button class="filter-button" style="margin-top: 20px;">일본어학과</button></a>
+                            <a href="?query=경영학과"><button class="filter-button" style="margin-top: 20px;">경영학과</button></a>
+                            <a href="?query=경영정보학과"><button class="filter-button" style="margin-top: 20px;">경영정보학과</button></a>
+                            <a href="?query=유아교육과"><button class="filter-button" style="margin-top: 20px;">유아교육과</button></a>
+                            <a href="?query=글로벌한국학과"><button class="filter-button" style="margin-top: 20px;">글로벌한국학과</button></a>
+                            <a href="?query=항공관광외국어학부"><button class="filter-button" style="margin-top: 20px;">항공관광외국어학부</button></a>
+                            <!-- 여기에 다른 버튼들을 추가하세요 -->
+                        </li>
+                        <li>
+                            <h4>🚑 보건복지대학</h4>
+                            <a href="?query=물리치료학과"><button class="filter-button" style="margin-top: 20px;">물리치료학과</button></a>
+                            <a href="?query=식품영양학과"><button class="filter-button" style="margin-top: 20px;">식품영양학과</button></a>
+                            <a href="?query=사회복지학과"><button class="filter-button" style="margin-top: 20px;">사회복지학과</button></a>
+                            <a href="?query=보건관리학과"><button class="filter-button" style="margin-top: 20px;">보건관리학과</button></a>
+                            <a href="?query=상담심리학과"><button class="filter-button" style="margin-top: 20px;">상담심리학과</button></a>
+                            <a href="?query=생활체육학과"><button class="filter-button" style="margin-top: 20px;">생활체육학과</button></a>
+                            <!-- 여기에 다른 버튼들을 추가하세요 -->
+                        </li>
+                        <li>
+                            <h4>💻 미래융합대학</h4>
+                            <a href="?query=컴퓨터공학부"><button class="filter-button" style="margin-top: 20px;">컴퓨터공학부</button></a>
+                            <a href="?query=IT융합공학과"><button class="filter-button" style="margin-top: 20px;">IT융합공학과</button></a>
+                            <a href="?query=인공지능융합학부"><button class="filter-button" style="margin-top: 20px;">인공지능융합학부</button></a>
+                            <!-- 여기에 다른 버튼들을 추가하세요 -->
+                        </li>
+                        <li>
+                            <h4>🔬 과학기술대학</h4>
+                            <a href="?query=화학생명과학과"><button class="filter-button" style="margin-top: 20px;">화학생명과학과</button></a>
+                            <a href="?query=환경디자인원예학과"><button class="filter-button" style="margin-top: 20px;">환경디자인원예학과</button></a>
+                            <a href="?query=동물자원과학과"><button class="filter-button" style="margin-top: 20px;">동물자원과학과</button></a>
+                            <a href="?query=바이오융합공학과"><button class="filter-button" style="margin-top: 20px;">바이오융합공학과</button></a>
+                            <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
+                        </li>
+                        <li>
+                            <h4>💊 약학/간호대학</h4>
+                            <a href="?query=약학과"><button class="filter-button" style="margin-top: 20px;">약학과</button></a>
+                            <a href="?query=간호학과"><button class="filter-button" style="margin-top: 20px;">간호학과</button></a>
+                            <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
+                        </li>
+                        <li>
+                            <h4>🎨 문화예술대학</h4>
+                            <a href="?query=건축학과"><button class="filter-button" style="margin-top: 20px;">건축학과</button></a>
+                            <a href="?query=음악학과"><button class="filter-button" style="margin-top: 20px;">음악학과</button></a>
+                            <a href="?query=아트앤디자인학과"><button class="filter-button" style="margin-top: 20px;">아트앤디자인학과</button></a>
+                            <!-- 추가 검색어를 넣고 싶다면 위와 같은 형식으로 더 추가하면 됩니다. -->
+                        </li>
+                    </ul>
                     <br><br>
                     <hr>
                     <h1>Result</h1>
