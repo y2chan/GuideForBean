@@ -254,6 +254,8 @@ html.open {
     justify-content: center; /* 가운데 정렬 */
     margin-top: 10px; /* 위 여백 추가 */
     margin-bottom: 50px;
+    margin-left: 30px; /* 왼쪽 여백 추가 */
+    margin-right: 30px; /* 오른쪽 여백 추가 */
 }
 
 .main-container2 {
@@ -268,10 +270,8 @@ html.open {
 }
 
 .content-container {
-    width: 400px;
+    flex: 1;
     display: flex;
-    padding: 0;
-    margin: 0;
 }
 
 .list-container {
