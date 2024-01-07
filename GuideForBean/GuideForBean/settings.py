@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['gabean.kr', 'm.gabean.kr', '52.78.55.70']
 
+CSRF_TRUSTED_ORIGINS = ['http://gabean.kr', 'http://m.gabean.kr', 'http://52.78.55.70', 'https://gabean.kr', 'https://m.gabean.kr', 'https://52.78.55.70']
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
