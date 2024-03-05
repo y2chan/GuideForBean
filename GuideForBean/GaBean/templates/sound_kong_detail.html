@@ -18,16 +18,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
   <title>콩들의 소리</title>
-  <link rel="icon" href="../static/photo/GaBeanLogo.png" type="image/x-icon">
+  <link rel="icon" href="{% static 'photo/GaBeanLogo.png' %}" type="image/x-icon">
 </head>
 <body>
 
 <div class="header">
   <div class="logo-and-menu">
     <a href="{% url 'GaBean:home' %}">
-      <div class="logo">
-        <img src="../static/photo/GaBean.png" alt="Your Logo">
-      </div>
+	<div class="logo">
+	    <img src="{% static 'photo/GaBean.png' %}" alt="Your Logo">
+        </div>
     </a>
     <div id="menu">
       <ul>
@@ -169,8 +169,8 @@
   }
 </script>
 <div class="footer">
-  <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="../static/photo/copyright.jpeg" alt="CopyRight" style="float: right; width: 5%;"></a>
-  <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="../static/photo/copyright2.png" alt="CopyRight2" style="float: right; width: 5%;"></a>
+  <a href="https://www.kogl.or.kr/info/license.do" target="_blank"><img src="{% static 'photo/copyright.jpeg' %}" alt="CopyRight" style="float: right; width: 5%;"></a>
+  <a href="https://ccl.cckorea.org/about/" target="_blank"><img src="{% static 'photo/copyright2.png' %}" alt="CopyRight2" style="float: right; width: 5%;"></a>
   <p style="margin-left: 20px;">Copyright © 2023 양이찬 All rights reserved.
     <br>Dev : Ee Chan Yang
     <br>Logo : Jun Seong Park

@@ -1,0 +1,3 @@
+[submodule "GuideForBean/GuideForBean/GuideForBean"]
+	path = GuideForBean/GuideForBean/GuideForBean
+	url = git@github.com:y2chan/GuideForBean.git

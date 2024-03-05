@@ -1042,3 +1042,16 @@ body {
     cursor: pointer;
     text-align: center;
 }
+
+.left-container2 {
+    flex: 0 0 90%; /* 고정된 크기로 설정 */
+    max-width: 100%;
+    position: relative;
+}
+
+.left-container2 h5 {
+    margin-top: 60px;
+    max-width: 100%;
+    text-align: center;
+    font-size: 16px;
+}

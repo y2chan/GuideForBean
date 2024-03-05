@@ -189,7 +189,8 @@
                     <img src="../../static/photo/search-icon.png" alt="Search">
                 </button>
             </div>
-	    <p>현재 시간: {{ current_time }} &nbsp;<button id="resetButton" style="background-image: url('../../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;" aria-label="Reset"></button></p>
+	    <p>현재 시간: {{ current_time }} &nbsp;<button id="resetButton" style="background-image: url('../../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;  margin-bottom: 5px;" aria-label="Reset"></button></p>
+	    <a style="float: right; font-size:10pt; margin-bottom: 8px;">* 모든 정보는 24년도 3월 기준입니다.</a>
             <ul style="list-style-type: none;">
                 {% for restaurant in restaurants %}
                 <li>

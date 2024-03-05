@@ -167,7 +167,7 @@
 	<div class="main-container">
             <div class="info-bus">
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1>
+                    <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교에서 나가는 방향</h1>
                     {% for stNm, bus_list in grouped_data.direction_1.items %}
                     <h3 style="font-size: 16pt;">{{ stNm }}</h3>
                     {% for bus in bus_list %}
@@ -183,7 +183,7 @@
                     {% endfor %}
                 </div>
                 <div class="direction">
-                    <h1 style="text-decoration: skyblue wavy underline; font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1>
+                    <h1 style="font-family: 'Noto Sans KR', sans-serif; font-size: 25pt;">학교로 오는 방향</h1>
                     {% for stNm, bus_list in grouped_data.direction_2.items %}
                     <h3 style="font-size: 16pt;">{{ stNm }}</h3>
                     {% for bus in bus_list %}

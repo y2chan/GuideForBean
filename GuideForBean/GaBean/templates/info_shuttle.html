@@ -174,7 +174,7 @@
                     <ul id="left-column" style="font-size: 10pt;">
                         {% for shuttle, time in left_info.items %}
                         <li>
-                            <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
+                            <h2 id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
                             <h3><span id="{{ shuttle|slugify }}-time">{{ time }}</span></h3>
                         </li>
                         {% endfor %}
@@ -185,7 +185,7 @@
                     <ul id="right-column" style="font-size: 10pt;">
                         {% for shuttle, time in right_info.items %}
                         <li>
-                            <h2 style="text-decoration: skyblue wavy underline;" id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
+                            <h2 id="{{ shuttle|slugify }}">{{ shuttle }}</h2>
                             <h3><span id="{{ shuttle|slugify }}-time">{{ time }}</span></h3>
                         </li>
                         {% endfor %}

@@ -163,12 +163,13 @@
             <button class="filter-button" data-filter="{{ restaurant_type }}" style="margin-top: 20px;">{{ restaurant_type }}</button>
             {% endfor %}
             &nbsp;<button id="resetButton" style="background-image: url('../static/photo/reset.png'); background-size: cover; width: 20px; height: 20px; text-indent: -9999px; border: none; padding: 5px;" aria-label="Reset"></button>
-            <div class="search-container">
+            <div class="search-container" style="margin-bottom: 25px;">
                 <input type="text" id="search-input" placeholder="음식점 검색">
                 <button id="search-button">
                     <img src="../static/photo/search-icon.png" alt="Search">
                 </button>
             </div>
+	    <a style="float: right; font-size:10pt;">* 모든 정보는 24년도 3월 기준입니다.</a>
             <p>현재 시간: {{ current_time }}</p>
             <ul>
                 {% for restaurant in restaurants %}

@@ -510,10 +510,12 @@ def info_shuttle(request):
     for shuttle, times in timetable.items():
         # 방학 기간 동안 운행하지 않는다는 정보를 표시합니다.
         if is_vacation_period:
-            remaining_times[shuttle] = "운행 중지"
-            left_info[shuttle] = "운행 중지"
-            right_info[shuttle] = "운행 중지"
+            remaining_times["전체 노선"] = "운행 중지"
+            left_info["전체 노선"] = "운행 중지"
+            right_info["전체 노선"] = "운행 중지"
             continue
+
+        # 방학 기간이 아니라면 원래의 로직을 실행합니다.
         next_departure_time = None
         for time_str in times:
             if time_str == "운행 종료":
