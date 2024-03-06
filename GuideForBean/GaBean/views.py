@@ -85,8 +85,8 @@ def news_search(request):
 
         # API를 호출할 때 사용할 헤더를 설정합니다. 클라이언트 ID와 시크릿은 실제 값으로 변경해야 합니다.
         headers = {
-            'X-Naver-Client-Id': '48KtNy0_eHdwWFg3vDUg',
-            'X-Naver-Client-Secret': 'LFiuNrJGef'
+            'X-Naver-Client-Id': settings.Naver_Client_Id,
+            'X-Naver-Client-Secret': settings.Naver_Client_Secret
         }
 
         # API를 호출하고 응답을 가져옵니다.
@@ -1168,8 +1168,8 @@ class mobile_news_search(TemplateView):
 
             # API를 호출할 때 사용할 헤더를 설정합니다. 클라이언트 ID와 시크릿은 실제 값으로 변경해야 합니다.
             headers = {
-                'X-Naver-Client-Id': '48KtNy0_eHdwWFg3vDUg',
-                'X-Naver-Client-Secret': 'LFiuNrJGef'
+                'X-Naver-Client-Id': settings.Naver_Client_Id,
+                'X-Naver-Client-Secret': settings.Naver_Client_Secret
             }
 
             # API를 호출하고 응답을 가져옵니다.
